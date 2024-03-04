@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "toko-paerbe"
 include(":app")
- 
+include(":core")
