@@ -5,6 +5,8 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentSplashScreenBinding
 import com.tipiz.toko_paerbe.ui.utils.BaseFragment
 import com.tipiz.toko_paerbe.ui.utils.Constant.ANIMATION_DELAY
@@ -29,12 +31,18 @@ class SplashScreenFragment :
         animation()
         lifecycleScope.launch {
             delay(ANIMATION_DELAY)
+            navigate()
         }
 
     }
 
     override fun initViewModel() {
+//        val onBoarding = viewModel.getOnBoarding()
+    }
 
+    private fun navigate(){
+
+        findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
     }
 
     private fun animation() {
