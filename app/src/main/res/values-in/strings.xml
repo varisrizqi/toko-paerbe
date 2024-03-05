@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">toko-paerbe</string>
+    <string name="hello_blank_fragment">Halo fragment kosong</string>
+    <string name="skip">Lewati</string>
+    <string name="next">Selanjutnya</string>
+    <string name="join">Gabung Sekarang</string>
+    <string name="login">Masuk</string>
+    <string name="example_test_gmail_com">Contoh: test@gmail.com</string>
+    <string name="or_register_with">atau masuk dengan</string>
+    <string name="register">Daftar</string>
+    <string name="minimum_8_characters">Minimal 8 karakter</string>
+    <string name="or_login_with">atau masuk dengan</string>
+    <string name="tnc"><![CDATA[Dengan masuk disini, kamu menyetujui Syarat & Ketentuan serta Kebijakan Privasi TokoPhincon.]]></string>
+    <string name="profile">Profile</string>
+    <string name="done">Selesai</string>
+    <string name="name">Nama</string>
+</resources>

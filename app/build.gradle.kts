@@ -56,14 +56,14 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     //lottie
-    implementation ("com.airbnb.android:lottie:3.6.1")
+    implementation ("com.airbnb.android:lottie:6.2.0")
 
     //viewmodel
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
     //glide
-    implementation ("com.github.bumptech.glide:glide:4.13.2")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 
     //window dynamic layout
     implementation("androidx.window:window:1.2.0")

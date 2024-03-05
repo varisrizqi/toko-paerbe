@@ -1,6 +1,7 @@
 package com.tipiz.toko_paerbe.ui.prelogin.onboarding
 
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tipiz.toko_paerbe.R
@@ -20,7 +21,7 @@ class OnBoardingFragment :
         binding.vp2Onboard.adapter = adapter
 
         TabLayoutMediator(binding.tlOnboard, binding.vp2Onboard) { _, _ -> }.attach()
-
+        viewModel.setOnBoarding(true)
         binding.vp2Onboard.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -39,13 +40,13 @@ class OnBoardingFragment :
         binding.btnOnboardJoin.text = textJoin
         binding.btnOnboardJoin.setOnClickListener {
 //            viewModel.setOnBoarding(true)
-
+            findNavController().navigate(R.id.action_onBoardingFragment_to_registerFragment)
         }
 
         val textSkip = getString(R.string.skip)
         binding.btnOnboardSkip.text = textSkip
         binding.btnOnboardSkip.setOnClickListener {
-//            viewModel.setOnBoarding(true)
+            findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
 
 
         }

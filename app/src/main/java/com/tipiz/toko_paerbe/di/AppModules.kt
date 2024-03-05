@@ -11,7 +11,7 @@ object AppModules {
         viewModelOf(::SplashViewModel)
     }
 
-    val module: List<Module> = listOf(
+    val modules: List<Module> = listOf(
         viewModelModule
     )
 }
