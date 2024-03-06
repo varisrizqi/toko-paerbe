@@ -20,10 +20,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = bindingFactory(layoutInflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,7 +30,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
         initViewModel()
 
     }
-
 
     abstract fun initView()
     abstract fun initViewModel()

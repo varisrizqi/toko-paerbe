@@ -8,16 +8,17 @@ import com.tipiz.core.utils.Constant.PrefDatastore.key_splash_screen
 import com.tipiz.core.utils.Constant.PrefDatastore.key_username
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-class PrefDatastore(private val dataStore: DataStore<Preferences>) {
+
+class PrefDatastore(private val dataStore: DataStore<Preferences>) : PrefDataStoreHelper {
 
 
-    suspend fun setOnBoarding(value: Boolean) {
+    override suspend fun setOnBoarding(value: Boolean) {
         dataStore.edit { pref ->
             pref[key_splash_screen] = value
         }
     }
 
-    fun getOnBoarding(): Flow<Boolean> {
+    override fun getOnBoarding(): Flow<Boolean> {
         return dataStore.data.map { pref ->
             pref[key_splash_screen] ?: false
         }
