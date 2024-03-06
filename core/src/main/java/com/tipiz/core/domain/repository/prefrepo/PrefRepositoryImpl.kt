@@ -1,4 +1,4 @@
-package com.tipiz.core.domain.repository.onboardingrepo
+package com.tipiz.core.domain.repository.prefrepo
 
 import com.tipiz.core.local.datasource.DataStoreDataSource
 import kotlinx.coroutines.flow.Flow

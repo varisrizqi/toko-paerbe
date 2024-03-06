@@ -1,9 +1,9 @@
 package com.tipiz.core.domain.usecase
 
-import com.tipiz.core.domain.repository.onboardingrepo.PrefRepository
+import com.tipiz.core.domain.repository.prefrepo.PrefRepository
 import kotlinx.coroutines.flow.Flow
 
-class PrefUseCaseImpl(
+class PrefInteractor(
     private val onBoard : PrefRepository
 ) : PrefUseCase{
     override suspend fun setOnBoarding(value: Boolean) {

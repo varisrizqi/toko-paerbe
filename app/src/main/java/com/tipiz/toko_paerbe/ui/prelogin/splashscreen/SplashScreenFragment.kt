@@ -37,12 +37,15 @@ class SplashScreenFragment :
     }
 
     override fun initViewModel() {
-//        val onBoarding = viewModel.getOnBoarding()
     }
 
-    private fun navigate(){
-
-        findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
+    private fun navigate() {
+        val onBoarding = viewModel.getOnBoarding()
+        if (onBoarding) {
+            findNavController().navigate(R.id.action_splashScreenFragment_to_loginFragment)
+        } else {
+            findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
+        }
     }
 
     private fun animation() {
