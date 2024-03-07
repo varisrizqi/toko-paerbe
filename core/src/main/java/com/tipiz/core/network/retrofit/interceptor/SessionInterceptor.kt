@@ -10,8 +10,9 @@ class SessionInterceptor(private val prefs:PrefDataStoreHelper): Interceptor {
         val request = chain.request()
         val response = chain.proceed(request)
 
-        if (response.code == 401){
-            prefs.cl
-        }
+//        if (response.code == 401){
+//           prefs.cl
+//        }
+        return response
     }
 }
