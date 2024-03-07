@@ -3,6 +3,7 @@ package com.tipiz.core.local.pref
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import com.tipiz.core.utils.Constant.PrefDatastore.key_access_token
 import com.tipiz.core.utils.Constant.PrefDatastore.key_refresh_token
 import com.tipiz.core.utils.Constant.PrefDatastore.key_splash_screen
 import com.tipiz.core.utils.Constant.PrefDatastore.key_username
@@ -24,25 +25,37 @@ class PrefDatastore(private val dataStore: DataStore<Preferences>) : PrefDataSto
         }
     }
 
-    suspend fun setRefreshToken(value: String) {
+    override suspend fun setAccessToken(value: String) {
+        dataStore.edit { pref ->
+            pref[key_access_token] = value
+        }
+    }
+
+    override fun getAccessToken(): Flow<String> {
+        return dataStore.data.map { pref ->
+            pref[key_access_token] ?: ""
+        }
+    }
+
+    override suspend fun setRefreshToken(value: String) {
         dataStore.edit { pref ->
             pref[key_refresh_token] = value
         }
     }
 
-    fun getRefreshToken(): Flow<String> {
+    override fun getRefreshToken(): Flow<String> {
         return dataStore.data.map { pref ->
             pref[key_refresh_token] ?: ""
         }
     }
 
-    suspend fun setUserName(value: String) {
+    override suspend fun setUserName(value: String) {
         dataStore.edit { pref ->
             pref[key_username] = value
         }
     }
 
-    fun getUserName(): Flow<String> {
+    override fun getUserName(): Flow<String> {
         return dataStore.data.map { pref ->
             pref[key_username] ?: "false"
         }

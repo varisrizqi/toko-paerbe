@@ -9,12 +9,12 @@ object Constant {
         val key_refresh_token = stringPreferencesKey("key_refresh_token")
         val key_splash_screen = booleanPreferencesKey("key_splashScreen")
         val key_username = stringPreferencesKey("key_username")
+        val key_access_token = stringPreferencesKey("key_access_token")
         const val PREFS_NAME = "myPrefs"
         const val KEY_THEME = "key_theme"
         const val KEY_LOCALIZE = "key_LOCALIZE"
         const val KEY_EN = "en"
         const val KEY_IN = "in"
-        const val KEY_ACCESS_TOKEN = "key_access_token"
         const val product_table = "product_table"
         const val cart_table = "cart_table"
         const val wishlist_table = "wishlist_table"
