@@ -1,31 +1,34 @@
 package com.tipiz.core.network.data.register
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
+@Keep
 @Parcelize
 data class RegisterResponse(
 
-	@field:SerializedName("code")
-	val code: Int,
+    @field:SerializedName("code")
+    val code: Int = 0,
 
-	@field:SerializedName("data")
-	val data: Data,
+    @field:SerializedName("data")
+    val data: RegisterData = RegisterData(),
 
-	@field:SerializedName("message")
-	val message: String
+    @field:SerializedName("message")
+    val message: String = ""
 ) : Parcelable
 
 @Parcelize
-data class Data(
+@Keep
+data class RegisterData(
 
-	@field:SerializedName("accessToken")
-	val accessToken: String,
+    @field:SerializedName("accessToken")
+    val accessToken: String = "",
 
-	@field:SerializedName("expiresAt")
-	val expiresAt: Int,
+    @field:SerializedName("expiresAt")
+    val expiresAt: Int = 0,
 
-	@field:SerializedName("refreshToken")
-	val refreshToken: String
+    @field:SerializedName("refreshToken")
+    val refreshToken: String = ""
 ) : Parcelable

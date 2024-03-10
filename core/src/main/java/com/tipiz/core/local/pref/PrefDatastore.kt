@@ -9,9 +9,9 @@ import com.tipiz.core.utils.Constant.PrefDatastore.key_splash_screen
 import com.tipiz.core.utils.Constant.PrefDatastore.key_username
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 
 class PrefDatastore(private val dataStore: DataStore<Preferences>) : PrefDataStoreHelper {
-
 
     override suspend fun setOnBoarding(value: Boolean) {
         dataStore.edit { pref ->
@@ -59,5 +59,16 @@ class PrefDatastore(private val dataStore: DataStore<Preferences>) : PrefDataSto
         return dataStore.data.map { pref ->
             pref[key_username] ?: "false"
         }
+    }
+
+    override fun clearSession() {
+        runBlocking {
+            dataStore.edit {
+                it.remove(key_access_token)
+                it.remove(key_refresh_token)
+                it.remove(key_username)
+            }
+        }
+
     }
 }

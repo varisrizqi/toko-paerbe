@@ -1,33 +1,26 @@
-package com.tipiz.core.network.data.login
+package com.tipiz.core.network.data.refresh
 
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-
 @Keep
 @Parcelize
-data class LoginResponse(
+data class RefreshResponse(
 
     @field:SerializedName("code")
     val code: Int = 0,
 
     @field:SerializedName("data")
-    val data: LoginData = LoginData(),
+    val data: RefreshData = RefreshData(),
 
     @field:SerializedName("message")
     val message: String = ""
 ) : Parcelable
 
-@Keep
 @Parcelize
-data class LoginData(
-
-    @field:SerializedName("userImage")
-    val userImage: String = "",
-
-    @field:SerializedName("userName")
-    val userName: String = "",
+@Keep
+data class RefreshData(
 
     @field:SerializedName("accessToken")
     val accessToken: String = "",
@@ -38,4 +31,3 @@ data class LoginData(
     @field:SerializedName("refreshToken")
     val refreshToken: String = ""
 ) : Parcelable
-

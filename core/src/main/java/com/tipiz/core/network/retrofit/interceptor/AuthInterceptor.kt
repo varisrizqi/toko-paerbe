@@ -27,10 +27,10 @@ class AuthInterceptor(private val pref: PrefDataStoreHelper) : Interceptor {
     }
 
     companion object {
-        const val endpoint_register = "/register"
-        const val endpoint_login = "/login"
-        const val endpoint_refresh = "/refresh"
-        private const val api_key = "api_key"
-        private const val authorization = "Authorization"
+        private const val endpoint_register = "/register"
+        private const val endpoint_login = "/login"
+        private const val endpoint_refresh = "/refresh"
+        const val api_key = "api_key"
+        const val authorization = "Authorization"
     }
 }

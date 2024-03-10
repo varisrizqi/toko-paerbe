@@ -17,4 +17,6 @@ interface PrefDataStoreHelper {
     suspend fun setUserName(value: String)
 
     fun getUserName(): Flow<String>
+
+    fun clearSession()
 }
