@@ -17,4 +17,13 @@
     <string name="profile">Profile</string>
     <string name="done">Done</string>
     <string name="name">Name</string>
+    <string name="email_cannot_be_empty">Email cannot be empty!</string>
+    <string name="password_cannot_be_empty">Password cannot be empty!</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="notification">notification</string>
+    <string name="shopping">shopping</string>
+    <string name="home">Home</string>
+    <string name="store">Store</string>
+    <string name="whistlist">Whistlist</string>
+    <string name="transaction">Transaction</string>
 </resources>

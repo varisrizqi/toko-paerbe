@@ -18,11 +18,11 @@ interface ApiService {
 
     @POST("login")
     suspend fun fetchLogin(
-        @Body request:LoginResponse
-    ):LoginRequest
+        @Body request:LoginRequest
+    ):LoginResponse
 
     @POST("refresh")
-    suspend fun fetchRefresToken(
+    suspend fun fetchRefreshToken(
         @Body request:RefreshRequest
     ):RefreshResponse
 

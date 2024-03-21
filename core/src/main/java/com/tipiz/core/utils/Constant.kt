@@ -10,6 +10,7 @@ object Constant {
         val key_splash_screen = booleanPreferencesKey("key_splashScreen")
         val key_username = stringPreferencesKey("key_username")
         val key_access_token = stringPreferencesKey("key_access_token")
+        val key_userid = stringPreferencesKey("key_userid")
         const val PREFS_NAME = "myPrefs"
         const val KEY_THEME = "key_theme"
         const val KEY_LOCALIZE = "key_LOCALIZE"
@@ -21,6 +22,6 @@ object Constant {
         const val paging_key = "paging_key"
         const val INITIAL_PAGE_INDEX = 1
         const val key_wishlist = "key_wishlist"
-        const val key_userid = "key_userid"
+
     }
 }

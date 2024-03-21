@@ -3,9 +3,11 @@ package com.tipiz.core.local.pref
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import com.tipiz.core.domain.model.login.DataSession
 import com.tipiz.core.utils.Constant.PrefDatastore.key_access_token
 import com.tipiz.core.utils.Constant.PrefDatastore.key_refresh_token
 import com.tipiz.core.utils.Constant.PrefDatastore.key_splash_screen
+import com.tipiz.core.utils.Constant.PrefDatastore.key_userid
 import com.tipiz.core.utils.Constant.PrefDatastore.key_username
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -28,6 +30,18 @@ class PrefDatastore(private val dataStore: DataStore<Preferences>) : PrefDataSto
     override suspend fun setAccessToken(value: String) {
         dataStore.edit { pref ->
             pref[key_access_token] = value
+        }
+    }
+
+    override suspend fun setUserid(value: String) {
+        dataStore.edit { pref->
+            pref[key_userid] = value
+        }
+    }
+
+    override fun getUserid(): Flow<String> {
+        return dataStore.data.map {pref->
+            pref[key_userid] ?:""
         }
     }
 
@@ -71,4 +85,15 @@ class PrefDatastore(private val dataStore: DataStore<Preferences>) : PrefDataSto
         }
 
     }
+
+    override fun getSessionData(): Flow<DataSession> {
+        return dataStore.data.map { pref ->
+            val userName = pref[key_username] ?: ""
+            val accessToken = pref[key_access_token] ?: ""
+            val onBoarding = pref[key_splash_screen] ?: false
+            DataSession(userName, accessToken, onBoarding)
+
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ import com.tipiz.core.network.retrofit.interceptor.AuthInterceptor
 import com.tipiz.core.network.retrofit.interceptor.SessionInterceptor
 import com.tipiz.core.network.retrofit.interceptor.TokenInterceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -18,7 +19,8 @@ class NetworkClient(
 ) {
 
     inline fun <reified I> create(): I {
-        val okHttpClient = OkHttpClient.Builder()
+        val okHttpClient =  OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor(authInterceptor)
             .addInterceptor(sessionInterceptor)
             .addInterceptor(chuckerInterceptor)

@@ -16,7 +16,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
 
-        buildConfigField("String", "BASE_URL", "\"http://192.168.1.3:5000\"")
+        buildConfigField("String", "BASE_URL", "\"http://192.168.1.10:5000\"")
         buildConfigField("String", "API_KEY", "\"6f8856ed-9189-488f-9011-0ff4b6c08edc\"")
     }
 
@@ -81,8 +81,9 @@ dependencies {
     //paging
     api("androidx.paging:paging-runtime-ktx:3.2.1")
 
-    //datastore
+    //Datastore
     api("androidx.datastore:datastore-preferences:1.0.0")
+
 
 
 

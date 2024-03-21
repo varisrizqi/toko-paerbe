@@ -64,7 +64,7 @@ class TokenInterceptor(
             .build().create(ApiService::class.java)
 
         try {
-            val newRequest = apiService.fetchRefresToken(tokenRequest)
+            val newRequest = apiService.fetchRefreshToken(tokenRequest)
             prefs.setAccessToken(newRequest.data.accessToken)
             prefs.setRefreshToken(newRequest.data.refreshToken)
             return newRequest

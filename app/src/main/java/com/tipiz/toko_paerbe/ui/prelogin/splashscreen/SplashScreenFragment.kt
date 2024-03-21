@@ -6,6 +6,11 @@ import android.annotation.SuppressLint
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.tipiz.core.utils.state.launchAndCollectIn
+import com.tipiz.core.utils.state.runDashBoard
+import com.tipiz.core.utils.state.runLogin
+import com.tipiz.core.utils.state.runOnboarding
+import com.tipiz.core.utils.state.runProfile
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentSplashScreenBinding
 import com.tipiz.toko_paerbe.ui.utils.BaseFragment
@@ -28,15 +33,32 @@ class SplashScreenFragment :
     override val viewModel: SplashViewModel by viewModel() //ktx
 
     override fun initView() {
+        viewModel.getOnBoardingValue()
         animation()
         lifecycleScope.launch {
             delay(ANIMATION_DELAY)
-            navigate()
+//            navigate()
         }
 
     }
 
     override fun initViewModel() {
+        with(viewModel){
+            onBoarding.launchAndCollectIn(viewLifecycleOwner){state->
+                lifecycleScope.launch {
+                    delay(2000L)
+                    state.runOnboarding {
+                        findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
+                    }.runDashBoard {
+                        findNavController().navigate(R.id.action_splashScreenFragment_to_dashBoardFragment)
+                    }.runLogin {
+                        findNavController().navigate(R.id.action_splashScreenFragment_to_loginFragment)
+                    }.runProfile {
+                        findNavController().navigate(R.id.action_splashScreenFragment_to_profileFragment)
+                    }
+                }
+            }
+        }
     }
 
     private fun navigate() {

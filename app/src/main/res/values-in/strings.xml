@@ -15,4 +15,7 @@
     <string name="profile">Profile</string>
     <string name="done">Selesai</string>
     <string name="name">Nama</string>
+    <string name="email_cannot_be_empty">Email cannot be empty!</string>
+    <string name="notification">notification</string>
+    <string name="shopping">shopping</string>
 </resources>
