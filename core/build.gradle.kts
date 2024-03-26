@@ -14,6 +14,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+
+        buildConfigField("String", "BASE_URL", "\"http://192.168.1.3:5000\"")
+        buildConfigField("String", "API_KEY", "\"6f8856ed-9189-488f-9011-0ff4b6c08edc\"")
     }
 
     buildTypes {
@@ -31,6 +35,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 
@@ -50,8 +58,8 @@ dependencies {
     api("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     //Koin
-    api("io.insert-koin:koin-android:3.5.0")
-    api("io.insert-koin:koin-core:3.5.0")
+    api("io.insert-koin:koin-android:3.5.3")
+    api("io.insert-koin:koin-core:3.5.3")
 
     //coroutine support
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
@@ -73,8 +81,9 @@ dependencies {
     //paging
     api("androidx.paging:paging-runtime-ktx:3.2.1")
 
-    //datastore
+    //Datastore
     api("androidx.datastore:datastore-preferences:1.0.0")
+
 
 
 

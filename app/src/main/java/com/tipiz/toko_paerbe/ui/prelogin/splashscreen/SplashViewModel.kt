@@ -1,37 +1,25 @@
 package com.tipiz.toko_paerbe.ui.prelogin.splashscreen
 
 import androidx.lifecycle.ViewModel
-import com.tipiz.core.domain.model.DataSession
-import com.tipiz.core.local.pref.PrefDataStoreHelper
-import com.tipiz.core.utils.state.SplashState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.tipiz.core.domain.usecase.TokoUseCase
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 
-class SplashViewModel(private val pref: PrefDataStoreHelper) : ViewModel() {
+class SplashViewModel(private val pref: TokoUseCase) : ViewModel() {
 
-
-    private val _onBoarding = MutableStateFlow<SplashState<DataSession>>(SplashState.OnBoarding)
-    val onBoarding = _onBoarding.asStateFlow()
-
-
-    fun setOnBoarding(value: Boolean) {
-        runBlocking {
-            pref.setOnBoarding(value)
-        }
+    suspend fun setOnBoarding(value: Boolean) {
+        pref.setOnBoarding(value)
     }
 
-
-    fun getOnBoarding(): Boolean {
-        return runBlocking {
-            pref.getOnBoarding().first()
-        }
+    suspend fun getOnBoarding(): Boolean {
+        return pref.getOnBoarding().first()
     }
 
-//    fun getOnBoardingState() {
-//        _onBoarding.update { pref.dataSession().toSplashState() }
-//    }
+    suspend fun getAccessToken(): String {
+        return pref.getAccessToken().first()
+    }
 
+    suspend fun getUserName(): String {
+        return pref.getUserName().first()
+    }
 
 }

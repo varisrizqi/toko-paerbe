@@ -30,7 +30,7 @@ class SplashScreenFragment :
     override fun initView() {
         animation()
         lifecycleScope.launch {
-            delay(ANIMATION_DELAY)
+            delay(1000)
             navigate()
         }
 
@@ -40,13 +40,23 @@ class SplashScreenFragment :
     }
 
     private fun navigate() {
-        val onBoarding = viewModel.getOnBoarding()
-        if (onBoarding) {
-            findNavController().navigate(R.id.action_splashScreenFragment_to_loginFragment)
-        } else {
-            findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
+        lifecycleScope.launch {
+            val getSplashScreen = viewModel.getOnBoarding()
+            val getToken = viewModel.getAccessToken()
+            val getProfile = viewModel.getUserName()
+
+            val destination = when {
+                getToken.isNotEmpty() && getProfile.isEmpty() -> R.id.action_splashScreenFragment_to_profileFragment
+                getToken.isNotEmpty() -> R.id.action_splashScreenFragment_to_dashBoardFragment
+                getSplashScreen -> R.id.action_splashScreenFragment_to_loginFragment
+                else -> R.id.action_splashScreenFragment_to_onBoardingFragment
+            }
+
+            findNavController().navigate(destination)
         }
     }
+
+
 
     private fun animation() {
         val yellowAnimator = ObjectAnimator.ofFloat(

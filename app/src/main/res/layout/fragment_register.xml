@@ -7,7 +7,7 @@
     tools:context=".ui.prelogin.register.RegisterFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/abl_register"
+        android:id="@+id/parent_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/register"
@@ -32,28 +33,28 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/abl_register">
+        app:layout_constraintTop_toBottomOf="@id/parent_toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_register_email"
+                android:id="@+id/input_email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/poppins_medium"
-                android:hint="@string/email"
+                tools:hint="@string/email"
                 app:helperText="@string/example_test_gmail_com"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_register_email"
+                    android:id="@+id/ed_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
@@ -61,21 +62,21 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_register_pass"
+                android:id="@+id/input_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/poppins_medium"
-                android:hint="@string/password"
+                tools:hint="@string/password"
                 app:helperText="@string/minimum_8_characters"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/til_register_email">
+                app:layout_constraintTop_toBottomOf="@id/input_email">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_register_pass"
+                    android:id="@+id/ed_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
@@ -83,25 +84,25 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/btn_register_reghit"
+                android:id="@+id/btn_register"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/register"
+                tools:text="@string/register"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/til_register_pass" />
+                app:layout_constraintTop_toBottomOf="@id/input_password" />
 
             <ProgressBar
                 android:id="@+id/pb_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/btn_register_reghit"
-                app:layout_constraintEnd_toEndOf="@id/btn_register_reghit"
-                app:layout_constraintStart_toStartOf="@id/btn_register_reghit"
-                app:layout_constraintTop_toTopOf="@id/btn_register_reghit" />
+                app:layout_constraintBottom_toBottomOf="@id/btn_register"
+                app:layout_constraintEnd_toEndOf="@id/btn_register"
+                app:layout_constraintStart_toStartOf="@id/btn_register"
+                app:layout_constraintTop_toTopOf="@id/btn_register" />
 
             <TextView
                 android:id="@+id/tv_register_or"
@@ -110,11 +111,11 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
-                android:text="@string/or_login_with"
+                tools:text="@string/or_login_with"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_register_reghit" />
+                app:layout_constraintTop_toBottomOf="@id/btn_register" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/dvdr_register_2"
@@ -137,13 +138,13 @@
                 app:layout_constraintTop_toTopOf="@id/tv_register_or" />
 
             <Button
-                android:id="@+id/btn_register_loghit"
+                android:id="@+id/btn_login"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/login"
+                tools:text="@string/login"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_register_or" />
@@ -162,7 +163,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_register_loghit"
+                app:layout_constraintTop_toBottomOf="@id/btn_login"
                 app:layout_constraintVertical_bias="0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
