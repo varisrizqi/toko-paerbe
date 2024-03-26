@@ -2,16 +2,20 @@ package com.tipiz.toko_paerbe.ui.prelogin.login
 
 import android.os.Build
 import android.util.Patterns
-import android.widget.Toast
+import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.tipiz.core.network.data.login.LoginRequest
-import com.tipiz.core.utils.state.launchAndCollectIn
-import com.tipiz.core.utils.state.onError
-import com.tipiz.core.utils.state.onSuccess
+import com.tipiz.core.data.network.data.login.LoginRequest
+import com.tipiz.core.utils.state.UiState
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentLoginBinding
 import com.tipiz.toko_paerbe.ui.utils.BaseFragment
+import com.tipiz.toko_paerbe.ui.utils.CustomToast
+import com.tipiz.toko_paerbe.ui.utils.showToast
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.regex.Pattern
 
@@ -22,31 +26,51 @@ class LoginFragment :
 
     override fun initView() {
         login()
+
         binding.btnRegist.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun initViewModel() {
         with(viewModel) {
-            responseLogin.launchAndCollectIn(viewLifecycleOwner) { state ->
-                state.onSuccess { token ->
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            saveLogin(token)
+            lifecycleScope.launch {
+                responseLogin.collectLatest { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+                            binding.pbLogin.visibility = View.VISIBLE
+                            binding.btnLogin.visibility = View.INVISIBLE
+                        }
+
+                        is UiState.Success -> {
+                            saveLogin(state.data)
+                            showToast(requireContext(),getString(R.string.login_successfully))
+                            findNavController().navigate(R.id.action_loginFragment_to_dashBoardFragment)
+                        }
+
+                        is UiState.Error -> {
+                            context?.let { CustomToast.showSnackBar(it,binding.root, getString(R.string.wrong_email_or_password),) }
+                            binding.pbLogin.visibility = View.INVISIBLE
+                            binding.btnLogin.visibility = View.VISIBLE
+                        }
+
+
+                        else -> {}
                     }
-                    findNavController().navigate(R.id.action_loginFragment_to_dashBoardFragment)
-                    Toast.makeText(context, "Berhasil Login", Toast.LENGTH_SHORT).show()
-                }.onError { Toast.makeText(context, "Gagal Login", Toast.LENGTH_SHORT).show() }
+                }
             }
         }
     }
 
-    private fun login() {
 
+    private fun login() {
         with(binding) {
-            edEmail.doAfterTextChanged { validateEmail(it.toString()) }
-            edPassword.doAfterTextChanged { validatePassword(it.toString()) }
+            val emailInputLayout = inputEmail
+            val passwordInputLayout = inputPassword
+            edEmail.doAfterTextChanged { validateEmail() }
+            edPassword.doAfterTextChanged { validatePassword() }
             btnLogin.setOnClickListener {
                 val email = edEmail.text.toString().trim()
                 val password = edPassword.text.toString().trim()
@@ -57,8 +81,10 @@ class LoginFragment :
                 )
 
                 when {
-                    email.isEmpty() -> inputEmail.error = getString(R.string.email_cannot_be_empty)
-                    password.isEmpty() -> inputPassword.error =
+                    email.isEmpty() -> emailInputLayout.error =
+                        getString(R.string.email_cannot_be_empty)
+
+                    password.isEmpty() -> passwordInputLayout.error =
                         getString(R.string.password_cannot_be_empty)
 
                     isValidEmail(email) && isValidPassword(password) -> {
@@ -69,31 +95,23 @@ class LoginFragment :
         }
     }
 
-    private fun validateEmail(email: String) {
-
+    private fun validateEmail() {
         with(binding.inputEmail) {
-            val isValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-            if (!isValid) {
-                error = getString(R.string.invalid_email)
-            } else {
-                helperText = getString(R.string.example_test_gmail_com)
-            }
-
+            isHelperTextEnabled = true
+            isErrorEnabled = false
         }
     }
 
-    private fun validatePassword(password: String) {
+    private fun validatePassword() {
         with(binding.inputPassword) {
-            val isValid = password.length >= 8
-            isErrorEnabled = !isValid
-            helperText = if (isValid) getString(R.string.minimum_8_characters) else null
-            error = if (!isValid) getString(R.string.minimum_8_characters) else null
+            isHelperTextEnabled = true
+            isErrorEnabled = false
         }
     }
 
     private fun isValidEmail(email: String): Boolean {
-
         val emailPattern = Patterns.EMAIL_ADDRESS
+
         return if (emailPattern.matcher(email).matches()) {
             binding.inputEmail.isErrorEnabled = false
             binding.inputEmail.isHelperTextEnabled = true
@@ -122,8 +140,8 @@ class LoginFragment :
             binding.inputPassword.error = getString(R.string.minimum_8_characters)
             false
         } else {
-            binding.inputPassword.isHelperTextEnabled = true
             binding.inputPassword.isErrorEnabled = true
+            binding.inputPassword.isHelperTextEnabled = true
             binding.inputPassword.helperText = getString(R.string.minimum_8_characters)
             true
         }

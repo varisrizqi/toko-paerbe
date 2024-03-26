@@ -1,16 +1,18 @@
 package com.tipiz.core.domain.repository
 
-import com.tipiz.core.domain.model.login.DataSession
-import com.tipiz.core.local.datasource.LocalDataStore
-import com.tipiz.core.network.data.login.LoginRequest
-import com.tipiz.core.network.data.login.LoginResponse
-import com.tipiz.core.network.data.refresh.RefreshRequest
-import com.tipiz.core.network.data.refresh.RefreshResponse
-import com.tipiz.core.network.data.register.RegisterRequest
-import com.tipiz.core.network.data.register.RegisterResponse
-import com.tipiz.core.network.datasource.RemoteDataSource
+import com.tipiz.core.data.local.datasource.LocalDataStore
+import com.tipiz.core.data.network.data.login.LoginRequest
+import com.tipiz.core.data.network.data.login.LoginResponse
+import com.tipiz.core.data.network.data.profile.ProfileResponse
+import com.tipiz.core.data.network.data.refresh.RefreshRequest
+import com.tipiz.core.data.network.data.refresh.RefreshResponse
+import com.tipiz.core.data.network.data.register.RegisterRequest
+import com.tipiz.core.data.network.data.register.RegisterResponse
+import com.tipiz.core.data.network.datasource.RemoteDataSource
 import com.tipiz.core.utils.state.safeDataCall
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class TokoRepositoryImpl(
     private val local: LocalDataStore,
@@ -43,13 +45,15 @@ class TokoRepositoryImpl(
 
     override fun getUserName(): Flow<String> = local.getUserName()
 
-    override fun clearSession() {
+    override suspend fun clearSession() {
         local.clearSession()
     }
 
-    override fun getSessionData(): Flow<DataSession> {
-        return local.getSessionData()
+    override suspend fun setUserId(value: String) {
+        local.setUserId(value)
     }
+
+    override fun getUserId(): Flow<String> = local.getUserId()
 
     //Remote Api
     override suspend fun fetchRegister(request: RegisterRequest): RegisterResponse = safeDataCall {
@@ -65,8 +69,13 @@ class TokoRepositoryImpl(
             remote.fetchRefreshToken(request = request)
         }
 
-    override suspend fun setUserId(value: String) {
-       local.setUserId(value)
+    override suspend fun fetchProfile(
+        userName: RequestBody,
+        userImage: MultipartBody.Part
+    ): ProfileResponse {
+        return safeDataCall {
+            remote.fetchProfile(userName = userName, userImage = userImage)
+        }
     }
-    override fun getUserId(): Flow<String> = local.getUserId()
+
 }

@@ -1,11 +1,13 @@
 package com.tipiz.core.utils
 
 import com.tipiz.core.domain.model.login.DataLogin
+import com.tipiz.core.domain.model.login.DataProfile
 import com.tipiz.core.domain.model.login.DataSession
 import com.tipiz.core.domain.model.login.DataToken
-import com.tipiz.core.network.data.login.LoginResponse
-import com.tipiz.core.network.data.refresh.RefreshResponse
-import com.tipiz.core.network.data.register.RegisterResponse
+import com.tipiz.core.data.network.data.login.LoginResponse
+import com.tipiz.core.data.network.data.profile.ProfileResponse
+import com.tipiz.core.data.network.data.refresh.RefreshResponse
+import com.tipiz.core.data.network.data.register.RegisterResponse
 import com.tipiz.core.utils.state.SplashState
 
 object DataMapper {
@@ -30,12 +32,11 @@ object DataMapper {
         refreshToken = data.refreshToken
     )
 
-
-    fun Triple<String, String, Boolean>.toUiData() = DataSession(
-        userName = this.first,
-        accessToken = this.second,
-        onBoardingState = this.third
+    fun ProfileResponse.toUiData() = DataProfile(
+        userName = data.userName,
+        userImage = data.userImage
     )
+
 
     fun DataSession.toSplashState() = when {
         this.userName.isEmpty() && this.accessToken.isNotEmpty() -> {

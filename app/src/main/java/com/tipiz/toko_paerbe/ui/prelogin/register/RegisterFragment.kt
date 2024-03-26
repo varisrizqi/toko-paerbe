@@ -1,16 +1,20 @@
 package com.tipiz.toko_paerbe.ui.prelogin.register
 
 import android.util.Patterns
+import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.tipiz.core.network.data.register.RegisterRequest
-import com.tipiz.core.utils.state.launchAndCollectIn
+import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.utils.state.onError
+import com.tipiz.core.utils.state.onLoading
 import com.tipiz.core.utils.state.onSuccess
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentRegisterBinding
 import com.tipiz.toko_paerbe.ui.utils.BaseFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.regex.Pattern
 
@@ -29,11 +33,21 @@ class RegisterFragment :
 
     override fun initViewModel() {
         with(viewModel) {
-            responseRegister.launchAndCollectIn(viewLifecycleOwner) { state ->
-                state.onSuccess { token ->
-                    saveSession(token)
-                    findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
-                }.onError { Toast.makeText(context, "Gagal Register", Toast.LENGTH_SHORT).show() }
+            lifecycleScope.launch {
+                responseRegister.collectLatest { state ->
+                    state.onLoading{
+                        binding.pbRegister.visibility = View.VISIBLE
+                        binding.btnRegister.visibility = View.INVISIBLE
+                    }.onSuccess { token ->
+                        saveSession(token)
+                        Toast.makeText(context,getString(R.string.successful_registration), Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
+                    }.onError {
+                        Toast.makeText(context, getString(R.string.failed_to_register), Toast.LENGTH_SHORT).show()
+                        binding.pbRegister.visibility = View.INVISIBLE
+                        binding.btnRegister.visibility = View.VISIBLE
+                    }
+                }
             }
         }
     }
@@ -114,8 +128,8 @@ class RegisterFragment :
             binding.inputPassword.error = getString(R.string.minimum_8_characters)
             false
         } else {
-            binding.inputPassword.isHelperTextEnabled = true
             binding.inputPassword.isErrorEnabled = true
+            binding.inputPassword.isHelperTextEnabled = true
             binding.inputPassword.helperText = getString(R.string.minimum_8_characters)
             true
         }

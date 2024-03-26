@@ -2,14 +2,16 @@ package com.tipiz.toko_paerbe.ui.prelogin.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.domain.model.login.DataToken
 import com.tipiz.core.domain.usecase.TokoUseCase
-import com.tipiz.core.network.data.register.RegisterRequest
 import com.tipiz.core.utils.state.UiState
 import com.tipiz.core.utils.state.asMutableStateFlow
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class RegisterViewModel(private val useCase: TokoUseCase) : ViewModel() {
 
@@ -18,17 +20,12 @@ class RegisterViewModel(private val useCase: TokoUseCase) : ViewModel() {
     val responseRegister = _responseRegister.asStateFlow()
 
     // =========== Pref ==========================
-//    suspend fun saveSession(token: DataToken) {
-//            useCase.setRefreshToken(token.refreshToken)
-//            useCase.setAccessToken(token.accessToken)
-//    }
     fun saveSession(token: DataToken) {
-        viewModelScope.launch {
-            useCase.setRefreshToken(token.refreshToken)
+        runBlocking(Dispatchers.IO) {
             useCase.setAccessToken(token.accessToken)
+            useCase.setRefreshToken(token.refreshToken)
         }
     }
-
 
     // =========== API ==========================
     fun fetchRegister(request: RegisterRequest) {
