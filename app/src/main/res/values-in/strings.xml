@@ -36,4 +36,5 @@
     <string name="failed_to_register">Gagal Registrasi</string>
     <string name="welcome">Selamat Datang</string>
     <string name="failed_profile">Gagal Profil</string>
+    <string name="logout">Keluar</string>
 </resources>

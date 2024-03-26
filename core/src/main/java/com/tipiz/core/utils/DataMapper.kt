@@ -1,14 +1,12 @@
 package com.tipiz.core.utils
 
-import com.tipiz.core.domain.model.login.DataLogin
-import com.tipiz.core.domain.model.login.DataProfile
-import com.tipiz.core.domain.model.login.DataSession
-import com.tipiz.core.domain.model.login.DataToken
 import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
 import com.tipiz.core.data.network.data.refresh.RefreshResponse
 import com.tipiz.core.data.network.data.register.RegisterResponse
-import com.tipiz.core.utils.state.SplashState
+import com.tipiz.core.domain.model.login.DataLogin
+import com.tipiz.core.domain.model.login.DataProfile
+import com.tipiz.core.domain.model.login.DataToken
 
 object DataMapper {
 
@@ -37,22 +35,4 @@ object DataMapper {
         userImage = data.userImage
     )
 
-
-    fun DataSession.toSplashState() = when {
-        this.userName.isEmpty() && this.accessToken.isNotEmpty() -> {
-            SplashState.Profile
-        }
-
-        this.userName.isNotEmpty() && this.accessToken.isNotEmpty() -> {
-            SplashState.Dashboard
-        }
-
-        this.onBoardingState -> {
-            SplashState.Login
-        }
-
-        else -> {
-            SplashState.OnBoarding
-        }
-    }
 }

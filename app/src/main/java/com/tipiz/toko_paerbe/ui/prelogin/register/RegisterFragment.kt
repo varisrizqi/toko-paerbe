@@ -25,9 +25,21 @@ class RegisterFragment :
 
     override fun initView() {
         register()
+        setText()
 
         binding.btnLogin.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
+    }
+
+    private fun setText() {
+        with(binding){
+            inputEmail.hint = getString(R.string.email)
+            inputPassword.hint = getString(R.string.password)
+            btnRegister.text = getString(R.string.register)
+            btnLogin.text = getString(R.string.login)
+            tvRegisterOr.text = getString(R.string.or_register_with)
+            toolbar.title = getString(R.string.login)
         }
     }
 

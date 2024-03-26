@@ -9,7 +9,6 @@ import java.util.Base64
 object Constant {
 
     //SplashScreen Fragment
-    const val SKIP_KEY = "skip"
     const val ANIMATION_DELAY = 1000L
     const val ANIMATION_START = 0f
     const val RED_ROTATION = 25f
@@ -20,8 +19,11 @@ object Constant {
     const val YELLOW_TRANSLATION_Y = -90f
     const val GREEN_TRANSLATION_Y = -170f
 
+    //profile fragment
     const val CAMERA_PERMISSION_CODE = 111
     const val GALLERY_PERMISSION_CODE = 151
+
+
     const val extra_detail ="extra_detail"
 
 

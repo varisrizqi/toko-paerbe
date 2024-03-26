@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.prelogin.login.LoginFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/login"
@@ -47,11 +48,11 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/poppins_medium"
-                android:hint="@string/email"
                 app:helperText="@string/example_test_gmail_com"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                tools:hint="@string/email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_email"
@@ -69,11 +70,11 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/poppins_medium"
-                android:hint="@string/password"
                 app:helperText="@string/minimum_8_characters"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_email">
+                app:layout_constraintTop_toBottomOf="@id/input_email"
+                tools:hint="@string/password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_password"
@@ -90,10 +91,10 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@string/login"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_password" />
+                app:layout_constraintTop_toBottomOf="@id/input_password"
+                tools:text="@string/login" />
 
             <ProgressBar
                 android:id="@+id/pb_login"
@@ -112,11 +113,11 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
-                android:text="@string/or_register_with"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_login" />
+                app:layout_constraintTop_toBottomOf="@id/btn_login"
+                tools:text="@string/or_register_with" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/dvdr_login_2"
@@ -146,10 +147,10 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@string/register"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_login_or" />
+                app:layout_constraintTop_toBottomOf="@id/tv_login_or"
+                tools:text="@string/register" />
 
             <TextView
                 android:id="@+id/tv_login_tnc"
@@ -160,13 +161,13 @@
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="@string/tnc"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_regist"
-                app:layout_constraintVertical_bias="0" />
+                app:layout_constraintVertical_bias="0"
+                android:text="@string/tnc" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -55,10 +55,22 @@ class ProfileFragment :
     private var imageUri: Uri? = null
 
     override fun initView() {
+        setText()
+        listener()
 
+        cameraLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                handleCameraResult(result.resultCode, result.data)
+            }
 
+        galleryLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                handleGalleryResult(result.resultCode, result.data)
+            }
+    }
+
+    private fun listener() {
         with(binding) {
-
             imgProfil.setOnClickListener {
                 showAlertDialog()
             }
@@ -84,37 +96,36 @@ class ProfileFragment :
                 }
             }
         }
+    }
 
-
-        cameraLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                handleCameraResult(result.resultCode, result.data)
-            }
-
-        galleryLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                handleGalleryResult(result.resultCode, result.data)
-            }
+    private fun setText() {
+        with(binding) {
+            inputName.hint = getString(R.string.name)
+            btnDone.text = getString(R.string.done)
+            toolbar.title = getString(R.string.login)
+        }
     }
 
     override fun initViewModel() {
         with(viewModel) {
             responseProfile.launchAndCollectIn(viewLifecycleOwner) { state ->
-                state.onLoading{
+                state.onLoading {
                     binding.pbProfile.visibility = View.VISIBLE
                     binding.btnDone.visibility = View.INVISIBLE
                 }.onSuccess { data ->
                     lifecycleScope.launch {
                         val profileResponse = data.userName
                         if (profileResponse.isNotEmpty()) {
-                            Toast.makeText(context, getString(R.string.welcome), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, getString(R.string.welcome), Toast.LENGTH_SHORT)
+                                .show()
                             setUserName(data.userName)
                             findNavController().navigate(R.id.action_profileFragment_to_dashBoardFragment)
                         }
                     }
 
                 }.onError {
-                    Toast.makeText(context, getString(R.string.failed_profile), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.failed_profile), Toast.LENGTH_SHORT)
+                        .show()
                     binding.pbProfile.visibility = View.INVISIBLE
                     binding.btnDone.visibility = View.VISIBLE
                 }

@@ -12,6 +12,8 @@ class HomeFragment :
     override val viewModel: HomeViewModel by viewModel()
 
     override fun initView() {
+
+        binding.btnLogout.text = getString(R.string.logout)
         binding.btnLogout.setOnClickListener {
             viewModel.clearSession()
             activity?.supportFragmentManager?.findFragmentById(R.id.container_main_nav_host)

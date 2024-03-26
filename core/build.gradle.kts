@@ -58,8 +58,8 @@ dependencies {
     api("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     //Koin
-    api("io.insert-koin:koin-android:3.5.0")
-    api("io.insert-koin:koin-core:3.5.0")
+    api("io.insert-koin:koin-android:3.5.3")
+    api("io.insert-koin:koin-core:3.5.3")
 
     //coroutine support
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")

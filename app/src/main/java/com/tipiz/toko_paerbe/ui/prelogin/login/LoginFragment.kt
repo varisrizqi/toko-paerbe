@@ -17,7 +17,6 @@ import com.tipiz.toko_paerbe.ui.utils.showToast
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.regex.Pattern
 
 
 class LoginFragment :
@@ -26,6 +25,7 @@ class LoginFragment :
 
     override fun initView() {
         login()
+        setText()
 
         binding.btnRegist.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -46,12 +46,18 @@ class LoginFragment :
 
                         is UiState.Success -> {
                             saveLogin(state.data)
-                            showToast(requireContext(),getString(R.string.login_successfully))
+                            showToast(requireContext(), getString(R.string.login_successfully))
                             findNavController().navigate(R.id.action_loginFragment_to_dashBoardFragment)
                         }
 
                         is UiState.Error -> {
-                            context?.let { CustomToast.showSnackBar(it,binding.root, getString(R.string.wrong_email_or_password),) }
+                            context?.let {
+                                CustomToast.showSnackBar(
+                                    it,
+                                    binding.root,
+                                    getString(R.string.wrong_email_or_password),
+                                )
+                            }
                             binding.pbLogin.visibility = View.INVISIBLE
                             binding.btnLogin.visibility = View.VISIBLE
                         }
@@ -126,13 +132,6 @@ class LoginFragment :
     }
 
     private fun isValidPassword(password: String): Boolean {
-        val passwordPattern1 = Pattern.compile(
-            "^(?=.*[A-Z])" +
-                    "(?=.*[a-z])" +
-                    "(?=.*\\d)" +
-                    "(?=.*[@#\$%^&+=!])" +
-                    "[A-Za-z\\d@#\$%^&+=!]{8,}"
-        )
 
         return if (password.length <= 7) {
             binding.inputPassword.isErrorEnabled = false
@@ -144,6 +143,17 @@ class LoginFragment :
             binding.inputPassword.isHelperTextEnabled = true
             binding.inputPassword.helperText = getString(R.string.minimum_8_characters)
             true
+        }
+    }
+
+    private fun setText() {
+        with(binding) {
+            btnLogin.text = getString(R.string.login)
+            btnRegist.text = getString(R.string.register)
+            tvLoginOr.text = getString(R.string.or_register_with)
+            toolbar.title = getString(R.string.login)
+            inputEmail.hint = getString(R.string.email)
+            inputPassword.hint = getString(R.string.password)
         }
     }
 
