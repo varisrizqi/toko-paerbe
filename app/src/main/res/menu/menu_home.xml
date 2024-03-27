@@ -17,5 +17,5 @@
     <item
         android:id="@+id/navigation_transaction"
         android:icon="@drawable/ic_transaction"
-        android:title="@string/transaction" />
+        android:title="@string/whistlist" />
 </menu>

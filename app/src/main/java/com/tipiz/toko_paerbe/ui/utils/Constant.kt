@@ -23,6 +23,9 @@ object Constant {
     const val CAMERA_PERMISSION_CODE = 111
     const val GALLERY_PERMISSION_CODE = 151
 
+    //home fragment
+    const val key_en = "en"
+    const val key_in = "in"
 
     const val extra_detail ="extra_detail"
 

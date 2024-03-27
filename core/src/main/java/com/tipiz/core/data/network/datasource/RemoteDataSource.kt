@@ -8,6 +8,8 @@ import com.tipiz.core.data.network.data.refresh.RefreshResponse
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.data.network.data.register.RegisterResponse
 import com.tipiz.core.data.network.retrofit.ApiService
+import com.tipiz.core.remote.data.detail.DetailResponse
+import com.tipiz.core.remote.data.review.ReviewResponse
 import com.tipiz.core.utils.state.safeApiCall
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -29,6 +31,18 @@ class RemoteDataSource(private val apiEndpoint: ApiService) {
         userImage: MultipartBody.Part
     ): ProfileResponse {
         return safeApiCall { apiEndpoint.fetchProfile(userName = userName, userImage = userImage) }
+    }
+
+    suspend fun fetchDetailProduct(
+        id: String
+    ): DetailResponse {
+        return apiEndpoint.fetchDetailProduct(id = id)
+    }
+
+    suspend fun fetchReviewProduct(
+        id:String
+    ) : ReviewResponse {
+        return apiEndpoint.fetchReviewProduct(id = id)
     }
 
 

@@ -102,7 +102,8 @@ class ProfileFragment :
         with(binding) {
             inputName.hint = getString(R.string.name)
             btnDone.text = getString(R.string.done)
-            toolbar.title = getString(R.string.login)
+            toolbar.title = getString(R.string.register)
+//            spannableColor1()
         }
     }
 
@@ -312,5 +313,12 @@ class ProfileFragment :
         return File.createTempFile(timeStamp, ".jpg", storageDir)
     }
 
+   /* private fun spannableColor1() {
+        val sk = binding.tvProfileTnc
+        val fullText = getString(R.string.tnc)
+        val defaultLocale = resources.configuration.locales[0].language
+        sk.text = context?.let { Spannable.applyCustomTextColor(defaultLocale, it, fullText) }
+        sk.movementMethod = LinkMovementMethod.getInstance()
+    }*/
 
 }

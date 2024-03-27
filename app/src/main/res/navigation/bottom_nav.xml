@@ -12,17 +12,17 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_store"
-        android:name="com.tipiz.toko_paerbe.ui.bottomnav.StoreFragment"
+        android:name="com.tipiz.toko_paerbe.ui.bottomnav.store.StoreFragment"
         android:label="fragment_store"
         tools:layout="@layout/fragment_store" />
     <fragment
         android:id="@+id/navigation_whislist"
-        android:name="com.tipiz.toko_paerbe.ui.bottomnav.WishListFragment"
+        android:name="com.tipiz.toko_paerbe.ui.bottomnav.wishlist.WishListFragment"
         android:label="fragment_wish_list"
         tools:layout="@layout/fragment_wish_list" />
     <fragment
         android:id="@+id/navigation_transaction"
-        android:name="com.tipiz.toko_paerbe.ui.bottomnav.TransactionFragment"
+        android:name="com.tipiz.toko_paerbe.ui.bottomnav.transaction.TransactionFragment"
         android:label="fragment_transaction"
         tools:layout="@layout/fragment_transaction" />
 </navigation>

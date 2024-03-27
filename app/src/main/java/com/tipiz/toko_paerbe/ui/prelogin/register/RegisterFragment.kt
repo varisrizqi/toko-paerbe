@@ -40,6 +40,7 @@ class RegisterFragment :
             btnLogin.text = getString(R.string.login)
             tvRegisterOr.text = getString(R.string.or_register_with)
             toolbar.title = getString(R.string.login)
+//            spannableColor1()
         }
     }
 
@@ -148,5 +149,13 @@ class RegisterFragment :
 
     }
 
+    /*
+    private fun spannableColor1() {
+        val sk = binding.tvRegisterTnc
+        val fullText = getString(R.string.tnc)
+        val defaultLocale = resources.configuration.locales[0].language
+        sk.text = context?.let { Spannable.applyCustomTextColor(defaultLocale, it, fullText) }
+        sk.movementMethod = LinkMovementMethod.getInstance()
+    }*/
 
 }
