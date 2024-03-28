@@ -7,6 +7,9 @@
     <color name="yellow_splash">#fbc901</color>
     <color name="primary">#6750A4</color>
     <color name="surface">#e7e0ec</color>
+    <color name="transparent">#00000000</color>
+    <color name="md_theme_light_outline">#79747E</color>
+    <color name="gray">#a9a9a9</color>
 
     <color name="p_10">#21005D</color>
     <color name="p_20">#381E72</color>

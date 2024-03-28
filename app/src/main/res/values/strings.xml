@@ -1,11 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">toko-paerbe</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="skip">Skip</string>
+
     <string name="next">Next</string>
     <string name="join">Join Now</string>
-    <string name="login">Login</string>
     <string name="email" translatable="false">Email</string>
     <string name="example_test_gmail_com">Example: test@gmail.com</string>
     <string name="password">Password</string>
@@ -13,7 +13,7 @@
     <string name="register">Register</string>
     <string name="minimum_8_characters">Minimum 8 characters</string>
     <string name="or_login_with">or login with</string>
-    <string name="tnc"><![CDATA[By using the app, you agree to the Terms & Conditions and Privacy Policy of TokoPhincon]]></string>
+    <string name="tnc"> <![CDATA[By entering here, you agree to the Terms & Conditions and TokoPhincon Privacy Policy.]]></string>
     <string name="profile">Profile</string>
     <string name="done">Done</string>
     <string name="name">Name</string>
@@ -22,10 +22,9 @@
     <string name="invalid_email">Invalid email</string>
     <string name="notification">notification</string>
     <string name="shopping">shopping</string>
-    <string name="home">Home</string>
+    <string name="home" translatable="false">Home</string>
     <string name="store">Store</string>
     <string name="whistlist">WhistList</string>
-    <string name="transaction">Transaction</string>
     <string name="select_image">Select Image</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
@@ -38,4 +37,35 @@
     <string name="welcome">Welcome</string>
     <string name="failed_profile">Failed Profile</string>
     <string name="logout">Logout</string>
+    <string name="light">Light</string>
+    <string name="en" translatable="false">en</string>
+    <string name="id" translatable="false">id</string>
+    <string name="dark">Dark</string>
+    <string name="search">Search</string>
+    <string name="internal_server_error">Internal server error</string>
+    <string name="refresh">refresh</string>
+    <string name="filter" translatable="false">Filter</string>
+    <string name="lenovo_legion_7_16_i7_11800_16gb_1tb_ssd_rtx3070_8gb">Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB</string>
+    <string name="sold">%5.0% | Sold %10%</string>
+    <string name="price">Rp.27.000.0000</string>
+    <string name="prostorecomputer">prostorecomputer</string>
+    <string name="detail_product">Detail product</string>
+    <string name="detail_title_store">Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS</string>
+    <string name="sold_10">Sold %10%</string>
+    <string name="rating_dan_ulasan">%4.5% (%2%)</string>
+    <string name="select_variant">Select variant</string>
+    <string name="product_description">Product description</string>
+    <string name="buyer_reviews">Buyer reviews</string>
+    <string name="see_all">See all</string>
+    <string name="_5_0">/ 5.0</string>
+    <string name="_100_buyers_feel_satisfied">%100%% Buyers Feel Satisfied</string>
+    <string name="rating_dan_review">%2% Rating %3% Review</string>
+    <string name="buy">Buy</string>
+    <string name="cart_plus">+ Cart</string>
+    <string name="username">Username</string>
+    <string name="lorem" translatable="false">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\\\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+    <string name="remove_fav">Remove fav</string>
+    <string name="login">Login</string>
+    <string name="skip">Skip</string>
+    <string name="transaction">Transaction</string>
 </resources>

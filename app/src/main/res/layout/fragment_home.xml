@@ -1,20 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.bottomnav.home.HomeFragment">
 
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="@string/logout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_home"
+            android:layout_width="306dp"
+            android:layout_height="282dp"
+            android:layout_marginTop="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/dashboard_animation" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="66dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/logout"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/lottie_home"
+            app:layout_constraintStart_toStartOf="@+id/lottie_home"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_home"
+            tools:text="@string/logout" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switch_localize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_logout"
+            app:layout_constraintStart_toStartOf="@+id/btn_logout"
+            app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
+
+        <TextView
+            android:id="@+id/tv_en"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/en"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/switch_localize"
+            app:layout_constraintEnd_toStartOf="@+id/switch_localize"
+            app:layout_constraintTop_toTopOf="@id/switch_localize" />
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/id"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/switch_localize"
+            app:layout_constraintStart_toEndOf="@+id/switch_localize"
+            app:layout_constraintTop_toTopOf="@id/switch_localize" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switch_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_logout"
+            app:layout_constraintStart_toStartOf="@+id/btn_logout"
+            app:layout_constraintTop_toBottomOf="@+id/switch_localize" />
+
+        <TextView
+            android:id="@+id/tv_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/light"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/switch_theme"
+            app:layout_constraintEnd_toStartOf="@+id/switch_theme"
+            app:layout_constraintTop_toTopOf="@id/switch_theme"
+            tools:text="@string/light" />
+
+        <TextView
+            android:id="@+id/tv_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/dark"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/switch_theme"
+            app:layout_constraintStart_toEndOf="@+id/switch_theme"
+            app:layout_constraintTop_toTopOf="@id/switch_theme"
+            tools:text="@string/dark" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

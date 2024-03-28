@@ -27,9 +27,22 @@ class LocalDataStore(private val dataSource: PrefDataStoreHelper) {
 
     suspend fun clearSession() = dataSource.clearSession()
 
-    suspend fun setUserId(value: String){
+    suspend fun setUserId(value: String) {
         dataSource.setUserid(value)
     }
-    fun getUserId():Flow<String> = dataSource.getUserid()
+
+    fun getUserId(): Flow<String> = dataSource.getUserid()
+
+    suspend fun setTheme(value: Boolean) = dataSource.setTheme(value)
+
+    fun getTheme(): Flow<Boolean> = dataSource.getTheme()
+
+    suspend fun setLocalize(value: String) = dataSource.setLocalize(value)
+
+    fun getLocalize(): Flow<String> = dataSource.getLocalize()
+
+    suspend fun resetAll() {
+     dataSource.resetAll()
+    }
 
 }

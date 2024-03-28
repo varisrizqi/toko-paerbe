@@ -19,4 +19,14 @@ interface PrefDataStoreHelper {
 
     suspend fun setUserid(value: String)
     fun getUserid():Flow<String>
+
+    suspend fun setTheme(value:Boolean)
+
+    fun getTheme ():Flow<Boolean>
+
+    suspend fun setLocalize(value:String)
+
+    fun getLocalize():Flow<String>
+
+    suspend fun resetAll()
 }

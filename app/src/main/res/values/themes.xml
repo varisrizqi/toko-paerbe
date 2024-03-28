@@ -11,4 +11,9 @@
     <style name="ShapeAppearanceOverlay.App.CorneSize50Percent" parent="">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="customRoundedImageView8dp" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
 </resources>

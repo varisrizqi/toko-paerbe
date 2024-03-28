@@ -11,6 +11,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -31,6 +32,7 @@ import com.tipiz.toko_paerbe.databinding.FragmentProfileBinding
 import com.tipiz.toko_paerbe.ui.utils.BaseFragment
 import com.tipiz.toko_paerbe.ui.utils.Constant.CAMERA_PERMISSION_CODE
 import com.tipiz.toko_paerbe.ui.utils.Constant.GALLERY_PERMISSION_CODE
+import com.tipiz.toko_paerbe.ui.utils.Spannable
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -102,7 +104,8 @@ class ProfileFragment :
         with(binding) {
             inputName.hint = getString(R.string.name)
             btnDone.text = getString(R.string.done)
-            toolbar.title = getString(R.string.login)
+            toolbar.title = getString(R.string.register)
+            spannableColor1()
         }
     }
 
@@ -312,5 +315,12 @@ class ProfileFragment :
         return File.createTempFile(timeStamp, ".jpg", storageDir)
     }
 
+    private fun spannableColor1() {
+        val sk = binding.tvProfileTnc
+        val fullText = getString(R.string.tnc)
+        val defaultLocale = resources.configuration.locales[0].language
+        sk.text = context?.let { Spannable.applyCustomTextColor(defaultLocale, it, fullText) }
+        sk.movementMethod = LinkMovementMethod.getInstance()
+    }
 
 }

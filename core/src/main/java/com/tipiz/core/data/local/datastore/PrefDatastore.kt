@@ -4,8 +4,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import com.tipiz.core.utils.Constant.PrefDatastore.key_access_token
+import com.tipiz.core.utils.Constant.PrefDatastore.key_localize
 import com.tipiz.core.utils.Constant.PrefDatastore.key_refresh_token
 import com.tipiz.core.utils.Constant.PrefDatastore.key_splash_screen
+import com.tipiz.core.utils.Constant.PrefDatastore.key_theme
 import com.tipiz.core.utils.Constant.PrefDatastore.key_userid
 import com.tipiz.core.utils.Constant.PrefDatastore.key_username
 import kotlinx.coroutines.flow.Flow
@@ -34,6 +36,12 @@ class PrefDatastore(private val dataStore: DataStore<Preferences>) : PrefDataSto
     override fun getAccessToken(): Flow<String> {
         return dataStore.data.map { pref ->
             pref[key_access_token] ?: ""
+        }
+    }
+
+    override suspend fun resetAll() {
+        dataStore.edit { pref->
+            pref.clear()
         }
     }
 
@@ -81,5 +89,31 @@ class PrefDatastore(private val dataStore: DataStore<Preferences>) : PrefDataSto
             }
 
     }
+
+    override suspend fun setTheme(value: Boolean) {
+        dataStore.edit { pref->
+            pref[key_theme] = value
+        }
+    }
+
+    override fun getTheme(): Flow<Boolean> {
+       return dataStore.data.map { pref->
+           pref[key_theme] ?: false
+
+       }
+    }
+
+    override suspend fun setLocalize(value: String) {
+       dataStore.edit { pref->
+           pref[key_localize] = value
+       }
+    }
+
+    override fun getLocalize(): Flow<String> {
+       return dataStore.data.map { pref->
+           pref[key_localize] ?: "en"
+       }
+    }
+
 
 }

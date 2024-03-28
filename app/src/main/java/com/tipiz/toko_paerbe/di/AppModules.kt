@@ -6,6 +6,7 @@ import com.tipiz.toko_paerbe.ui.prelogin.profile.ProfileViewModel
 import com.tipiz.toko_paerbe.ui.prelogin.register.RegisterViewModel
 import com.tipiz.toko_paerbe.ui.prelogin.splashscreen.SplashViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.home.HomeViewModel
+import com.tipiz.toko_paerbe.ui.bottomnav.store.StoreViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -20,6 +21,7 @@ object AppModules {
         viewModelOf(::DashBoardViewModel)
         viewModelOf(::ProfileViewModel)
         viewModelOf(::HomeViewModel)
+        viewModelOf(::StoreViewModel)
 
     }
     val modules: List<Module> = listOf(

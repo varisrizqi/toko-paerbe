@@ -4,20 +4,23 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.room.Room
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.tipiz.core.domain.repository.TokoRepository
-import com.tipiz.core.domain.repository.TokoRepositoryImpl
-import com.tipiz.core.domain.usecase.TokoInteractor
-import com.tipiz.core.domain.usecase.TokoUseCase
 import com.tipiz.core.data.local.datasource.LocalDataStore
+import com.tipiz.core.data.local.datasource.PagingDataSource
 import com.tipiz.core.data.local.datastore.PrefDataStoreHelper
 import com.tipiz.core.data.local.datastore.PrefDatastore
+import com.tipiz.core.data.local.room.database.DataBaseClient
 import com.tipiz.core.data.network.datasource.RemoteDataSource
 import com.tipiz.core.data.network.retrofit.ApiService
 import com.tipiz.core.data.network.retrofit.NetworkClient
 import com.tipiz.core.data.network.retrofit.interceptor.AuthInterceptor
 import com.tipiz.core.data.network.retrofit.interceptor.SessionInterceptor
 import com.tipiz.core.data.network.retrofit.interceptor.TokenInterceptor
+import com.tipiz.core.domain.repository.TokoRepository
+import com.tipiz.core.domain.repository.TokoRepositoryImpl
+import com.tipiz.core.domain.usecase.TokoInteractor
+import com.tipiz.core.domain.usecase.TokoUseCase
 import com.tipiz.core.utils.Constant.PrefDatastore.PREFS_NAME
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
@@ -35,11 +38,12 @@ object CoreModule {
     private val dataSourceModule = module {
         single { LocalDataStore(get()) }
         single { RemoteDataSource(get()) }
+        single { PagingDataSource(get(), get()) }
 
     }
 
     private val repositoryModule = module {
-        single<TokoRepository> { TokoRepositoryImpl(get(), get()) }
+        single<TokoRepository> { TokoRepositoryImpl(get(), get(), get()) }
     }
 
     private val useCase = module {
@@ -54,6 +58,15 @@ object CoreModule {
         single { NetworkClient(get(), get(), get(), get()) }
         single<ApiService> { get<NetworkClient>().create() }
     }
+    private val database = module {
+        single {
+            Room.databaseBuilder(androidContext(), DataBaseClient::class.java, "app_database")
+                .fallbackToDestructiveMigration()
+                .build()
+        }
+        single { get<DataBaseClient>().appDao() }
+    }
+
 
 
     val modules: List<Module> = listOf(
@@ -61,7 +74,8 @@ object CoreModule {
         dataSourceModule,
         repositoryModule,
         useCase,
-        networkModules
+        networkModules,
+        database
 
     )
 
