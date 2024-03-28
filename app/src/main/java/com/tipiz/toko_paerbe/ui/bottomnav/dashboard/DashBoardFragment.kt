@@ -1,6 +1,7 @@
 package com.tipiz.toko_paerbe.ui.bottomnav.dashboard
 
 import android.content.res.Configuration
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentDashBoardBinding
 import com.tipiz.toko_paerbe.ui.utils.BaseFragment
+import com.tipiz.toko_paerbe.ui.utils.Constant.FLAG_TRANSACTION
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,7 +31,18 @@ class DashBoardFragment :
         val navController = navHostFragment.findNavController()
         binding.bottomNav?.setupWithNavController(navController)
         binding.nrMain?.setupWithNavController(navController)
+        binding.lnMain?.setupWithNavController(navController)
         binding.nvMain?.setupWithNavController(navController)
+
+        val args = DashBoardFragmentArgs.fromBundle(requireArguments()).flag
+
+        Log.d("TAG", "onViewCreated: $args")
+        if (args == FLAG_TRANSACTION) {
+            binding.bottomNav?.selectedItemId = R.id.navigation_transaction
+            binding.nrMain?.selectedItemId = R.id.navigation_transaction
+            binding.lnMain?.selectedItemId = R.id.navigation_transaction
+            binding.nvMain?.menu?.performIdentifierAction(R.id.navigation_transaction, 0)
+        }
 
         val container: ViewGroup = binding.containerMainFragment
 

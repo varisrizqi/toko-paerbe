@@ -1,4 +1,4 @@
-package com.tipiz.toko_paerbe.ui.bottomnav.store
+package com.tipiz.toko_paerbe.ui.bottomnav.store.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -39,13 +39,13 @@ class StorePagingGridAdapter(private val listener: OnAdapterListener) :
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.thumbnail_load_product).error(R.drawable.thumbnail_load_product)
                 )
-                .into(binding.imgStore)
+                .into(binding.ivItemGridImg)
 
 
-            binding.tvTitle.text = item.productName
-            binding.tvPrice.text = currency(item.productPrice)
-            binding.tvStore.text = item.store
-            binding.tvRating.text = context.getString(R.string.sold)
+            binding.tvItemGridProductName.text = item.productName
+            binding.tvItemGridPrice.text = currency(item.productPrice)
+            binding.tvItemGridPrice.text = item.store
+            binding.tvItemGridRatingSold.text = context.getString(R.string.sold)
                 .replace("%5.0%", item.productRating.toString())
                 .replace("%10%", item.sale.toString())
         }

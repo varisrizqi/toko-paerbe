@@ -13,6 +13,9 @@ import com.tipiz.core.utils.state.onError
 import com.tipiz.core.utils.state.onSuccess
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentStoreBinding
+import com.tipiz.toko_paerbe.ui.bottomnav.store.adapter.ProductPagingAdapter
+import com.tipiz.toko_paerbe.ui.bottomnav.store.adapter.StorePagingGridAdapter
+import com.tipiz.toko_paerbe.ui.bottomnav.store.adapter.StorePagingListAdapter
 import com.tipiz.toko_paerbe.ui.utils.BaseFragment
 import com.tipiz.toko_paerbe.ui.utils.Constant
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,6 +25,9 @@ import retrofit2.HttpException
 class StoreFragment : BaseFragment<FragmentStoreBinding,StoreViewModel>(FragmentStoreBinding::inflate){
     override val viewModel: StoreViewModel by viewModel()
     private var pagingData: PagingData<DataProduct>? = null
+    private lateinit var adapter: ProductPagingAdapter
+    private lateinit var lmLinear: LinearLayoutManager
+    private lateinit var lmGrid: GridLayoutManager
 
 
     private val listAdapter by lazy {
@@ -49,12 +55,11 @@ class StoreFragment : BaseFragment<FragmentStoreBinding,StoreViewModel>(Fragment
     }
 
     override fun initView() {
+
         showProductList()
-        fetchGrid()
-
-
         binding.chipRv.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                fetchGrid()
                 showProductGrid()
                 binding.chipRv.chipIcon = context?.let {
                     AppCompatResources.getDrawable(
@@ -78,7 +83,6 @@ class StoreFragment : BaseFragment<FragmentStoreBinding,StoreViewModel>(Fragment
 
     override fun initViewModel() {
         with(viewModel){
-            fetchProduct()
             fetchProduct().launchAndCollectIn(viewLifecycleOwner) { product ->
                 product.onSuccess { data ->
                     pagingData = data
@@ -132,7 +136,7 @@ class StoreFragment : BaseFragment<FragmentStoreBinding,StoreViewModel>(Fragment
 
     private fun showProductList() {
         binding.rvStore.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(requireContext())
             adapter = listAdapter
             setHasFixedSize(true)
         }
@@ -148,6 +152,21 @@ class StoreFragment : BaseFragment<FragmentStoreBinding,StoreViewModel>(Fragment
         binding.chipRv.isChecked = true
     }
 
+    private fun initPagingGit(){
+        adapter = ProductPagingAdapter(object: ProductPagingAdapter.OnPagingListener{
+            override fun onClick(store: DataProduct) {
+                val mBundle = Bundle()
+                mBundle.putString(Constant.extra_detail, store.productId)
+                activity?.supportFragmentManager?.findFragmentById(R.id.container_main_nav_host)
+                    ?.findNavController()
+                    ?.navigate(R.id.action_dashBoardFragment_to_detailFragment, mBundle)
+            }
+        })
+
+        lmLinear = LinearLayoutManager(context)
+        lmGrid = GridLayoutManager(context, 2)
+
+    }
 
 
 }

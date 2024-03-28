@@ -1,10 +1,12 @@
 package com.tipiz.toko_paerbe.ui.bottomnav.home
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.navigation.fragment.findNavController
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentHomeBinding
 import com.tipiz.toko_paerbe.ui.utils.BaseFragment
+import com.tipiz.toko_paerbe.ui.utils.Constant.key_en
 import com.tipiz.toko_paerbe.ui.utils.Constant.key_in
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -15,11 +17,11 @@ class HomeFragment :
 
     override fun initView() {
         getTheme()
-//        getLocalize()
+        getLocalize()
         binding.btnLogout.text = getString(R.string.logout)
         binding.btnLogout.setOnClickListener {
-//            viewModel.clearSession()
-            viewModel.resetAll()
+            viewModel.clearSession()
+//            viewModel.resetAll()
             activity?.supportFragmentManager?.findFragmentById(R.id.container_main_nav_host)
                 ?.findNavController()?.navigate(R.id.action_dashBoardFragment_to_loginFragment)
         }
@@ -43,26 +45,26 @@ class HomeFragment :
                 }
             }
 
-//            binding.switchLocalize.setOnCheckedChangeListener { _, isChecked ->
-//                val lang: String
-//                when (isChecked) {
-//                    true -> {
-//                        AppCompatDelegate.setApplicationLocales(
-//                            LocaleListCompat.forLanguageTags(key_in)
-//                        )
-//                        lang = key_in
-//                    }
-//
-//                    false -> {
-//                        AppCompatDelegate.setApplicationLocales(
-//                            LocaleListCompat.forLanguageTags(key_en)
-//                        )
-//                        lang = key_en
-//
-//                    }
-//                }
-//                context?.let {  viewModel.setLocalize(lang) }
-//            }
+            binding.switchLocalize.setOnCheckedChangeListener { _, isChecked ->
+                val lang: String
+                when (isChecked) {
+                    true -> {
+                        AppCompatDelegate.setApplicationLocales(
+                            LocaleListCompat.forLanguageTags(key_in)
+                        )
+                        lang = key_in
+                    }
+
+                    false -> {
+                        AppCompatDelegate.setApplicationLocales(
+                            LocaleListCompat.forLanguageTags(key_en)
+                        )
+                        lang = key_en
+
+                    }
+                }
+                context?.let {  viewModel.setLocalize(lang) }
+            }
         }
 
     }

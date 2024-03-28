@@ -1,5 +1,6 @@
 package com.tipiz.toko_paerbe.ui.prelogin.register
 
+import android.text.method.LinkMovementMethod
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,7 @@ import com.tipiz.core.utils.state.onSuccess
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentRegisterBinding
 import com.tipiz.toko_paerbe.ui.utils.BaseFragment
+import com.tipiz.toko_paerbe.ui.utils.Spannable
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -39,8 +41,8 @@ class RegisterFragment :
             btnRegister.text = getString(R.string.register)
             btnLogin.text = getString(R.string.login)
             tvRegisterOr.text = getString(R.string.or_register_with)
-            toolbar.title = getString(R.string.login)
-//            spannableColor1()
+            toolbar.title = getString(R.string.register)
+            spannableColor1()
         }
     }
 
@@ -149,13 +151,13 @@ class RegisterFragment :
 
     }
 
-    /*
+
     private fun spannableColor1() {
         val sk = binding.tvRegisterTnc
         val fullText = getString(R.string.tnc)
         val defaultLocale = resources.configuration.locales[0].language
         sk.text = context?.let { Spannable.applyCustomTextColor(defaultLocale, it, fullText) }
         sk.movementMethod = LinkMovementMethod.getInstance()
-    }*/
+    }
 
 }

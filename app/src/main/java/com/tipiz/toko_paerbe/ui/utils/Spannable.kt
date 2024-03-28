@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.ui.utils.Constant.key_in
 
-/*
+
 object Spannable {
 
     private const val TERMS_CONDITION = "Terms & Conditions"
@@ -72,4 +72,4 @@ object Spannable {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         context.startActivity(intent)
     }
-}*/
+}

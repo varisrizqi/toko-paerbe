@@ -111,7 +111,7 @@ class PrefDatastore(private val dataStore: DataStore<Preferences>) : PrefDataSto
 
     override fun getLocalize(): Flow<String> {
        return dataStore.data.map { pref->
-           pref[key_localize] ?:""
+           pref[key_localize] ?: "en"
        }
     }
 

@@ -1,6 +1,7 @@
 package com.tipiz.toko_paerbe.ui.prelogin.login
 
 import android.os.Build
+import android.text.method.LinkMovementMethod
 import android.util.Patterns
 import android.view.View
 import androidx.annotation.RequiresApi
@@ -13,6 +14,7 @@ import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentLoginBinding
 import com.tipiz.toko_paerbe.ui.utils.BaseFragment
 import com.tipiz.toko_paerbe.ui.utils.CustomToast
+import com.tipiz.toko_paerbe.ui.utils.Spannable
 import com.tipiz.toko_paerbe.ui.utils.showToast
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -157,17 +159,17 @@ class LoginFragment :
             tvLoginTnc.text
 
         }
-//        spannableColor1()
+        spannableColor1()
     }
 
-    /*
+
     private fun spannableColor1() {
         val sk = binding.tvLoginTnc
         val fullText = getString(R.string.tnc)
         val defaultLocale = resources.configuration.locales[0].language
         sk.text = context?.let { Spannable.applyCustomTextColor(defaultLocale, it, fullText) }
         sk.movementMethod = LinkMovementMethod.getInstance()
-    }*/
+    }
 
 
 }

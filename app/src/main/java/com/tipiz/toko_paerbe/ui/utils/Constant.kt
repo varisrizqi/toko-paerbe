@@ -28,6 +28,7 @@ object Constant {
     const val key_in = "in"
 
     const val extra_detail ="extra_detail"
+    const val FLAG_TRANSACTION = "transaction"
 
 
 
