@@ -6,7 +6,6 @@ import com.tipiz.core.data.local.datastore.PrefDataStoreHelper
 import com.tipiz.core.data.network.data.refresh.RefreshRequest
 import com.tipiz.core.data.network.data.refresh.RefreshResponse
 import com.tipiz.core.data.network.retrofit.ApiService
-import com.tipiz.core.data.network.retrofit.interceptor.AuthInterceptor.Companion.api_key
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
@@ -20,11 +19,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class TokenInterceptor(
     private val prefs: PrefDataStoreHelper,
+    private val authInterceptor: AuthInterceptor,
     private val chuckerInterceptor: ChuckerInterceptor
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         val refreshToken = prefs.getRefreshToken()
-        synchronized(this) {
+        synchronized(this){
             return runBlocking {
                 try {
                     val newToken = refreshToken(RefreshRequest(refreshToken.first()))
@@ -32,9 +32,9 @@ class TokenInterceptor(
                     prefs.setAccessToken(newToken.data.accessToken)
                     response.request
                         .newBuilder()
-                        .header(AuthInterceptor.authorization,"Bearer ${newToken.data.accessToken}")
+                        .header("Authorization", "Bearer ${newToken.data.accessToken}")
                         .build()
-                } catch (error: Throwable) {
+                }catch (error:Throwable){
                     response.close()
                     null
                 }
@@ -43,16 +43,17 @@ class TokenInterceptor(
     }
 
     private suspend fun refreshToken(tokenRequest: RefreshRequest): RefreshResponse {
-        val interceptor = Interceptor.invoke { chain ->
+        val interceptor = Interceptor.invoke {chain ->
             val request = chain
                 .request()
                 .newBuilder()
-                .addHeader(api_key, BuildConfig.API_KEY)
+                .addHeader("API_KEY", BuildConfig.API_KEY)
                 .build()
             chain.proceed(request)
         }
 
         val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(chuckerInterceptor)
             .addInterceptor(interceptor)
             .build()
@@ -68,10 +69,9 @@ class TokenInterceptor(
             prefs.setAccessToken(newRequest.data.accessToken)
             prefs.setRefreshToken(newRequest.data.refreshToken)
             return newRequest
-        } catch (e: Exception) {
+        }catch (e:Exception){
             throw Exception(e.message)
         }
-
     }
 
 }

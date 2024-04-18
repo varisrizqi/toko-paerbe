@@ -8,6 +8,7 @@ import com.tipiz.core.data.network.data.refresh.RefreshRequest
 import com.tipiz.core.data.network.data.refresh.RefreshResponse
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.data.network.data.register.RegisterResponse
+import com.tipiz.core.data.network.data.search.SearchResponse
 import com.tipiz.core.remote.data.detail.DetailResponse
 import com.tipiz.core.remote.data.review.ReviewResponse
 import okhttp3.MultipartBody
@@ -54,6 +55,11 @@ interface ApiService {
         @Query("limit") limit: Int? = null,
         @Query("page") page: Int? = null,
     ): ProductsResponse
+
+    @POST("search")
+    suspend fun search(
+        @Query("query") query: String? = null
+    ): SearchResponse
 
     @GET("products/{id}")
     suspend fun fetchDetailProduct(

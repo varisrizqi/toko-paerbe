@@ -30,6 +30,7 @@ class LoginViewModel(private val useCase: TokoUseCase) : ViewModel() {
              useCase.setRefreshToken(dataLogin.refreshToken)
              useCase.setUserName(dataLogin.userName)
              useCase.setUserId(toBase)
+             useCase.setIslogin(true)
          }
 
     }

@@ -5,6 +5,7 @@ import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.products.ItemsItem
 import com.tipiz.core.data.network.data.products.ProductsResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
+import com.tipiz.core.data.network.data.refresh.RefreshRequest
 import com.tipiz.core.data.network.data.refresh.RefreshResponse
 import com.tipiz.core.data.network.data.register.RegisterResponse
 import com.tipiz.core.domain.model.login.DataLogin
@@ -13,6 +14,7 @@ import com.tipiz.core.domain.model.login.DataToken
 import com.tipiz.core.domain.model.products.DataDetailProduct
 import com.tipiz.core.domain.model.products.DataProduct
 import com.tipiz.core.domain.model.products.ProductVariant
+import com.tipiz.core.domain.model.refresh.RefreshBody
 import com.tipiz.core.domain.model.review.DataReview
 import com.tipiz.core.remote.data.detail.DataDetail
 import com.tipiz.core.remote.data.detail.ProductVariantItem
@@ -46,6 +48,27 @@ object DataMapper {
         userImage = data.userImage
     )
 
+    /*
+   * sample mengambil data langsung dari API
+   * dari response ke model
+   * tanpa menyimpan ke room
+   * */
+    private fun ItemsItem.toUiData() = DataProduct(
+        productId = productId,
+        productName = productName,
+        productPrice = productPrice,
+        image = image,
+        store = store,
+        sale = sale,
+        productRating = productRating
+    )
+
+    fun ProductsResponse.toUiListData() = data.items.map { item -> item.toUiData() }.toList()
+
+
+    /*
+     * sample mengubah data dari response ke entity room(local)
+     * */
     private fun ItemsItem.toLocalData() = ProductEntity(
         productId = productId,
         image = image,
@@ -100,4 +123,8 @@ object DataMapper {
     )
 
     fun ReviewResponse.toUiListData() = data.map { review -> review.toUiData() }.toList()
+
+    fun RefreshRequest.toUiData() = RefreshBody(
+        token = token
+    )
 }

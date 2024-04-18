@@ -14,13 +14,13 @@ import com.tipiz.core.utils.state.onSuccess
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentDetailBinding
 import com.tipiz.toko_paerbe.ui.bottomnav.store.StoreViewModel
-import com.tipiz.toko_paerbe.ui.utils.BaseFragment
+import com.tipiz.toko_paerbe.ui.utils.BaseFragmentBottomNav
 import com.tipiz.toko_paerbe.ui.utils.Constant
 import com.tipiz.toko_paerbe.ui.utils.currency
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class DetailFragment : BaseFragment<FragmentDetailBinding, StoreViewModel>(FragmentDetailBinding::inflate){
+class DetailFragment : BaseFragmentBottomNav<FragmentDetailBinding, StoreViewModel>(FragmentDetailBinding::inflate){
     override val viewModel: StoreViewModel by viewModel() //ktx
     private var isFav: Boolean = false
 

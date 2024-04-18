@@ -5,10 +5,10 @@ import com.tipiz.core.data.local.room.entity.ProductEntity
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
-import com.tipiz.core.data.network.data.refresh.RefreshRequest
-import com.tipiz.core.data.network.data.refresh.RefreshResponse
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.data.network.data.register.RegisterResponse
+import com.tipiz.core.domain.model.products.DataProduct
+import com.tipiz.core.domain.model.products.ProductsBody
 import com.tipiz.core.remote.data.detail.DetailResponse
 import com.tipiz.core.remote.data.review.ReviewResponse
 import kotlinx.coroutines.flow.Flow
@@ -40,10 +40,13 @@ interface TokoRepository {
 
     suspend fun resetAll()
 
+    suspend fun setIslogin(value: Boolean)
+    fun getIsLogin():Flow<Boolean>
+
     //Remote Api
     suspend fun fetchRegister(request: RegisterRequest): RegisterResponse
     suspend fun fetchLogin(request: LoginRequest): LoginResponse
-    suspend fun fetchRefreshToken(request: RefreshRequest): RefreshResponse
+//    suspend fun fetchRefreshToken(request: RefreshRequest): RefreshResponse
 
     suspend fun fetchProfile(
         userName: RequestBody,
@@ -51,6 +54,7 @@ interface TokoRepository {
     ): ProfileResponse
 
     suspend fun fetchProductLocal(): Flow<PagingData<ProductEntity>>
+    fun gitProduct(productsBody: ProductsBody?): Flow<PagingData<DataProduct>>
 
     suspend fun fetchDetailProduct(
         id: String

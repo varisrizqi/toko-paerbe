@@ -3,8 +3,6 @@ package com.tipiz.core.data.network.datasource
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
-import com.tipiz.core.data.network.data.refresh.RefreshRequest
-import com.tipiz.core.data.network.data.refresh.RefreshResponse
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.data.network.data.register.RegisterResponse
 import com.tipiz.core.data.network.retrofit.ApiService
@@ -23,8 +21,8 @@ class RemoteDataSource(private val apiEndpoint: ApiService) {
     suspend fun fetchLogin(request: LoginRequest): LoginResponse =
         safeApiCall { apiEndpoint.fetchLogin(request = request) }
 
-    suspend fun fetchRefreshToken(request: RefreshRequest): RefreshResponse =
-        safeApiCall { apiEndpoint.fetchRefreshToken(request = request) }
+//    suspend fun fetchRefreshToken(request: RefreshRequest): RefreshResponse =
+//        safeApiCall { apiEndpoint.fetchRefreshToken(request = request) }
 
     suspend fun fetchProfile(
         userName: RequestBody,

@@ -3,6 +3,7 @@ package com.tipiz.core.data.local.datastore
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import com.tipiz.core.utils.Constant.PrefDatastore.isLogin
 import com.tipiz.core.utils.Constant.PrefDatastore.key_access_token
 import com.tipiz.core.utils.Constant.PrefDatastore.key_localize
 import com.tipiz.core.utils.Constant.PrefDatastore.key_refresh_token
@@ -81,11 +82,24 @@ class PrefDatastore(private val dataStore: DataStore<Preferences>) : PrefDataSto
         }
     }
 
+    override suspend fun setIslogin(value: Boolean) {
+        dataStore.edit {
+            it[isLogin] = value
+        }
+    }
+
+    override fun getIsLogin(): Flow<Boolean> {
+        return dataStore.data.map {
+            it[isLogin] ?: false
+        }
+    }
+
     override suspend fun clearSession() {
             dataStore.edit {
                 it.remove(key_username)
                 it.remove(key_access_token)
                 it.remove(key_refresh_token)
+                it[isLogin] = false
             }
 
     }

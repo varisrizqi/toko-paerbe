@@ -29,4 +29,7 @@ interface PrefDataStoreHelper {
     fun getLocalize():Flow<String>
 
     suspend fun resetAll()
+
+    suspend fun setIslogin(value: Boolean)
+    fun getIsLogin():Flow<Boolean>
 }

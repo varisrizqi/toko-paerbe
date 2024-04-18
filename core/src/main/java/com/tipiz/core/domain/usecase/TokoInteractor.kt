@@ -3,13 +3,13 @@ package com.tipiz.core.domain.usecase
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.tipiz.core.data.network.data.login.LoginRequest
-import com.tipiz.core.data.network.data.refresh.RefreshRequest
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.domain.model.login.DataLogin
 import com.tipiz.core.domain.model.login.DataProfile
 import com.tipiz.core.domain.model.login.DataToken
 import com.tipiz.core.domain.model.products.DataDetailProduct
 import com.tipiz.core.domain.model.products.DataProduct
+import com.tipiz.core.domain.model.products.ProductsBody
 import com.tipiz.core.domain.model.review.DataReview
 import com.tipiz.core.domain.repository.TokoRepository
 import com.tipiz.core.utils.DataMapper.toUIData
@@ -78,6 +78,15 @@ class TokoInteractor(
         repo.resetAll()
     }
 
+    override suspend fun setIslogin(value: Boolean) {
+      repo.setIslogin(value)
+    }
+
+    override fun getIsLogin(): Flow<Boolean> {
+      return repo.getIsLogin()
+    }
+
+
     // ============ Remote Api ============
     override suspend fun fetchRegister(request: RegisterRequest): DataToken = safeDataCall {
         repo.fetchRegister(request = request).toUiData()
@@ -87,9 +96,9 @@ class TokoInteractor(
         repo.fetchLogin(request = request).toUiData()
     }
 
-    override suspend fun fetchRefreshToken(request: RefreshRequest): DataToken = safeDataCall {
-        repo.fetchRefreshToken(request = request).toUiData()
-    }
+//    override suspend fun fetchRefreshToken(request: RefreshRequest): DataToken = safeDataCall {
+//        repo.fetchRefreshToken(request = request).toUiData()
+//    }
 
     override suspend fun fetchProfile(
         userName: RequestBody,
@@ -105,6 +114,10 @@ class TokoInteractor(
                 UiState.Success(mapped)
             }.flowOn(Dispatchers.IO).catch { throwable -> UiState.Error(throwable) }
         }
+    }
+
+    override fun gitProduct(productsBody: ProductsBody?): Flow<PagingData<DataProduct>> {
+        return repo.gitProduct(productsBody)
     }
 
     override suspend fun fetchDetailProduct(id: String): DataDetailProduct {

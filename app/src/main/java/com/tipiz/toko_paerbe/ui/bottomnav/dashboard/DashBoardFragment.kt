@@ -1,6 +1,7 @@
 package com.tipiz.toko_paerbe.ui.bottomnav.dashboard
 
 import android.content.res.Configuration
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -14,17 +15,26 @@ import androidx.window.layout.WindowMetricsCalculator
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentDashBoardBinding
-import com.tipiz.toko_paerbe.ui.utils.BaseFragment
+import com.tipiz.toko_paerbe.ui.utils.BaseFragmentBottomNav
 import com.tipiz.toko_paerbe.ui.utils.Constant.FLAG_TRANSACTION
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashBoardFragment :
-    BaseFragment<FragmentDashBoardBinding, DashBoardViewModel>(FragmentDashBoardBinding::inflate) {
+    BaseFragmentBottomNav<FragmentDashBoardBinding, DashBoardViewModel>(FragmentDashBoardBinding::inflate) {
     override val viewModel: DashBoardViewModel by viewModel()
     private lateinit var navController: NavController
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (viewModel.getAccessToken() == "") {
+            println("varis DashBoardFragment 1")
+            findNavController().navigate(R.id.action_dashBoardFragment_to_loginFragment)
+        }
+    }
     override fun initView() {
+
         // Navigation Setup
         val navHostFragment =
             this.childFragmentManager.findFragmentById(R.id.nav_bottom_fragment) as NavHostFragment
@@ -70,9 +80,12 @@ class DashBoardFragment :
     }
 
     override fun initViewModel() {
+
         lifecycleScope.launch {
             val username = viewModel.getUserName()
             binding.toolbar.title = username
+
+
         }
     }
 

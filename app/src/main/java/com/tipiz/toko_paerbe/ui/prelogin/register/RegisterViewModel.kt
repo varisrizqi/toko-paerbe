@@ -24,6 +24,7 @@ class RegisterViewModel(private val useCase: TokoUseCase) : ViewModel() {
         runBlocking(Dispatchers.IO) {
             useCase.setAccessToken(token.accessToken)
             useCase.setRefreshToken(token.refreshToken)
+            useCase.setIslogin(true)
         }
     }
 

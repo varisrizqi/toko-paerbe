@@ -2,13 +2,13 @@ package com.tipiz.core.domain.usecase
 
 import androidx.paging.PagingData
 import com.tipiz.core.data.network.data.login.LoginRequest
-import com.tipiz.core.data.network.data.refresh.RefreshRequest
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.domain.model.login.DataLogin
 import com.tipiz.core.domain.model.login.DataProfile
 import com.tipiz.core.domain.model.login.DataToken
 import com.tipiz.core.domain.model.products.DataDetailProduct
 import com.tipiz.core.domain.model.products.DataProduct
+import com.tipiz.core.domain.model.products.ProductsBody
 import com.tipiz.core.domain.model.review.DataReview
 import com.tipiz.core.utils.state.UiState
 import kotlinx.coroutines.flow.Flow
@@ -47,11 +47,13 @@ interface TokoUseCase {
 
     suspend fun resetAll()
 
+    suspend fun setIslogin(value: Boolean)
+    fun getIsLogin():Flow<Boolean>
 
     //Remote Api
     suspend fun fetchRegister(request: RegisterRequest): DataToken
     suspend fun fetchLogin(request: LoginRequest): DataLogin
-    suspend fun fetchRefreshToken(request: RefreshRequest): DataToken
+//    suspend fun fetchRefreshToken(request: RefreshRequest): DataToken
 
     suspend fun fetchProfile(
         userName: RequestBody,
@@ -59,6 +61,8 @@ interface TokoUseCase {
     ): DataProfile
 
     suspend fun fetchProductLocal(): Flow<UiState<PagingData<DataProduct>>>
+    fun gitProduct(productsBody: ProductsBody?): Flow<PagingData<DataProduct>>
+
 
     suspend fun fetchDetailProduct(
         id:String

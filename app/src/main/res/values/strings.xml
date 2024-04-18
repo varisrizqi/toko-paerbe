@@ -43,7 +43,7 @@
     <string name="dark">Dark</string>
     <string name="search">Search</string>
     <string name="internal_server_error">Internal server error</string>
-    <string name="refresh">refresh</string>
+    <string name="refresh">Refresh</string>
     <string name="filter" translatable="false">Filter</string>
     <string name="lenovo_legion_7_16_i7_11800_16gb_1tb_ssd_rtx3070_8gb">Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB</string>
     <string name="sold">%5.0% | Sold %10%</string>
@@ -68,4 +68,23 @@
     <string name="login">Login</string>
     <string name="skip">Skip</string>
     <string name="transaction">Transaction</string>
+    <string name="io_exception_code">Connection</string>
+    <string name="io_exception_message">Your connection is unavailable</string>
+    <string name="http_exception_404_code">Empty</string>
+    <string name="http_exception_404_message">Your requested data is unavailable</string>
+    <string name="reset" translatable="false">Reset</string>
+    <string name="review">Review</string>
+    <string name="sale">Sale</string>
+    <string name="lowest_price">Lowest Price</string>
+    <string name="highest_price">Highest Price</string>
+    <string name="category">Category</string>
+    <string name="apple">Apple</string>
+    <string name="asus">Asus</string>
+    <string name="dell">Dell</string>
+    <string name="lenovo">Lenovo</string>
+    <string name="textPrice">Price</string>
+    <string name="lowest">Lowest</string>
+    <string name="highest">Highest</string>
+    <string name="show_products">Show Products</string>
+    <string name="sort">Sort</string>
 </resources>

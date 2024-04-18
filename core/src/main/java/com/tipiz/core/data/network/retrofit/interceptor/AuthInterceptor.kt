@@ -2,7 +2,6 @@ package com.tipiz.core.data.network.retrofit.interceptor
 
 import com.tipiz.core.BuildConfig
 import com.tipiz.core.data.local.datastore.PrefDataStoreHelper
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
@@ -19,7 +18,7 @@ class AuthInterceptor(private val pref: PrefDataStoreHelper) : Interceptor {
             }
 
             else -> {
-                val accessToken = runBlocking(Dispatchers.IO) {
+                val accessToken = runBlocking {
                     pref.getAccessToken().first()
                 }
                 request.newBuilder()

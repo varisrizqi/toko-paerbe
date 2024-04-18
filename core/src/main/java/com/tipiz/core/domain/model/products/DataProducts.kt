@@ -16,3 +16,4 @@ data class DataProduct(
     val brand: String = "",
     val productRating: Float = 0.0f
 ): Parcelable
+
