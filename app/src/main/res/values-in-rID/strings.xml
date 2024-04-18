@@ -65,4 +65,8 @@
     <string name="login">Gabung</string>
     <string name="skip">Lewati</string>
     <string name="transaction">Transaksi</string>
+    <string name="io_exception_code">Koneksi</string>
+    <string name="io_exception_message">Jaringan anda tidak tersedia</string>
+    <string name="http_exception_404_code">Kosong</string>
+    <string name="http_exception_404_message">Data yang Anda minta tidak tersedia</string>
 </resources>

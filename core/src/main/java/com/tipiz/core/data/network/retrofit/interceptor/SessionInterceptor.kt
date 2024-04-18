@@ -1,7 +1,6 @@
 package com.tipiz.core.data.network.retrofit.interceptor
 
 import com.tipiz.core.data.local.datastore.PrefDataStoreHelper
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -12,9 +11,11 @@ class SessionInterceptor(private val prefs: PrefDataStoreHelper) : Interceptor {
         val request = chain.request()
         val response = chain.proceed(request)
 
+
         if (response.code == 401) {
-            runBlocking(Dispatchers.IO) {
+            runBlocking {
                 prefs.clearSession()
+                println("varis end session")
             }
         }
         return response

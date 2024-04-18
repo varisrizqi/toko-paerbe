@@ -53,10 +53,11 @@ object CoreModule {
     private val networkModules = module {
         single { AuthInterceptor(get()) }
         single { SessionInterceptor(get()) }
-        single { TokenInterceptor(get(), get()) }
+        single { TokenInterceptor(get(), get(), get()) }
         single { ChuckerInterceptor.Builder(androidContext()).build() }
         single { NetworkClient(get(), get(), get(), get()) }
         single<ApiService> { get<NetworkClient>().create() }
+
     }
     private val database = module {
         single {

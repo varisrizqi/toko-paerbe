@@ -24,7 +24,7 @@ class ProductPagingAdapter(private val listener: OnPagingListener) :
 
     inner class ViewHolderGrid(private val binding: ItemProductGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: DataProduct,context: Context) {
+        fun bind(data: DataProduct, context: Context) {
             with(binding) {
                 cvProductGrid.startAnimation(
                     AnimationUtils.loadAnimation(
@@ -50,7 +50,7 @@ class ProductPagingAdapter(private val listener: OnPagingListener) :
 
     inner class ViewHolderLinear(private val binding: ItemProductLinearBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: DataProduct,context: Context) {
+        fun bind(data: DataProduct, context: Context) {
             with(binding) {
                 cvProductLinear.startAnimation(
                     AnimationUtils.loadAnimation(
@@ -72,16 +72,6 @@ class ProductPagingAdapter(private val listener: OnPagingListener) :
             }
         }
     }
-
-//    private lateinit var onItemClickCallback: OnItemClickCallback
-//
-//    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-//        this.onItemClickCallback = onItemClickCallback
-//    }
-//
-//    interface OnItemClickCallback {
-//        fun onItemClicked(data: DataProduct)
-//    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -113,16 +103,6 @@ class ProductPagingAdapter(private val listener: OnPagingListener) :
         when (isGridLayout) {
             false -> {
                 val viewHolderLinear = holder as ViewHolderLinear
-//                viewHolderLinear.itemView.setOnClickListener {
-//                    if (data != null) {
-//                        onItemClickCallback.onItemClicked(
-//                            data
-//                        )
-//                    }
-//                }
-//                if (data != null) {
-//                    viewHolderLinear.bind(data)
-//                }
                 viewHolderLinear.itemView.setOnClickListener {
                     data?.let { it1 -> listener.onClick(it1) }
                 }

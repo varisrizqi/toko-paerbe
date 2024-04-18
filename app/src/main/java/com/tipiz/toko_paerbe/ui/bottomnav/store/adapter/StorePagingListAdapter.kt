@@ -3,7 +3,6 @@ package com.tipiz.toko_paerbe.ui.bottomnav.store.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -44,13 +43,6 @@ class StorePagingListAdapter(private val listener: OnAdapterListener) :
                             .error(R.drawable.thumbnail_load_product)
                     )
                     .into(ivItemLinearImg)
-
-                cvProductLinear.startAnimation(
-                    AnimationUtils.loadAnimation(
-                        itemView.context,
-                        R.anim.anim_one
-                    )
-                )
                 tvItemLinearProductName.text = item.productName
                 tvItemLinearPrice.text = currency(item.productPrice)
                 tvItemLinearStoreName.text = item.store

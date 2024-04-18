@@ -7,11 +7,11 @@ import com.tipiz.core.data.local.room.entity.ProductEntity
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
-import com.tipiz.core.data.network.data.refresh.RefreshRequest
-import com.tipiz.core.data.network.data.refresh.RefreshResponse
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.data.network.data.register.RegisterResponse
 import com.tipiz.core.data.network.datasource.RemoteDataSource
+import com.tipiz.core.domain.model.products.DataProduct
+import com.tipiz.core.domain.model.products.ProductsBody
 import com.tipiz.core.remote.data.detail.DetailResponse
 import com.tipiz.core.remote.data.review.ReviewResponse
 import com.tipiz.core.utils.state.safeDataCall
@@ -62,7 +62,7 @@ class TokoRepositoryImpl(
     override fun getUserId(): Flow<String> = local.getUserId()
 
     override suspend fun setTheme(value: Boolean) {
-       local.setTheme(value)
+        local.setTheme(value)
     }
 
     override fun getTheme(): Flow<Boolean> = local.getTheme()
@@ -75,6 +75,14 @@ class TokoRepositoryImpl(
         local.resetAll()
     }
 
+    override suspend fun setIslogin(value: Boolean) {
+        local.setIsLogin(value)
+    }
+
+    override fun getIsLogin(): Flow<Boolean> {
+        return local.getIsLogin()
+    }
+
     //Remote Api
     override suspend fun fetchRegister(request: RegisterRequest): RegisterResponse = safeDataCall {
         remote.fetchRegister(request = request)
@@ -84,10 +92,11 @@ class TokoRepositoryImpl(
         remote.fetchLogin(request = request)
     }
 
-    override suspend fun fetchRefreshToken(request: RefreshRequest): RefreshResponse =
-        safeDataCall {
-            remote.fetchRefreshToken(request = request)
-        }
+//    override suspend fun fetchRefreshToken(request: RefreshRequest): RefreshResponse =
+//        safeDataCall {
+//            remote.fetchRefreshToken(request = request)
+//        }
+
 
     override suspend fun fetchProfile(
         userName: RequestBody,
@@ -100,6 +109,10 @@ class TokoRepositoryImpl(
 
     override suspend fun fetchProductLocal(): Flow<PagingData<ProductEntity>> = safeDataCall {
         paging.fetchProduct()
+    }
+
+    override fun gitProduct(productsBody: ProductsBody?): Flow<PagingData<DataProduct>> {
+        return paging.gitProduct(productsBody)
     }
 
     override suspend fun fetchDetailProduct(id: String): DetailResponse {

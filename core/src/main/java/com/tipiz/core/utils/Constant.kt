@@ -13,6 +13,7 @@ object Constant {
         val key_userid = stringPreferencesKey("key_userid")
         val key_theme = booleanPreferencesKey("key_theme")
         val key_localize = stringPreferencesKey("key_localize")
+        val isLogin = booleanPreferencesKey("is_login")
         const val PREFS_NAME = "myPrefs"
 
 

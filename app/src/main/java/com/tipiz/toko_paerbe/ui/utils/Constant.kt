@@ -27,10 +27,14 @@ object Constant {
     const val key_en = "en"
     const val key_in = "in"
 
+    //detail store
     const val extra_detail ="extra_detail"
     const val FLAG_TRANSACTION = "transaction"
+     const val PAGING_PAGE_LIMIT = 10
+     const val PAGING_PAGE = 1
 
-
+    //bottomSheet
+    const val extra_btm_sheet = "extra_bottom_sheet"
 
 
 
@@ -40,5 +44,5 @@ object Constant {
 fun String.toBase64() = Base64.getEncoder().encodeToString(this.toByteArray())
 
 fun showToast(context:Context,value:String){
-    Toast.makeText(context, value, Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, value, Toast.LENGTH_LONG).show()
 }

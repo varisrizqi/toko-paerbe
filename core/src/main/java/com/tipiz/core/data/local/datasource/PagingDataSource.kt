@@ -8,6 +8,7 @@ import com.tipiz.core.data.local.mediator.AppRemoteMediator
 import com.tipiz.core.data.local.room.database.DataBaseClient
 import com.tipiz.core.data.local.room.entity.ProductEntity
 import com.tipiz.core.data.network.retrofit.ApiService
+import com.tipiz.core.domain.model.products.ProductsBody
 import kotlinx.coroutines.flow.Flow
 
 
@@ -17,6 +18,8 @@ class PagingDataSource(
     private val database: DataBaseClient
 ) {
 
+
+    //form bootcamp
     fun fetchProduct(): Flow<PagingData<ProductEntity>> = Pager(
         config = PagingConfig(
             enablePlaceholders = false,
@@ -27,6 +30,19 @@ class PagingDataSource(
         remoteMediator = AppRemoteMediator(apiEndPoint = apiService, database = database),
         pagingSourceFactory = {
             database.appDao().retrieveAllProducts()
+        }
+    ).flow
+
+
+    //from git
+    fun gitProduct(body: ProductsBody?) = Pager(
+        config = PagingConfig(
+            pageSize = 10,
+            prefetchDistance = 1,
+            initialLoadSize = 10
+        ),
+        pagingSourceFactory = {
+            ProductPagingSource(apiService ,body)
         }
     ).flow
 }

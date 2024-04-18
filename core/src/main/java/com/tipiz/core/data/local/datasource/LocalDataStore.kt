@@ -45,4 +45,8 @@ class LocalDataStore(private val dataSource: PrefDataStoreHelper) {
      dataSource.resetAll()
     }
 
+    suspend fun setIsLogin(value: Boolean) = dataSource.setIslogin(value)
+
+    fun getIsLogin():Flow<Boolean> = dataSource.getIsLogin()
+
 }
