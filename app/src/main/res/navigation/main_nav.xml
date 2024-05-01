@@ -119,9 +119,16 @@
         android:name="com.tipiz.toko_paerbe.ui.bottomnav.store.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="productId"
+            app:argType="string" />
         <action
             android:id="@+id/action_detailFragment_to_reviewFragment"
             app:destination="@id/reviewFragment" />
+        <argument
+            android:name="variantName"
+            android:defaultValue="RAM 16GB"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/reviewFragment"

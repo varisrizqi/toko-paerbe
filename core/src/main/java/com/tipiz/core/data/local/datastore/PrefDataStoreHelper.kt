@@ -32,4 +32,5 @@ interface PrefDataStoreHelper {
 
     suspend fun setIslogin(value: Boolean)
     fun getIsLogin():Flow<Boolean>
+
 }

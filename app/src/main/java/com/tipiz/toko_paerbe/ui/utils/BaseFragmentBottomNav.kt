@@ -36,7 +36,7 @@ abstract class BaseFragmentBottomNav<VB : ViewBinding, VM : ViewModel>(
 
         viewModel2.getIsLogin().observe(viewLifecycleOwner){
             if (!it) {
-                println("varis BaseFragmentBottomNav 1")
+                println("relogin BaseFragmentBottomNav 1")
                 val intent = Intent((requireActivity()), MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)

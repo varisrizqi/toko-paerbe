@@ -1,8 +1,8 @@
 package com.tipiz.core.remote.data.detail
 
-import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class DetailResponse(
@@ -11,7 +11,7 @@ data class DetailResponse(
 	val code: Int = 0,
 
 	@field:SerializedName("data")
-	val data: DataDetail = DataDetail(),
+	val data: DataDetail,
 
 	@field:SerializedName("message")
 	val message: String = ""
@@ -61,7 +61,7 @@ data class DataDetail(
 	val stock: Int = 0,
 
 	@field:SerializedName("productRating")
-	val productRating: Float= 0.0f,
+	val productRating: Double= 0.0,
 
 	@field:SerializedName("brand")
 	val brand: String = "",

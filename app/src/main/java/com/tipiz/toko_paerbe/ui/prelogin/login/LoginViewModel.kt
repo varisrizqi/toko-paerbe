@@ -31,6 +31,7 @@ class LoginViewModel(private val useCase: TokoUseCase) : ViewModel() {
              useCase.setUserName(dataLogin.userName)
              useCase.setUserId(toBase)
              useCase.setIslogin(true)
+             println("varis VM:- $toBase")
          }
 
     }

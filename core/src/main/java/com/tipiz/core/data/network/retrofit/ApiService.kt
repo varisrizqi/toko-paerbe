@@ -63,7 +63,7 @@ interface ApiService {
 
     @GET("products/{id}")
     suspend fun fetchDetailProduct(
-        @Path("id") id: String
+        @Path("id") id: String?
     ): DetailResponse
 
     @GET("review/{id}")

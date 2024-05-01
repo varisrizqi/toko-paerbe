@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.bottomnav.store.detail.DetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/parent_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
         android:fitsSystemWindows="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,12 +21,28 @@
             android:layout_height="?attr/actionBarSize"
             app:iconTint="?attr/colorControlNormal"
             app:navigationIcon="@drawable/ic_arrow_back"
-            tools:title="@string/detail_product"/>
+            app:title="@string/detail_product" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ProgressBar
+        android:id="@+id/pg_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"/>
+
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -41,9 +58,9 @@
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
+                app:layout_constraintBottom_toTopOf="@id/tv_details_price"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/tv_details_price"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_details_tab_view"
@@ -76,21 +93,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/transparent"
-                tools:src="@drawable/ic_share"
                 app:layout_constraintBottom_toBottomOf="@id/tv_details_price"
-                app:layout_constraintEnd_toStartOf="@id/cb_details_favorite"
-                app:layout_constraintTop_toTopOf="@id/tv_details_price" />
+                app:layout_constraintEnd_toStartOf="@id/iv_detail_fav"
+                app:layout_constraintTop_toTopOf="@id/tv_details_price"
+                tools:src="@drawable/ic_share" />
 
-            <ImageButton
-                android:id="@+id/cb_details_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/iv_detail_fav"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/transparent"
-                tools:src="@drawable/ic_favorite_border"
+                android:src="@drawable/ic_favorite_border"
                 app:layout_constraintBottom_toBottomOf="@id/tv_details_price"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_details_price" />
+                app:layout_constraintTop_toTopOf="@id/tv_details_price"
+                />
 
             <TextView
                 android:id="@+id/tv_details_title"
@@ -113,10 +130,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins"
-                tools:text="@string/sold_10"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_details_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_details_title"
+                tools:text="@string/sold_10" />
 
 
             <LinearLayout
@@ -161,17 +178,20 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_medium"
-                tools:text="@string/select_variant"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/md_details1" />
+                app:layout_constraintTop_toBottomOf="@id/md_details1"
+                tools:text="@string/select_variant" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/cg_details_variants"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
+                app:chipSpacingHorizontal="0dp"
+                app:selectionRequired="true"
+                app:singleSelection="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_details_select_variant" />
@@ -190,10 +210,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_medium"
-                tools:text="@string/product_description"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/md_details2" />
+                app:layout_constraintTop_toBottomOf="@id/md_details2"
+                tools:text="@string/product_description" />
 
             <TextView
                 android:id="@+id/tv_details_desc"
@@ -220,10 +240,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_medium"
-                tools:text="@string/buyer_reviews"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/md_details3" />
+                app:layout_constraintTop_toBottomOf="@id/md_details3"
+                tools:text="@string/buyer_reviews" />
 
             <Button
                 android:id="@+id/btn_details_review_all"
@@ -231,10 +251,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                tools:text="@string/see_all"
                 app:layout_constraintBottom_toBottomOf="@id/tv_details_review_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_details_review_title" />
+                app:layout_constraintTop_toTopOf="@id/tv_details_review_title"
+                tools:text="@string/see_all" />
 
 
             <ImageView
@@ -265,11 +285,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/poppins"
-                tools:text="@string/_5_0"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="@id/tv_details_star_review"
                 app:layout_constraintStart_toEndOf="@id/tv_details_star_review"
-                app:layout_constraintTop_toTopOf="@id/tv_details_star_review" />
+                app:layout_constraintTop_toTopOf="@id/tv_details_star_review"
+                tools:text="@string/_5_0" />
 
             <TextView
                 android:id="@+id/tv_details_satisfaction"
@@ -287,9 +307,9 @@
                 android:id="@+id/tv_details_rating_review"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
                 android:fontFamily="@font/poppins"
                 android:textSize="12sp"
-                android:layout_marginBottom="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_details_satisfaction"
                 app:layout_constraintTop_toBottomOf="@id/tv_details_satisfaction"
@@ -327,20 +347,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                tools:text="@string/buy"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_add_to_cart"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="@string/buy" />
 
             <Button
                 android:id="@+id/btn_add_to_cart"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                tools:text="@string/cart_plus"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btn_direct_buy" />
+                app:layout_constraintStart_toEndOf="@id/btn_direct_buy"
+                tools:text="@string/cart_plus" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

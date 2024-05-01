@@ -87,4 +87,7 @@
     <string name="highest">Highest</string>
     <string name="show_products">Show Products</string>
     <string name="sort">Sort</string>
+    <string name="success_added_to_wishlist">success added to wishlist</string>
+    <string name="empty">Empty</string>
+    <string name="item_s">%1$d Item(s)</string>
 </resources>

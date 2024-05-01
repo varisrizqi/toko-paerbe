@@ -3,6 +3,8 @@ package com.tipiz.toko_paerbe.di
 import com.tipiz.toko_paerbe.ui.bottomnav.dashboard.DashBoardViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.home.HomeViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.store.StoreViewModel
+import com.tipiz.toko_paerbe.ui.bottomnav.store.detail.DetailViewModel
+import com.tipiz.toko_paerbe.ui.bottomnav.wishlist.WishlistViewModel
 import com.tipiz.toko_paerbe.ui.prelogin.login.LoginViewModel
 import com.tipiz.toko_paerbe.ui.prelogin.profile.ProfileViewModel
 import com.tipiz.toko_paerbe.ui.prelogin.register.RegisterViewModel
@@ -22,6 +24,8 @@ object AppModules {
         viewModelOf(::ProfileViewModel)
         viewModelOf(::HomeViewModel)
         viewModelOf(::StoreViewModel)
+        viewModelOf(::WishlistViewModel)
+        viewModelOf(::DetailViewModel)
 
     }
     val modules: List<Module> = listOf(

@@ -29,7 +29,7 @@ class DashBoardFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (viewModel.getAccessToken() == "") {
-            println("varis DashBoardFragment 1")
+            println("relogin DashBoardFragment 1")
             findNavController().navigate(R.id.action_dashBoardFragment_to_loginFragment)
         }
     }

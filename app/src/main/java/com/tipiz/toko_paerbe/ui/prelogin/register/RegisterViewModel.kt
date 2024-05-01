@@ -6,7 +6,6 @@ import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.domain.model.login.DataToken
 import com.tipiz.core.domain.usecase.TokoUseCase
 import com.tipiz.core.utils.state.UiState
-import com.tipiz.core.utils.state.asMutableStateFlow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -31,9 +30,9 @@ class RegisterViewModel(private val useCase: TokoUseCase) : ViewModel() {
     // =========== API ==========================
     fun fetchRegister(request: RegisterRequest) {
         viewModelScope.launch {
-            _responseRegister.asMutableStateFlow {
+//            _responseRegister.asMutableStateFlow {
                 useCase.fetchRegister(request = request)
-            }
+//            }
         }
     }
 

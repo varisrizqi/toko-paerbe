@@ -31,15 +31,22 @@ class RemoteDataSource(private val apiEndpoint: ApiService) {
         return safeApiCall { apiEndpoint.fetchProfile(userName = userName, userImage = userImage) }
     }
 
-    suspend fun fetchDetailProduct(
+    /**
+     * ORI
+     */
+     suspend fun fetchDetailProduct(
         id: String
     ): DetailResponse {
         return apiEndpoint.fetchDetailProduct(id = id)
     }
 
+    /*suspend fun fetchDetailProduct(
+        id: String?
+    ): Flow<DetailResponse> = safeApiCallFlow { apiEndpoint.fetchDetailProduct(id = id) }*/
+
     suspend fun fetchReviewProduct(
-        id:String
-    ) : ReviewResponse {
+        id: String
+    ): ReviewResponse {
         return apiEndpoint.fetchReviewProduct(id = id)
     }
 

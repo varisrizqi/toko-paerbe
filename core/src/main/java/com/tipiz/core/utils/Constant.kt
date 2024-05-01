@@ -1,6 +1,7 @@
 package com.tipiz.core.utils
 
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 
 object Constant {
@@ -14,6 +15,7 @@ object Constant {
         val key_theme = booleanPreferencesKey("key_theme")
         val key_localize = stringPreferencesKey("key_localize")
         val isLogin = booleanPreferencesKey("is_login")
+        val key_chip = intPreferencesKey("key_chip")
         const val PREFS_NAME = "myPrefs"
 
 
