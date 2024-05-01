@@ -69,4 +69,17 @@
     <string name="io_exception_message">Jaringan anda tidak tersedia</string>
     <string name="http_exception_404_code">Kosong</string>
     <string name="http_exception_404_message">Data yang Anda minta tidak tersedia</string>
+    <string name="review">Ulasan</string>
+    <string name="sale">Penjualan</string>
+    <string name="lowest_price">Harga Terendah</string>
+    <string name="highest_price">Harga Tertinggi</string>
+    <string name="category">Kategori</string>
+    <string name="textPrice">Harga</string>
+    <string name="lowest">Terendah</string>
+    <string name="highest">Tertinggi</string>
+    <string name="show_products">Tampilkan Produk</string>
+    <string name="sort">Urutkan</string>
+    <string name="success_added_to_wishlist">Berhasil ditambahkan ke daftar keinginan</string>
+    <string name="empty">Kosong</string>
+    <string name="item_s">%1$d Barang</string>
 </resources>
