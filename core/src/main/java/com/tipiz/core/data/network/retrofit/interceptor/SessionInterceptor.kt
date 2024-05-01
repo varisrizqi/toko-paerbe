@@ -15,7 +15,7 @@ class SessionInterceptor(private val prefs: PrefDataStoreHelper) : Interceptor {
         if (response.code == 401) {
             runBlocking {
                 prefs.clearSession()
-                println("varis end session")
+                println("relogin end session")
             }
         }
         return response

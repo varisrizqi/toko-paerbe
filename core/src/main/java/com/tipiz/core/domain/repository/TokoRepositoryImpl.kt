@@ -3,6 +3,7 @@ package com.tipiz.core.domain.repository
 import androidx.paging.PagingData
 import com.tipiz.core.data.local.datasource.LocalDataStore
 import com.tipiz.core.data.local.datasource.PagingDataSource
+import com.tipiz.core.data.local.room.entity.FavoriteEntity
 import com.tipiz.core.data.local.room.entity.ProductEntity
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
@@ -115,16 +116,40 @@ class TokoRepositoryImpl(
         return paging.gitProduct(productsBody)
     }
 
+    /*
+   * ORI
+   * */
     override suspend fun fetchDetailProduct(id: String): DetailResponse {
         return safeDataCall {
             remote.fetchDetailProduct(id = id)
         }
     }
+    /*override suspend fun fetchDetailProduct(id: String?): Flow<DetailResponse> = safeDataCall {
+        remote.fetchDetailProduct(id)
+    }*/
 
     override suspend fun fetchReviewProduct(id: String): ReviewResponse {
         return safeDataCall {
             remote.fetchReviewProduct(id = id)
         }
+    }
+
+    // ROOM
+
+    override fun getAllFav(): Flow<List<FavoriteEntity>> {
+      return  local.getAllFav()
+    }
+
+    override suspend fun insertFav(fav: FavoriteEntity) {
+       local.insertFav(fav)
+    }
+
+    override suspend fun deleteItemFav(id: String) {
+       local.deleteItemFav(id)
+    }
+
+    override fun getIsFav(id: String):Flow<Boolean> {
+     return local.getIsFav(id)
     }
 
 }

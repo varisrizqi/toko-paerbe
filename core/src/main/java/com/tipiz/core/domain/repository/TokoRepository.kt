@@ -1,6 +1,7 @@
 package com.tipiz.core.domain.repository
 
 import androidx.paging.PagingData
+import com.tipiz.core.data.local.room.entity.FavoriteEntity
 import com.tipiz.core.data.local.room.entity.ProductEntity
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
@@ -30,18 +31,18 @@ interface TokoRepository {
     suspend fun setUserId(value: String)
     fun getUserId(): Flow<String>
 
-    suspend fun setTheme(value:Boolean)
+    suspend fun setTheme(value: Boolean)
 
-    fun getTheme ():Flow<Boolean>
+    fun getTheme(): Flow<Boolean>
 
-    suspend fun setLocalize(value:String)
+    suspend fun setLocalize(value: String)
 
-    fun getLocalize():Flow<String>
+    fun getLocalize(): Flow<String>
 
     suspend fun resetAll()
 
     suspend fun setIslogin(value: Boolean)
-    fun getIsLogin():Flow<Boolean>
+    fun getIsLogin(): Flow<Boolean>
 
     //Remote Api
     suspend fun fetchRegister(request: RegisterRequest): RegisterResponse
@@ -56,11 +57,26 @@ interface TokoRepository {
     suspend fun fetchProductLocal(): Flow<PagingData<ProductEntity>>
     fun gitProduct(productsBody: ProductsBody?): Flow<PagingData<DataProduct>>
 
+    /*
+    * ORI
+    * */
     suspend fun fetchDetailProduct(
         id: String
     ): DetailResponse
 
+    /* suspend fun fetchDetailProduct(
+         id: String?
+     ):  Flow<DetailResponse>*/
+
     suspend fun fetchReviewProduct(
         id: String
     ): ReviewResponse
+
+    // ROOM
+
+    // ====== Favorite =====
+    fun getAllFav(): Flow<List<FavoriteEntity>>
+    suspend fun insertFav(fav: FavoriteEntity)
+    suspend fun deleteItemFav(id: String)
+    fun getIsFav(id: String):Flow<Boolean>
 }

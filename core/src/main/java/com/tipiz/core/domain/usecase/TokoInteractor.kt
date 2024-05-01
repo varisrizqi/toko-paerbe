@@ -4,6 +4,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.register.RegisterRequest
+import com.tipiz.core.domain.model.favorite.DataFavorite
 import com.tipiz.core.domain.model.login.DataLogin
 import com.tipiz.core.domain.model.login.DataProfile
 import com.tipiz.core.domain.model.login.DataToken
@@ -12,6 +13,7 @@ import com.tipiz.core.domain.model.products.DataProduct
 import com.tipiz.core.domain.model.products.ProductsBody
 import com.tipiz.core.domain.model.review.DataReview
 import com.tipiz.core.domain.repository.TokoRepository
+import com.tipiz.core.utils.DataMapper.toEntity
 import com.tipiz.core.utils.DataMapper.toUIData
 import com.tipiz.core.utils.DataMapper.toUiData
 import com.tipiz.core.utils.DataMapper.toUiListData
@@ -30,6 +32,7 @@ import okhttp3.RequestBody
 class TokoInteractor(
     private val repo: TokoRepository
 ) : TokoUseCase {
+
     // ============ Local DataStore  ============
     override suspend fun setOnBoarding(value: Boolean) {
         repo.setOnBoarding(value)
@@ -66,11 +69,12 @@ class TokoInteractor(
     override suspend fun setTheme(value: Boolean) {
         repo.setTheme(value)
     }
+
     override fun getTheme(): Flow<Boolean> = repo.getTheme()
 
 
     override suspend fun setLocalize(value: String) {
-       repo.setLocalize(value)
+        repo.setLocalize(value)
     }
 
     override fun getLocalize(): Flow<String> = repo.getLocalize()
@@ -79,13 +83,12 @@ class TokoInteractor(
     }
 
     override suspend fun setIslogin(value: Boolean) {
-      repo.setIslogin(value)
+        repo.setIslogin(value)
     }
 
     override fun getIsLogin(): Flow<Boolean> {
-      return repo.getIsLogin()
+        return repo.getIsLogin()
     }
-
 
     // ============ Remote Api ============
     override suspend fun fetchRegister(request: RegisterRequest): DataToken = safeDataCall {
@@ -120,15 +123,44 @@ class TokoInteractor(
         return repo.gitProduct(productsBody)
     }
 
-    override suspend fun fetchDetailProduct(id: String): DataDetailProduct {
-        return withContext(Dispatchers.IO) {
-            repo.fetchDetailProduct(id = id).data.toUIData()
-        }
+    /*
+   * ORI
+   * */
+    override suspend fun fetchDetailProduct(id: String): DataDetailProduct = safeDataCall {
+        repo.fetchDetailProduct(id).toUIData()
     }
+
+    /*override suspend fun fetchDetailProduct(id: String?): Flow<UiState<DataDetailProduct>> {
+        return withContext(Dispatchers.IO){
+            repo.fetchDetailProduct(id).map { data->
+                val mapped = data.toUiData()
+                UiState.Success(mapped)
+            }.flowOn(Dispatchers.IO).catch { throwable -> UiState.Error(throwable) }
+        }
+    }*/
 
     override suspend fun fetchReviewProduct(id: String): List<DataReview> {
         return withContext(Dispatchers.IO) {
             repo.fetchReviewProduct(id = id).toUiListData()
         }
+    }
+
+    // ROOM
+
+    // ======= FAVORITE ======
+    override fun getAllFav(): Flow<List<DataFavorite>> {
+        return repo.getAllFav().map { it.toUiData() }
+    }
+
+    override suspend fun insertFav(fav: DataFavorite) {
+        repo.insertFav(fav.toEntity())
+    }
+
+    override suspend fun deleteItemFav(id: String) {
+        repo.deleteItemFav(id)
+    }
+
+    override fun getIsFav(id: String): Flow<Boolean> {
+        return repo.getIsFav(id)
     }
 }

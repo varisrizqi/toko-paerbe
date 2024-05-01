@@ -2,30 +2,32 @@ package com.tipiz.toko_paerbe.ui.bottomnav.store
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.tipiz.core.domain.model.products.DataProduct
 import com.tipiz.core.domain.model.products.ProductsBody
-import com.tipiz.core.utils.state.launchAndCollectIn
-import com.tipiz.core.utils.state.onError
-import com.tipiz.core.utils.state.onSuccess
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentStoreBinding
 import com.tipiz.toko_paerbe.ui.bottomnav.store.adapter.LoadStateAdapterProduct
 import com.tipiz.toko_paerbe.ui.bottomnav.store.adapter.ProductPagingAdapter
-import com.tipiz.toko_paerbe.ui.bottomnav.store.adapter.StorePagingGridAdapter
-import com.tipiz.toko_paerbe.ui.bottomnav.store.adapter.StorePagingListAdapter
 import com.tipiz.toko_paerbe.ui.bottomnav.store.bottomsheet.BottomSheetFragment
 import com.tipiz.toko_paerbe.ui.utils.BaseFragmentBottomNav
 import com.tipiz.toko_paerbe.ui.utils.Constant
+import com.tipiz.toko_paerbe.ui.utils.Constant.BUNDLE_KEY_CATEGORY
+import com.tipiz.toko_paerbe.ui.utils.Constant.BUNDLE_KEY_HIGHEST
+import com.tipiz.toko_paerbe.ui.utils.Constant.BUNDLE_KEY_LOWEST
+import com.tipiz.toko_paerbe.ui.utils.Constant.BUNDLE_KEY_SORT
 import com.tipiz.toko_paerbe.ui.utils.Constant.PAGING_PAGE
 import com.tipiz.toko_paerbe.ui.utils.Constant.PAGING_PAGE_LIMIT
+import com.tipiz.toko_paerbe.ui.utils.Constant.REQUEST_KEY_BOTTOM_SHEET
 import com.tipiz.toko_paerbe.ui.utils.Constant.extra_btm_sheet
+import com.tipiz.toko_paerbe.ui.utils.formatBottomSheet
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.HttpException
 import java.io.IOException
@@ -34,39 +36,13 @@ import java.io.IOException
 class StoreFragment :
     BaseFragmentBottomNav<FragmentStoreBinding, StoreViewModel>(FragmentStoreBinding::inflate) {
     override val viewModel: StoreViewModel by viewModel()
-    private var pagingData: PagingData<DataProduct>? = null
     private lateinit var adapter: ProductPagingAdapter
     private lateinit var lmLinear: LinearLayoutManager
     private lateinit var lmGrid: GridLayoutManager
     private lateinit var footerAdapter: LoadStateAdapterProduct
 
-
-    private val listAdapter by lazy {
-        StorePagingListAdapter(object : StorePagingListAdapter.OnAdapterListener {
-            override fun onClick(store: DataProduct) {
-                val mBundle = Bundle()
-                mBundle.putString(Constant.extra_detail, store.productId)
-                activity?.supportFragmentManager?.findFragmentById(R.id.container_main_nav_host)
-                    ?.findNavController()
-                    ?.navigate(R.id.action_dashBoardFragment_to_detailFragment, mBundle)
-            }
-        })
-    }
-
-    private val gridAdapter by lazy {
-        StorePagingGridAdapter(object : StorePagingGridAdapter.OnAdapterListener {
-            override fun onClick(store: DataProduct) {
-                val mBundle = Bundle()
-                mBundle.putString(Constant.extra_detail, store.productId)
-                activity?.supportFragmentManager?.findFragmentById(R.id.container_main_nav_host)
-                    ?.findNavController()
-                    ?.navigate(R.id.action_dashBoardFragment_to_detailFragment, mBundle)
-            }
-        })
-    }
-
-
     override fun initView() {
+
 
         initPagingGit()
 
@@ -78,7 +54,7 @@ class StoreFragment :
 
         // Reset button
         binding.btnStoreRefresh.setOnClickListener {
-            if (binding.btnStoreRefresh.text.toString() == getString(R.string.reset)){
+            if (binding.btnStoreRefresh.text.toString() == getString(R.string.reset)) {
                 viewModel.productsBody.postValue(
                     ProductsBody(
                         search = null,
@@ -91,13 +67,12 @@ class StoreFragment :
                     )
                 )
                 binding.edSearch.text = null
-            }else{
+            } else {
                 adapter.refresh()
             }
         }
 
-
-
+        // recyclerview button
         binding.chipRv.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.isGridLayout = true
@@ -124,65 +99,86 @@ class StoreFragment :
             adapter.notifyItemChanged(0)
         }
 
+        // ===== bottom sheet =====
         binding.chipFilter.setOnClickListener {
-        val btmSheet = BottomSheetFragment()
-            btmSheet.show(childFragmentManager,extra_btm_sheet)
+            val btmSheet = BottomSheetFragment()
+            //send data
+            val bsBundle = bundleOf(
+                BUNDLE_KEY_SORT to viewModel.productsBody.value?.sort,
+                BUNDLE_KEY_CATEGORY to viewModel.productsBody.value?.brand,
+                BUNDLE_KEY_LOWEST to viewModel.productsBody.value?.lowest.toString(),
+                BUNDLE_KEY_HIGHEST to viewModel.productsBody.value?.highest.toString()
+            )
+            btmSheet.arguments = bsBundle
+            btmSheet.show(childFragmentManager, extra_btm_sheet)
+            setChipBottomSheet()
+        }
+
+        // Set chips and search appearance
+        viewModel.productsBody.observe(viewLifecycleOwner) {
+            createChips(
+                listOf(
+                    it.sort,
+                    it.brand,
+                    if (it.lowest != null) {
+                        "< Rp${formatBottomSheet(viewModel.productsBody.value?.lowest.toString())}"
+                    } else {
+                        null
+                    },
+                    if (it.highest != null) {
+//                        getString(
+//                            R.string.rp_highest,
+//                            viewModel.productsBody.value?.highest.toString()
+//                        )
+                        "> Rp${formatBottomSheet(viewModel.productsBody.value?.highest.toString())}"
+                    } else {
+                        null
+                    }
+                )
+            )
+            binding.edSearch.setText(it.search)
         }
 
     }
 
     override fun initViewModel() {
         with(viewModel) {
-            products.observe(viewLifecycleOwner){
+            products.observe(viewLifecycleOwner) {
                 showPagingGit(it)
             }
 
         }
 
     }
-
-    private fun fetchGrid() {
-        viewModel.fetchProduct().launchAndCollectIn(viewLifecycleOwner) { product ->
-            product.onSuccess { data ->
-                pagingData = data
-                gridAdapter.submitData(viewLifecycleOwner.lifecycle, data)
-
+    private fun createChips(chips: List<String?>) {
+        binding.chipStoreGroup.removeAllViews()
+        // Add chip
+        chips.forEach {
+            if (it != null) {
+                val chip = Chip(requireActivity())
+                chip.text = it
+                chip.isCloseIconVisible = false
+                binding.chipStoreGroup.addView(chip)
             }
-
-            product.onError { error ->
-                val errorMessage = when (error) {
-                    is HttpException -> {
-                        val errorBody = error.response()?.errorBody()?.string()
-                        "$errorBody"
-                    }
-
-                    else -> "${error.message}"
-                }
-                context?.let {
-                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-                }
-            }
-
         }
     }
 
-    private fun showProductList() {
-        binding.rvStore.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = listAdapter
-            setHasFixedSize(true)
+
+    private fun setChipBottomSheet() {
+        //receive data
+        childFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_BOTTOM_SHEET,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            viewModel.updateFilter(
+                bundle.getString(BUNDLE_KEY_SORT),
+                bundle.getString(BUNDLE_KEY_CATEGORY),
+                bundle.getString(BUNDLE_KEY_LOWEST)?.toInt(),
+                bundle.getString(BUNDLE_KEY_HIGHEST)?.toInt()
+            )
         }
-        binding.chipRv.isChecked = false
     }
 
-    private fun showProductGrid() {
-        binding.rvStore.apply {
-            layoutManager = GridLayoutManager(context, 2)
-            adapter = gridAdapter
-            setHasFixedSize(true)
-        }
-        binding.chipRv.isChecked = true
-    }
 
     private fun initPagingGit() {
         adapter = ProductPagingAdapter(object : ProductPagingAdapter.OnPagingListener {
@@ -254,13 +250,15 @@ class StoreFragment :
         adapter.notifyItemChanged(0)
     }
 
-    private fun showLoading(loadState:Boolean){
+    private fun showLoading(loadState: Boolean) {
         binding.apply {
             // Visible component
-            if (!viewModel.isGridLayout){
-               shimmerLinear.skelShimmerLayoutLinear.visibility = if (loadState) View.VISIBLE else View.INVISIBLE
-            } else{
-                shimmerGrid.skelShimmerLayoutGrid.visibility = if (loadState) View.VISIBLE else  View.INVISIBLE
+            if (!viewModel.isGridLayout) {
+                shimmerLinear.skelShimmerLayoutLinear.visibility =
+                    if (loadState) View.VISIBLE else View.INVISIBLE
+            } else {
+                shimmerGrid.skelShimmerLayoutGrid.visibility =
+                    if (loadState) View.VISIBLE else View.INVISIBLE
             }
             // Invisible component
             rvStore.visibility = if (loadState) View.INVISIBLE else View.VISIBLE
@@ -276,7 +274,7 @@ class StoreFragment :
         }
     }
 
-    private fun showError(code:String, message:String){
+    private fun showError(code: String, message: String) {
         binding.apply {
             // Invisible component
             rvStore.visibility = View.INVISIBLE

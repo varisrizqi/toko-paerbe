@@ -14,5 +14,6 @@ import com.tipiz.core.data.local.room.entity.ProductEntity
 
 abstract class DataBaseClient : RoomDatabase() {
     abstract fun appDao(): Dao
+    abstract fun favDao(): FavoriteDAO
 
 }

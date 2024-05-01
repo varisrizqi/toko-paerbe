@@ -102,12 +102,15 @@ class ProductPagingAdapter(private val listener: OnPagingListener) :
         val data = getItem(position)
         when (isGridLayout) {
             false -> {
-                val viewHolderLinear = holder as ViewHolderLinear
+
+//                data?.let { (holder as ViewHolderLinear).bind(it, holder.itemView.context) }
+               val viewHolderLinear = holder as ViewHolderLinear
                 viewHolderLinear.itemView.setOnClickListener {
                     data?.let { it1 -> listener.onClick(it1) }
                 }
 
                 data?.let { holder.bind(it, holder.itemView.context) }
+
 
 
 
@@ -121,6 +124,9 @@ class ProductPagingAdapter(private val listener: OnPagingListener) :
                 data?.let { holder.bind(it, holder.itemView.context) }
             }
         }
+       /* holder.itemView.setOnClickListener {
+            data?.let { it1 -> listener.onClick(it1) }
+        }*/
     }
 
     companion object {

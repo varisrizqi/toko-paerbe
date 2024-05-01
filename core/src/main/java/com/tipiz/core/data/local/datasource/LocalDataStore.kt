@@ -1,9 +1,14 @@
 package com.tipiz.core.data.local.datasource
 
 import com.tipiz.core.data.local.datastore.PrefDataStoreHelper
+import com.tipiz.core.data.local.room.database.FavoriteDAO
+import com.tipiz.core.data.local.room.entity.FavoriteEntity
 import kotlinx.coroutines.flow.Flow
 
-class LocalDataStore(private val dataSource: PrefDataStoreHelper) {
+class LocalDataStore(
+    private val dataSource: PrefDataStoreHelper,
+    private val roomFav: FavoriteDAO
+) {
 
     suspend fun setOnBoarding(value: Boolean) = dataSource.setOnBoarding(value)
     fun getOnBoarding(): Flow<Boolean> {
@@ -42,11 +47,19 @@ class LocalDataStore(private val dataSource: PrefDataStoreHelper) {
     fun getLocalize(): Flow<String> = dataSource.getLocalize()
 
     suspend fun resetAll() {
-     dataSource.resetAll()
+        dataSource.resetAll()
     }
 
     suspend fun setIsLogin(value: Boolean) = dataSource.setIslogin(value)
 
-    fun getIsLogin():Flow<Boolean> = dataSource.getIsLogin()
+    fun getIsLogin(): Flow<Boolean> = dataSource.getIsLogin()
+
+    // ROOM
+
+    fun getAllFav(): Flow<List<FavoriteEntity>> = roomFav.getAllFav()
+    suspend fun insertFav(fav: FavoriteEntity) = roomFav.insertFav(fav)
+    suspend fun deleteItemFav(id: String) = roomFav.deleteItemFav(id)
+    fun getIsFav(id: String) = roomFav.getIsFav(id)
+
 
 }

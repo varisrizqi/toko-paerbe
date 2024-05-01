@@ -3,6 +3,7 @@ package com.tipiz.core.domain.usecase
 import androidx.paging.PagingData
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.register.RegisterRequest
+import com.tipiz.core.domain.model.favorite.DataFavorite
 import com.tipiz.core.domain.model.login.DataLogin
 import com.tipiz.core.domain.model.login.DataProfile
 import com.tipiz.core.domain.model.login.DataToken
@@ -33,22 +34,22 @@ interface TokoUseCase {
     fun getUserName(): Flow<String>
 
     suspend fun setUserId(value: String)
-    fun getUserId():Flow<String>
+    fun getUserId(): Flow<String>
 
     suspend fun clearSession()
 
-    suspend fun setTheme(value:Boolean)
+    suspend fun setTheme(value: Boolean)
 
-    fun getTheme ():Flow<Boolean>
+    fun getTheme(): Flow<Boolean>
 
-    suspend fun setLocalize(value:String)
+    suspend fun setLocalize(value: String)
 
-    fun getLocalize():Flow<String>
+    fun getLocalize(): Flow<String>
 
     suspend fun resetAll()
 
     suspend fun setIslogin(value: Boolean)
-    fun getIsLogin():Flow<Boolean>
+    fun getIsLogin(): Flow<Boolean>
 
     //Remote Api
     suspend fun fetchRegister(request: RegisterRequest): DataToken
@@ -64,11 +65,26 @@ interface TokoUseCase {
     fun gitProduct(productsBody: ProductsBody?): Flow<PagingData<DataProduct>>
 
 
-    suspend fun fetchDetailProduct(
-        id:String
-    ): DataDetailProduct
+    /*
+    * ORI
+    * */
+   suspend fun fetchDetailProduct(
+         id:String
+     ): DataDetailProduct
+
+    /*suspend fun fetchDetailProduct(
+        id: String
+    ): DetailResponse*/
 
     suspend fun fetchReviewProduct(
-        id:String
+        id: String
     ): List<DataReview>
+
+    // ROOM
+
+    // ====== Favorite =====
+     fun getAllFav() :Flow<List<DataFavorite>>
+    suspend fun insertFav(fav: DataFavorite)
+    suspend fun deleteItemFav(id: String)
+    fun getIsFav(id: String):Flow<Boolean>
 }

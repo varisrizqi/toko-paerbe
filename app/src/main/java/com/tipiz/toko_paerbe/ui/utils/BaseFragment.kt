@@ -33,4 +33,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
 
     abstract fun initView()
     abstract fun initViewModel()
+
+
 }

@@ -28,21 +28,33 @@ object Constant {
     const val key_in = "in"
 
     //detail store
-    const val extra_detail ="extra_detail"
+    const val extra_detail = "extra_detail"
+    const val extra_variant = "extra_variant"
+    const val extra_base = "extra_base"
+    const val extra_chip = "extra_chip"
     const val FLAG_TRANSACTION = "transaction"
-     const val PAGING_PAGE_LIMIT = 10
-     const val PAGING_PAGE = 1
+    const val PAGING_PAGE_LIMIT = 10
+    const val PAGING_PAGE = 1
+    const val RAM_16_GB = "RAM 16GB"
+    const val INDONESIA_CURRENCY = "IDR"
+    const val CART_ADDED = "cartAdded"
 
     //bottomSheet
     const val extra_btm_sheet = "extra_bottom_sheet"
-
+     const val BUNDLE_KEY_SORT = "sort"
+     const val BUNDLE_KEY_CATEGORY = "category"
+     const val BUNDLE_KEY_LOWEST = "lowest"
+     const val BUNDLE_KEY_HIGHEST = "highest"
+     const val BUNDLE_KEY_SEARCH = "search"
+     const val REQUEST_KEY_BOTTOM_SHEET = "filter_data_bs"
 
 
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
-fun String.toBase64() = Base64.getEncoder().encodeToString(this.toByteArray())
+fun String.toBase64() = Base64.getEncoder().encodeToString(this.toByteArray()) ?: ""
 
-fun showToast(context:Context,value:String){
+fun showToast(context: Context, value: String) {
     Toast.makeText(context, value, Toast.LENGTH_LONG).show()
 }
+

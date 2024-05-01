@@ -17,7 +17,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,6 +31,11 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun initView() {
         with(binding) {
+
+
+            cgSort.setOnCheckedStateChangeListener { _, _ ->
+
+            }
             tvFilter.text = getString(R.string.filter)
             tvCategory.text = getString(R.string.category)
             tvPrice.text = getString(R.string.textPrice)

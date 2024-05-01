@@ -78,13 +78,16 @@
     <string name="lowest_price">Lowest Price</string>
     <string name="highest_price">Highest Price</string>
     <string name="category">Category</string>
-    <string name="apple">Apple</string>
-    <string name="asus">Asus</string>
-    <string name="dell">Dell</string>
-    <string name="lenovo">Lenovo</string>
+    <string name="apple" translatable="false">Apple</string>
+    <string name="asus" translatable="false">Asus</string>
+    <string name="dell" translatable="false">Dell</string>
+    <string name="lenovo" translatable="false">Lenovo</string>
     <string name="textPrice">Price</string>
     <string name="lowest">Lowest</string>
     <string name="highest">Highest</string>
     <string name="show_products">Show Products</string>
     <string name="sort">Sort</string>
+    <string name="success_added_to_wishlist">success added to wishlist</string>
+    <string name="empty">Empty</string>
+    <string name="item_s">%1$d Item(s)</string>
 </resources>
