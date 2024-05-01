@@ -96,7 +96,8 @@
                 app:layout_constraintBottom_toBottomOf="@id/tv_details_price"
                 app:layout_constraintEnd_toStartOf="@id/iv_detail_fav"
                 app:layout_constraintTop_toTopOf="@id/tv_details_price"
-                tools:src="@drawable/ic_share" />
+                tools:src="@drawable/ic_share"
+                android:importantForAccessibility="no" />
 
             <ImageView
                 android:id="@+id/iv_detail_fav"
@@ -107,7 +108,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/tv_details_price"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_details_price"
-                />
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/tv_details_title"
@@ -153,7 +154,8 @@
                     android:id="@+id/img_star"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    tools:src="@drawable/ic_star" />
+                    tools:src="@drawable/ic_star"
+                    android:importantForAccessibility="no" />
 
                 <TextView
                     android:id="@+id/tv_rate"
@@ -265,7 +267,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_details_rating_review"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_details_satisfaction"
-                tools:src="@drawable/ic_star" />
+                tools:src="@drawable/ic_star"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/tv_details_star_review"

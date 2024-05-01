@@ -43,7 +43,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_item_wishlist_grid_img"
-            tools:text="Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB" />
+            tools:text="Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB"
+            tools:targetApi="o" />
 
         <TextView
             android:id="@+id/tv_item_wishlist_grid_price"

@@ -98,7 +98,6 @@ object DataMapper {
         productId = data.productId,
         productName = data.productName,
         productPrice = data.productPrice,
-//        image = data.image[0],
         image = data.image,
         brand = data.brand,
         description = data.description,
@@ -108,31 +107,9 @@ object DataMapper {
         totalRating = data.totalRating,
         totalSatisfaction = data.totalSatisfaction,
         productRating = data.productRating,
-//        variantName = data.productVariant[0].variantName,
-//        variantPrice = data.productVariant[0].variantPrice,
         productVariant = data.productVariant.map { variant -> variant.toUIVariantData() },
         totalReview = data.totalReview
     )
-
-    //Cadangan
-  /*  fun DetailResponse.toUiData() = DataDetailProduct(
-        productId = data.productId,
-        productName = data.productName,
-        productPrice = data.productPrice,
-        image = data.image,
-        brand = data.brand,
-        description = data.description,
-        store = data.store,
-        sale = data.sale,
-        stock = data.stock,
-        totalRating = data.totalRating,
-        totalSatisfaction = data.totalSatisfaction,
-        productRating = data.productRating,
-        productVariant = data.productVariant.map { variant -> variant.toUIVariantData() },
-//        variantName = data.productVariant[0].variantName,
-//        variantPrice = data.productVariant[0].variantPrice,
-        totalReview = data.totalReview
-    )*/
 
     //ORI
     private fun ProductVariantItem.toUIVariantData() =
@@ -174,24 +151,6 @@ object DataMapper {
         setChip = setChip
     )
 
-    /*fun DataDetailProduct.toEntity() = FavoriteEntity(
-        productId = productId,
-        productName = productName,
-        productPrice = productPrice,
-        image = image,
-        brand = brand,
-        description = description,
-        store = store,
-        sale = sale,
-        stock = stock,
-        totalRating = totalRating,
-        totalSatisfaction = totalSatisfaction,
-        productRating = productRating,
-//        variantName = variantName,
-//        variantPrice = variantPrice,
-        totalReview = totalReview
-    )*/
-
     fun List<FavoriteEntity>.toUiData(): List<DataFavorite> {
         return this.map {
             DataFavorite(
@@ -214,35 +173,6 @@ object DataMapper {
             )
         }
     }
-
-
-    //cadangan detail
-    /*fun List<FavoriteEntity>.toUiData2(): List<DataDetailProduct> {
-        val listFav = mutableListOf<DataDetailProduct>()
-        this.forEach {
-            listFav.add(
-                DataDetailProduct(
-                    productId = it.productId,
-                    productName = it.productName,
-                    productPrice = it.productPrice,
-                    image = it.image,
-                    brand = it.brand,
-                    description = it.description,
-                    store = it.store,
-                    sale = it.sale,
-                    stock = it.stock,
-                    totalRating = it.totalRating,
-                    totalSatisfaction = it.totalSatisfaction,
-                    productRating = it.productRating,
-                    variantName = it.variantName,
-                    variantPrice = it.variantPrice,
-                    totalReview = it.totalReview
-                )
-            )
-        }
-        return  listFav
-
-    }*/
 
 }
 
