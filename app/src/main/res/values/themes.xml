@@ -3,20 +3,24 @@
     <style name="Base.Theme.Tokopaerbe" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:windowBackground">@color/white</item>
-        <item name="colorSurface">@color/white</item>
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:includeFontPadding">false</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="elevationOverlayEnabled">false</item>
-
-        <item name="android:includeFontPadding">false</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="android:elevation">0dp</item>
+        <item name="elevation">0dp</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
         <item name="android:windowSoftInputMode">adjustResize|stateVisible</item>
+
+        <item name="android:windowTranslucentStatus">false</item>
 
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
 
-    <style name="Theme.Tokopaerbe" parent="Base.Theme.Tokopaerbe" />
+    <style name="Theme.Tokopaerbe" parent="Base.Theme.Tokopaerbe" >
+        <item name="android:windowSoftInputMode">adjustPan</item>
+    </style>
 
     <!-- image lingkar. -->
     <style name="ShapeAppearanceOverlay.App.CorneSize50Percent" parent="">

@@ -80,32 +80,35 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cp_review"
+                    style="@style/Widget.App.Chip"
                     android:fontFamily="@font/poppins_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/review"/>
+                    android:text="@string/review"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cp_sale"
+                    style="@style/Widget.App.Chip"
                     android:fontFamily="@font/poppins_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/sale"/>
+                    android:text="@string/sale"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cp_lowest"
+                    style="@style/Widget.App.Chip"
                     android:fontFamily="@font/poppins_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/lowest_price"/>
+                    android:text="@string/lowest_price"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cp_highest"
+                    style="@style/Widget.App.Chip"
                     android:fontFamily="@font/poppins_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/highest_price"/>
-
+                    android:text="@string/highest_price"/>
 
 
             </com.google.android.material.chip.ChipGroup>
@@ -136,27 +139,31 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cp_apple"
+                    style="@style/Widget.Material3.Chip.Suggestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/apple" />
+                    android:text="@string/apple" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cp_asus"
+                    style="@style/Widget.Material3.Chip.Suggestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/asus" />
+                    android:text="@string/asus" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cp_dell"
+                    style="@style/Widget.Material3.Chip.Suggestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/dell" />
+                    android:text="@string/dell" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/cp_lenovo"
+                    style="@style/Widget.Material3.Chip.Suggestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/lenovo" />
+                    android:text="@string/lenovo" />
             </com.google.android.material.chip.ChipGroup>
 
 
@@ -188,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                tools:hint="@string/lowest"
+                android:hint="@string/lowest"
                 app:layout_constraintEnd_toStartOf="@id/v_acndhor_search_bs_mid"
                 app:layout_constraintStart_toStartOf="@id/tv_price"
                 app:layout_constraintTop_toBottomOf="@id/tv_price">
@@ -208,7 +215,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                tools:hint="@string/highest"
+                android:hint="@string/highest"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/v_acndhor_search_bs_mid"
                 app:layout_constraintTop_toBottomOf="@id/tv_price">

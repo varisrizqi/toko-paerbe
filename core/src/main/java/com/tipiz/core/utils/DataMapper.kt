@@ -25,12 +25,14 @@ import com.tipiz.core.remote.data.review.ReviewResponse
 
 object DataMapper {
 
+    // ===== Register =====
     fun RegisterResponse.toUiData() = DataToken(
         accessToken = data.accessToken,
         expiresAt = data.expiresAt,
         refreshToken = data.refreshToken
     )
 
+    // ===== Login =====
     fun LoginResponse.toUiData() = DataLogin(
         userImage = data.userImage,
         userName = data.userName,
@@ -39,16 +41,24 @@ object DataMapper {
         refreshToken = data.refreshToken
     )
 
+    // ===== Refresh =====
     fun RefreshResponse.toUiData() = DataToken(
         accessToken = data.accessToken,
         expiresAt = data.expiresAt,
         refreshToken = data.refreshToken
     )
 
+    fun RefreshRequest.toUiData() = RefreshBody(
+        token = token
+    )
+
+    // ===== Profile =====
     fun ProfileResponse.toUiData() = DataProfile(
         userName = data.userName,
         userImage = data.userImage
     )
+
+    // ===== Product (Store Fragment) =====
 
     /*
    * sample mengambil data langsung dari API
@@ -94,6 +104,8 @@ object DataMapper {
         sale = sale
     )
 
+
+    // ===== Detail Fragment =====
     fun DetailResponse.toUIData() = DataDetailProduct(
         productId = data.productId,
         productName = data.productName,
@@ -111,14 +123,13 @@ object DataMapper {
         totalReview = data.totalReview
     )
 
-    //ORI
     private fun ProductVariantItem.toUIVariantData() =
         ProductVariant(
             variantName = variantName,
             variantPrice = variantPrice
         )
 
-
+    // ===== Review Fragment =====
     private fun DataItemReview.toUiData() = DataReview(
         userImage = userImage,
         userName = userName,
@@ -128,10 +139,7 @@ object DataMapper {
 
     fun ReviewResponse.toUiListData() = data.map { review -> review.toUiData() }.toList()
 
-    fun RefreshRequest.toUiData() = RefreshBody(
-        token = token
-    )
-
+    // ===== WishList =====
     fun DataFavorite.toEntity() = FavoriteEntity(
         productId = productId,
         productName = productName,
