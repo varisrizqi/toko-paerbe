@@ -11,7 +11,7 @@ data class DetailResponse(
 	val code: Int = 0,
 
 	@field:SerializedName("data")
-	val data: DataDetail,
+	val data: DataDetail= DataDetail(),
 
 	@field:SerializedName("message")
 	val message: String = ""

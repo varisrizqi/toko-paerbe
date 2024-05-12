@@ -113,6 +113,9 @@
             app:destination="@id/splashScreenFragment"
             app:popUpTo="@id/dashBoardFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_chartFragment"
+            app:destination="@id/chartFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -128,4 +131,9 @@
         android:name="com.tipiz.toko_paerbe.ui.bottomnav.store.review.ReviewFragment"
         android:label="fragment_review"
         tools:layout="@layout/fragment_review" />
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="com.tipiz.toko_paerbe.ui.bottomnav.cart.CartFragment"
+        android:label="fragment_chart"
+        tools:layout="@layout/fragment_cart" />
 </navigation>

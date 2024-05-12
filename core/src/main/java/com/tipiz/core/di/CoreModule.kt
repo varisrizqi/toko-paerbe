@@ -36,7 +36,7 @@ object CoreModule {
     }
 
     private val dataSourceModule = module {
-        single { LocalDataStore(get(), get()) }
+        single { LocalDataStore(get(), get(), get()) }
         single { RemoteDataSource(get()) }
         single { PagingDataSource(get(), get()) }
 
@@ -67,6 +67,7 @@ object CoreModule {
         }
         single { get<DataBaseClient>().appDao() }
         single { get<DataBaseClient>().favDao() }
+        single { get<DataBaseClient>().chartDao() }
     }
 
 

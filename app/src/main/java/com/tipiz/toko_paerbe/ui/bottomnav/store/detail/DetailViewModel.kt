@@ -3,6 +3,7 @@ package com.tipiz.toko_paerbe.ui.bottomnav.store.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
 import com.tipiz.core.domain.model.products.DataDetailProduct
 import com.tipiz.core.domain.usecase.TokoUseCase
@@ -27,6 +28,7 @@ class DetailViewModel(private val useCase: TokoUseCase) :
         viewModelScope.launch {
             _responseDetail.asMutableStateFlow {
                 useCase.fetchDetailProduct(id = id)
+
             }
         }
     }
@@ -35,8 +37,14 @@ class DetailViewModel(private val useCase: TokoUseCase) :
     // ========== FAV  ==========
 
     private var dataFavorite: DataFavorite? = null
+    var dataCart: DataCart? = null
+
     fun setDataFavorite(data: DataFavorite) {
         dataFavorite = data
+    }
+    fun setChartData(data: DataCart) {
+        dataCart = data
+
     }
 
 
@@ -44,16 +52,19 @@ class DetailViewModel(private val useCase: TokoUseCase) :
 
     fun insertFav() {
         viewModelScope.launch {
-            dataFavorite?.let {
-                useCase.insertFav(dataFavorite!!)
-            }
+            dataFavorite?.let { useCase.insertFav(it) }
         }
     }
 
     fun getIsFav(id: String) = runBlocking { useCase.getIsFav(id).asLiveData() }
-    fun deleteFav(id: String) {
-        viewModelScope.launch {
-            useCase.deleteItemFav(id)
+
+    fun deleteWishlist(data: String){
+        viewModelScope.launch{
+            useCase.deleteWishlist(data)
         }
+    }
+
+    suspend fun addChart(product: DataCart, action: Boolean): String {
+        return useCase.addChart(product, action)
     }
 }

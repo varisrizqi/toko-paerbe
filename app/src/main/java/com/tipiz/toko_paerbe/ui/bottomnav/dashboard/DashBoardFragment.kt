@@ -65,6 +65,24 @@ class DashBoardFragment :
 
         computeWindowSizeClasses()
 
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_chart -> {
+                    findNavController().navigate(R.id.action_dashBoardFragment_to_chartFragment)
+                    true
+                }
+
+                R.id.action_notification -> {
+                    true
+                }
+
+                else -> {
+//                    findNavController().navigate(R.id.action_mainFragment_to_notificationFragment)
+                    true
+                }
+            }
+        }
+
     }
 
     private fun computeWindowSizeClasses() {

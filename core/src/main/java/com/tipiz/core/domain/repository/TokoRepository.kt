@@ -1,6 +1,7 @@
 package com.tipiz.core.domain.repository
 
 import androidx.paging.PagingData
+import com.tipiz.core.data.local.room.entity.ChartEntity
 import com.tipiz.core.data.local.room.entity.FavoriteEntity
 import com.tipiz.core.data.local.room.entity.ProductEntity
 import com.tipiz.core.data.network.data.login.LoginRequest
@@ -47,7 +48,6 @@ interface TokoRepository {
     //Remote Api
     suspend fun fetchRegister(request: RegisterRequest): RegisterResponse
     suspend fun fetchLogin(request: LoginRequest): LoginResponse
-//    suspend fun fetchRefreshToken(request: RefreshRequest): RefreshResponse
 
     suspend fun fetchProfile(
         userName: RequestBody,
@@ -77,6 +77,19 @@ interface TokoRepository {
     // ====== Favorite =====
     fun getAllFav(): Flow<List<FavoriteEntity>>
     suspend fun insertFav(fav: FavoriteEntity)
-    suspend fun deleteItemFav(id: String)
+    suspend fun deleteItemFav(id: Int)
+    suspend fun deleteWishlist(fav: String)
     fun getIsFav(id: String):Flow<Boolean>
+
+    // ====== Chart =====
+    suspend fun getAllChart(): Flow<List<ChartEntity>>
+    suspend fun insertChart(chart: ChartEntity)
+
+    fun updateCountChart(id: String, newCount: Int)
+    suspend fun updateIsCheckedChart(id: String, newIsChecked: Boolean)
+    suspend fun updateCheckAllChart(value: Boolean)
+
+    suspend fun deleteItemChart(id: String)
+    fun getStockChart(id: String): ChartEntity?
+    suspend fun deleteCheckedChart()
 }

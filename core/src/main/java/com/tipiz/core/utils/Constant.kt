@@ -23,5 +23,12 @@ object Constant {
     const val paging_key = "paging_key"
     const val product_table = "product_table"
     const val favorite_table = "favorite_table"
+    const val chart_table = "chart_table"
     const val INITIAL_PAGE_INDEX = 1
+
+    //Chart
+    const val CART_FULL = "cartFull"
+    const val CART_ADDED = "cartAdded"
+    const val CART_DECREASED = "cartDecreased"
+    const val CART_MINIMUM = "cartMinimum"
 }
