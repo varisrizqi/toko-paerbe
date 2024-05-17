@@ -4,6 +4,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.register.RegisterRequest
+import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
 import com.tipiz.core.domain.model.login.DataLogin
 import com.tipiz.core.domain.model.login.DataProfile
@@ -13,8 +14,15 @@ import com.tipiz.core.domain.model.products.DataProduct
 import com.tipiz.core.domain.model.products.ProductsBody
 import com.tipiz.core.domain.model.review.DataReview
 import com.tipiz.core.domain.repository.TokoRepository
+import com.tipiz.core.utils.Constant.CART_ADDED
+import com.tipiz.core.utils.Constant.CART_DECREASED
+import com.tipiz.core.utils.Constant.CART_FULL
+import com.tipiz.core.utils.Constant.CART_MINIMUM
+import com.tipiz.core.utils.DataMapper.toChartEntity
+import com.tipiz.core.utils.DataMapper.toDataChart
 import com.tipiz.core.utils.DataMapper.toEntity
 import com.tipiz.core.utils.DataMapper.toUIData
+import com.tipiz.core.utils.DataMapper.toUiChartData
 import com.tipiz.core.utils.DataMapper.toUiData
 import com.tipiz.core.utils.DataMapper.toUiListData
 import com.tipiz.core.utils.state.UiState
@@ -139,10 +147,8 @@ class TokoInteractor(
         }
     }*/
 
-    override suspend fun fetchReviewProduct(id: String): List<DataReview> {
-        return withContext(Dispatchers.IO) {
-            repo.fetchReviewProduct(id = id).toUiListData()
-        }
+    override suspend fun fetchReviewProduct(id: String): List<DataReview> = safeDataCall {
+        repo.fetchReviewProduct(id = id).toUiListData()
     }
 
     // ROOM
@@ -156,11 +162,83 @@ class TokoInteractor(
         repo.insertFav(fav.toEntity())
     }
 
-    override suspend fun deleteItemFav(id: String) {
+    override suspend fun deleteItemFav(id: Int) {
         repo.deleteItemFav(id)
+    }
+
+    override suspend fun deleteWishlist(fav: String) {
+        repo.deleteWishlist(fav)
     }
 
     override fun getIsFav(id: String): Flow<Boolean> {
         return repo.getIsFav(id)
+
+    }
+
+    // ======= Chart ======
+
+    override suspend fun getAllChart(): Flow<List<DataCart>> = safeDataCall {
+        repo.getAllChart().map { it.toUiChartData() }
+    }
+
+    override suspend fun insertChart(chart: DataCart) {
+        repo.insertChart(chart.toChartEntity(1, false))
+    }
+
+    override fun updateCountChart(id: String, newCount: Int) {
+        repo.updateCountChart(id, newCount)
+    }
+
+    override suspend fun updateIsCheckedChart(id: String, newIsChecked: Boolean) {
+        repo.updateIsCheckedChart(id, newIsChecked)
+    }
+
+    override suspend fun updateCheckAllChart(value: Boolean) {
+        repo.updateCheckAllChart(value)
+    }
+
+    override suspend fun deleteItemChart(id: String) {
+        repo.deleteItemChart(id)
+    }
+
+    override fun getStockChart(id: String): DataCart? {
+        return repo.getStockChart(id)?.toDataChart()
+
+    }
+
+    override suspend fun deleteCheckedChart() {
+        repo.deleteCheckedChart()
+    }
+
+    /*
+    *  digunakan untuk menampilkan atau menambah dan memperbarui jumlah count
+    * */
+    override suspend fun addChart(dataChart: DataCart, action: Boolean): String {
+        val chart = repo.getStockChart(dataChart.productId)?.toDataChart()
+        if (chart != null) {
+            return when (action) {
+                true -> {
+                    if (chart.amount == chart.stock) {
+                        CART_FULL
+                    } else {
+                        chart.amount += 1
+                        repo.updateCountChart(dataChart.productId,chart.amount)
+                        CART_ADDED
+                    }
+                }
+                false -> {
+                    if (chart.amount==1){
+                        CART_MINIMUM
+                    }else{
+                        chart.amount -= 1
+                        repo.updateCountChart(dataChart.productId,chart.amount)
+                        CART_DECREASED
+                    }
+                }
+            }
+        } else{
+            repo.insertChart(dataChart.toChartEntity(1, false))
+            return CART_ADDED
+        }
     }
 }

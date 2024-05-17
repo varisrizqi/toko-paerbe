@@ -17,7 +17,7 @@ import com.tipiz.toko_paerbe.ui.utils.currency
 
 class WishlistListAdapter(
     private val context: Context,
-    val deleteItem: (String) -> Unit,
+    val deleteItem: (DataFavorite) -> Unit,
     val addChart: (DataFavorite) -> Unit
 ) : ListAdapter<DataFavorite, RecyclerView.ViewHolder>(ProductDiffCallBack()) {
 
@@ -47,13 +47,12 @@ class WishlistListAdapter(
                         .replace("%5.0%", data.productRating.toString())
                         .replace("%10%", data.sale.toString())
                 Glide.with(context)
-                Glide.with(context)
                     .load(data.image)
                     .placeholder(R.drawable.thumbnail_load_product)
                     .error(R.drawable.thumbnail_load_product)
                     .into(ivItemWishlistGridImg)
                 btnItemWishlistGridDelete.setOnClickListener {
-                    deleteItem(data.productId)
+                    deleteItem(data)
                 }
                 btnItemWishlistGridAddChart.setOnClickListener {
                     addChart(data)
@@ -65,7 +64,7 @@ class WishlistListAdapter(
     inner class ViewHolderLinear(private val binding: ItemWishlistLinearBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: DataFavorite) {
-          Log.e("varis", "${data.setChip}")
+          Log.e("varis", "chip ${data.setChip}")
             with(binding) {
                 cvWishlistLinear.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.anim_one))
                 tvItemWishlistLinearProductName.text = data.productName
@@ -76,13 +75,12 @@ class WishlistListAdapter(
                         .replace("%5.0%", data.productRating.toString())
                         .replace("%10%", data.sale.toString())
                 Glide.with(context)
-                Glide.with(context)
                     .load(data.image)
                     .placeholder(R.drawable.thumbnail_load_product)
                     .error(R.drawable.thumbnail_load_product)
                     .into(ivItemWishlistLinearImg)
                 btnItemWishlistLinearDelete.setOnClickListener {
-                    deleteItem(data.productId)
+                    deleteItem(data)
                 }
                 btnItemWishlistLinearAddChart.setOnClickListener {
                     addChart(data)

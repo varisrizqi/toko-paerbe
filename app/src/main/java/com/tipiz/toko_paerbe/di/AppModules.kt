@@ -6,7 +6,7 @@ import com.tipiz.toko_paerbe.ui.bottomnav.store.StoreViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.store.bottomsheet.BottomSheetViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.store.detail.DetailViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.wishlist.WishlistViewModel
-import com.tipiz.toko_paerbe.ui.bottomnav.chart.ChartViewModel
+import com.tipiz.toko_paerbe.ui.bottomnav.cart.CartViewModel
 import com.tipiz.toko_paerbe.ui.prelogin.login.LoginViewModel
 import com.tipiz.toko_paerbe.ui.prelogin.profile.ProfileViewModel
 import com.tipiz.toko_paerbe.ui.prelogin.register.RegisterViewModel
@@ -29,7 +29,7 @@ object AppModules {
         viewModelOf(::WishlistViewModel)
         viewModelOf(::DetailViewModel)
         viewModelOf(::BottomSheetViewModel)
-        viewModelOf(::ChartViewModel)
+        viewModelOf(::CartViewModel)
 
     }
     val modules: List<Module> = listOf(

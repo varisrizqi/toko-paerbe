@@ -90,4 +90,14 @@
     <string name="success_added_to_wishlist">success added to wishlist</string>
     <string name="empty">Empty</string>
     <string name="item_s">%1$d Item(s)</string>
+    <string name="choose_all">Choose All</string>
+    <string name="chart">Chart</string>
+    <string name="delete">Delete</string>
+    <string name="total_payment">Total Payment</string>
+    <string name="minus" translatable="false">-</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="success_added_to_chart">Success added to cart</string>
+    <string name="out_of_stock">Out of stock</string>
+    <string name="_5_left">%5% Left</string>
+    <string name="stock">Stock %5%</string>
 </resources>

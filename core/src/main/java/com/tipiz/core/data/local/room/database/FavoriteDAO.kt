@@ -18,9 +18,12 @@ interface FavoriteDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFav(fav: FavoriteEntity)
 
-    @Query("DELETE FROM favorite_table WHERE productId = :id")
-    suspend fun deleteItemFav(id: String)
+    @Query("DELETE FROM favorite_table WHERE wishlistId = :id")
+    suspend fun deleteItemFav(id: Int)
 
-    @Query("SELECT EXISTS (SELECT 1 FROM favorite_table WHERE productId = :id)")
+    @Query("DELETE FROM favorite_table WHERE productId = :id ")
+    suspend fun deleteDetailFav(id: String)
+
+    @Query("SELECT EXISTS (SELECT 1 FROM favorite_table WHERE productId = :id )")
     fun getIsFav(id: String): Flow<Boolean>
 }

@@ -12,7 +12,7 @@ import com.tipiz.core.data.local.room.entity.ProductEntity
 interface Dao {
 
 
-    // ===== products =====
+    // ===== products paging =====
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProduct(product: List<ProductEntity>)
 
@@ -22,7 +22,6 @@ interface Dao {
     @Query("DELETE FROM product_table")
     suspend fun deleteAll()
 
-    // ===== paging =====
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(pagingKey: List<PagingKeys>)
 

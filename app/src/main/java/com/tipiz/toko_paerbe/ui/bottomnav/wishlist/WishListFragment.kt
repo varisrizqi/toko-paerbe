@@ -6,13 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentWishListBinding
 import com.tipiz.toko_paerbe.ui.utils.Constant
+import com.tipiz.toko_paerbe.ui.utils.Constant.CART_ADDED
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -27,6 +33,7 @@ class WishListFragment : Fragment() {
     private lateinit var lmGrid: GridLayoutManager
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,15 +46,16 @@ class WishListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getAllFav().observe(viewLifecycleOwner) { listFav ->
-            showError(listFav!!.isEmpty())
-            showFavorite(listFav.isEmpty(), listFav)
+            showError(listFav.isEmpty())
+            showFavorite(listFav)
             binding.tvWishlistItems.text = getString(R.string.item_s, listFav.size)
+
         }
 
         adapter = WishlistListAdapter(requireContext(), { id ->
-            deleteItem(id)
+            deleteItem(id.wishlistId)
         }, { item ->
-//            addChart(item)
+            addChart(item)
         })
 
         lmLinear = LinearLayoutManager(requireContext())
@@ -69,37 +77,78 @@ class WishListFragment : Fragment() {
         binding.rvWishlist.adapter = adapter
     }
 
-    private fun deleteItem(id: String) {
+    private fun deleteItem(id: Int) {
         viewModel.deleteFav(id)
     }
 
-    private fun showFavorite(state: Boolean, listFav: List<DataFavorite>) {
-        if (!state) {
+    private fun showFavorite( listFav: List<DataFavorite>) {
+        adapter.submitList(listFav)
+        binding.ivWishlistLayoutType.setOnClickListener {
+            viewModel.isGridLayout = !viewModel.isGridLayout
+            binding.ivWishlistLayoutType.setImageResource(
+                when (viewModel.isGridLayout) {
+                    true -> R.drawable.ic_list_grid
+                    else -> R.drawable.ic_list_linear
+                }
+            )
+            binding.rvWishlist.layoutManager = if (viewModel.isGridLayout) lmGrid else lmLinear
+            adapter.setLayoutType(viewModel.isGridLayout)
+            binding.rvWishlist.adapter = adapter
             adapter.submitList(listFav)
-            binding.ivWishlistLayoutType.setOnClickListener {
-                viewModel.isGridLayout = !viewModel.isGridLayout
-                binding.ivWishlistLayoutType.setImageResource(
-                    when (viewModel.isGridLayout) {
-                        true -> R.drawable.ic_list_grid
-                        else -> R.drawable.ic_list_linear
-                    }
-                )
-                binding.rvWishlist.layoutManager = if (viewModel.isGridLayout) lmGrid else lmLinear
-                adapter.setLayoutType(viewModel.isGridLayout)
-                binding.rvWishlist.adapter = adapter
-                adapter.submitList(listFav)
-            }
         }
     }
 
     private fun showError(state: Boolean) {
-        binding.ivWishlistError.isVisible = state == true
-        binding.tvWishlistErrorCode.isVisible = state == true
-        binding.tvWishlistErrorMessage.isVisible = state == true
-        binding.tvWishlistItems.isVisible = state == false
-        binding.ivWishlistLayoutType.isVisible = state == false
-        binding.dvdrWishlist1.isVisible = state == false
-        binding.rvWishlist.isVisible = state == false
+        // Visible view
+        binding.ivWishlistError.isVisible = state
+        binding.tvWishlistErrorCode.isVisible = state
+        binding.tvWishlistErrorMessage.isVisible = state
+        // Invisible view
+        binding.tvWishlistItems.isVisible = !state
+        binding.ivWishlistLayoutType.isVisible = !state
+        binding.dvdrWishlist1.isVisible = !state
+        binding.rvWishlist.isVisible = !state
+    }
+
+    private fun addChart(data:DataFavorite){
+
+        viewModel.setChartData(
+            DataCart(
+                productId = data.productId,
+                brand = data.brand,
+                description = data.description,
+                image = data.image,
+                productName = data.productName,
+                productPrice = data.productPrice,
+                productRating = data.productRating,
+                variantName = data.variantName,
+                variantPrice = data.variantPrice,
+                sale = data.sale,
+                stock = data.stock,
+                store = data.store,
+                totalRating = data.totalRating,
+                totalReview = data.totalReview,
+                totalSatisfaction = data.totalSatisfaction
+            )
+        )
+
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val message = viewModel.dataCart?.let { viewModel.addChart(it,true) }
+            if (message == CART_ADDED) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.success_added_to_chart),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.out_of_stock),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     companion object {

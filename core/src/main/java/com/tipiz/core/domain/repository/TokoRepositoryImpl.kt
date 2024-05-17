@@ -3,6 +3,7 @@ package com.tipiz.core.domain.repository
 import androidx.paging.PagingData
 import com.tipiz.core.data.local.datasource.LocalDataStore
 import com.tipiz.core.data.local.datasource.PagingDataSource
+import com.tipiz.core.data.local.room.entity.ChartEntity
 import com.tipiz.core.data.local.room.entity.FavoriteEntity
 import com.tipiz.core.data.local.room.entity.ProductEntity
 import com.tipiz.core.data.network.data.login.LoginRequest
@@ -134,22 +135,60 @@ class TokoRepositoryImpl(
         }
     }
 
-    // ROOM
+    // ===== ROOM =====
 
+    // FAv
     override fun getAllFav(): Flow<List<FavoriteEntity>> {
-      return  local.getAllFav()
+        return local.getAllFav()
     }
 
     override suspend fun insertFav(fav: FavoriteEntity) {
-       local.insertFav(fav)
+        local.insertFav(fav)
     }
 
-    override suspend fun deleteItemFav(id: String) {
-       local.deleteItemFav(id)
+    override suspend fun deleteItemFav(id: Int) {
+        local.deleteItemFav(id)
     }
 
-    override fun getIsFav(id: String):Flow<Boolean> {
-     return local.getIsFav(id)
+    override suspend fun deleteWishlist(fav: String) {
+        local.deleteWishlist(fav)
     }
+
+    override fun getIsFav(id: String): Flow<Boolean> {
+        return local.getIsFav(id)
+    }
+
+    // Chart
+    override suspend fun getAllChart(): Flow<List<ChartEntity>> = safeDataCall {
+        local.getAllChart()
+    }
+
+    override suspend fun insertChart(chart: ChartEntity) {
+        local.insertChart(chart)
+    }
+
+    override fun updateCountChart(id: String, newCount: Int) =
+        local.updateCountChart(id, newCount)
+
+    override suspend fun updateIsCheckedChart(id: String, newIsChecked: Boolean) {
+        local.updateIsCheckedChart(id, newIsChecked)
+    }
+
+    override suspend fun updateCheckAllChart(value: Boolean) {
+        local.updateCheckAllChart(value)
+    }
+
+    override suspend fun deleteItemChart(id: String) {
+        local.deleteItemChart(id)
+    }
+
+    override fun getStockChart(id: String): ChartEntity? {
+        return local.getStockChart(id)
+    }
+
+    override suspend fun deleteCheckedChart() {
+        local.deleteCheckedChart()
+    }
+
 
 }

@@ -82,4 +82,12 @@
     <string name="success_added_to_wishlist">Berhasil ditambahkan ke daftar keinginan</string>
     <string name="empty">Kosong</string>
     <string name="item_s">%1$d Barang</string>
+    <string name="choose_all">Pilih Semua</string>
+    <string name="chart">Keranjang</string>
+    <string name="delete">Hapus</string>
+    <string name="total_payment">Total Pembayaran</string>
+    <string name="success_added_to_chart">Sukses ditambahkan ke troli</string>
+    <string name="out_of_stock">Stok Habis</string>
+    <string name="_5_left">%5% Tersisa</string>
+    <string name="stock">Stok %5%</string>
 </resources>

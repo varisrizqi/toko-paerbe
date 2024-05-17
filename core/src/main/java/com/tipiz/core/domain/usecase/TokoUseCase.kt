@@ -3,6 +3,7 @@ package com.tipiz.core.domain.usecase
 import androidx.paging.PagingData
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.register.RegisterRequest
+import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
 import com.tipiz.core.domain.model.login.DataLogin
 import com.tipiz.core.domain.model.login.DataProfile
@@ -72,10 +73,6 @@ interface TokoUseCase {
          id:String
      ): DataDetailProduct
 
-    /*suspend fun fetchDetailProduct(
-        id: String
-    ): DetailResponse*/
-
     suspend fun fetchReviewProduct(
         id: String
     ): List<DataReview>
@@ -85,6 +82,18 @@ interface TokoUseCase {
     // ====== Favorite =====
      fun getAllFav() :Flow<List<DataFavorite>>
     suspend fun insertFav(fav: DataFavorite)
-    suspend fun deleteItemFav(id: String)
+    suspend fun deleteItemFav(id: Int)
+    suspend fun deleteWishlist(fav: String)
     fun getIsFav(id: String):Flow<Boolean>
+
+    // ====== Chart =====
+    suspend fun getAllChart(): Flow<List<DataCart>>
+    suspend fun insertChart(chart: DataCart)
+    fun updateCountChart(id: String, newCount: Int)
+    suspend fun updateIsCheckedChart(id: String, newIsChecked: Boolean)
+    suspend fun updateCheckAllChart(value: Boolean)
+    suspend fun deleteItemChart(id: String)
+    fun getStockChart(id: String): DataCart?
+    suspend fun deleteCheckedChart()
+    suspend fun addChart(dataChart: DataCart, action: Boolean): String
 }

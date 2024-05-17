@@ -5,11 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.tipiz.core.utils.Constant
 
-@Entity(tableName = Constant.favorite_table)
-data class FavoriteEntity(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name ="wishlistId")
-    val wishlistId: Int = 0,
+
+@Entity(tableName = Constant.chart_table)
+data class ChartEntity (
+    @PrimaryKey
     @ColumnInfo(name = "productId")
     val productId: String = "",
     @ColumnInfo(name = "brand")
@@ -40,6 +39,12 @@ data class FavoriteEntity(
     val totalReview: Int = 0,
     @ColumnInfo(name = "totalSatisfaction")
     val totalSatisfaction: Int = 0,
+    @ColumnInfo(name = "isChecked")
+    val isChecked: Boolean = false,
+    @ColumnInfo(name = "amount")
+    val amount: Int = 0,
     @ColumnInfo(name = "setChip")
-    val setChip: Int = 0,
+    val setChip: Int = 0
+
+
 )

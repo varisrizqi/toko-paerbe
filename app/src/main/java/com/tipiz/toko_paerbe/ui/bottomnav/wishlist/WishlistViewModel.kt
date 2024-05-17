@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.usecase.TokoUseCase
 import kotlinx.coroutines.launch
 
@@ -16,16 +17,24 @@ class WishlistViewModel(private val useCase: TokoUseCase) : ViewModel() {
     val stock: LiveData<Int?> = _stock
 
     // Database
-    fun deleteFav(id: String) {
+    fun deleteFav(id: Int) {
         viewModelScope.launch {
             useCase.deleteItemFav(id)
         }
     }
 
-
-//    suspend fun addChart(product: Product, action: Boolean): String {
-//        return repository.addChart(product, action)
-//    }
+    suspend fun addChart(chart: DataCart, action: Boolean): String {
+        return useCase.addChart(chart, action)
+    }
 
     fun getAllFav() = useCase.getAllFav().asLiveData()
+
+    var dataCart: DataCart? = null
+
+    fun setChartData(data: DataCart) {
+        dataCart = data
+
+    }
+
+
 }

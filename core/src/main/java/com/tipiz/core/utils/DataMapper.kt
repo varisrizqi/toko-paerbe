@@ -1,5 +1,6 @@
 package com.tipiz.core.utils
 
+import com.tipiz.core.data.local.room.entity.ChartEntity
 import com.tipiz.core.data.local.room.entity.FavoriteEntity
 import com.tipiz.core.data.local.room.entity.ProductEntity
 import com.tipiz.core.data.network.data.login.LoginResponse
@@ -9,6 +10,7 @@ import com.tipiz.core.data.network.data.profile.ProfileResponse
 import com.tipiz.core.data.network.data.refresh.RefreshRequest
 import com.tipiz.core.data.network.data.refresh.RefreshResponse
 import com.tipiz.core.data.network.data.register.RegisterResponse
+import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
 import com.tipiz.core.domain.model.login.DataLogin
 import com.tipiz.core.domain.model.login.DataProfile
@@ -156,7 +158,8 @@ object DataMapper {
         variantName = variantName,
         variantPrice = variantPrice,
         totalReview = totalReview,
-        setChip = setChip
+        setChip = setChip,
+        wishlistId = wishlistId
     )
 
     fun List<FavoriteEntity>.toUiData(): List<DataFavorite> {
@@ -177,10 +180,82 @@ object DataMapper {
                 variantName = it.variantName,
                 variantPrice = it.variantPrice,
                 totalReview = it.totalReview,
-                setChip = it.setChip
+                setChip = it.setChip,
+                wishlistId = it.wishlistId
             )
         }
     }
+
+    // ===== Cart =====
+
+    fun List<ChartEntity>.toUiChartData(): List<DataCart> {
+        return this.map {
+            DataCart(
+                productId = it.productId,
+                productName = it.productName,
+                productPrice = it.productPrice,
+                image = it.image,
+                brand = it.brand,
+                description = it.description,
+                store = it.store,
+                sale = it.sale,
+                stock = it.stock,
+                totalRating = it.totalRating,
+                totalSatisfaction = it.totalSatisfaction,
+                productRating = it.productRating,
+                variantName = it.variantName,
+                variantPrice = it.variantPrice,
+                totalReview = it.totalReview,
+                amount = it.amount,
+                isChecked = it.isChecked
+            )
+        }
+    }
+
+
+    fun DataCart.toChartEntity(count: Int, isChecked: Boolean) = ChartEntity(
+        productId = productId,
+        brand = brand,
+        description = description,
+        image = image,
+        productName = productName,
+        productPrice = productPrice,
+        productRating = productRating,
+        variantName = variantName,
+        variantPrice = variantPrice,
+        sale = sale,
+        stock = stock,
+        store = store,
+        totalRating = totalRating,
+        totalReview = totalReview,
+        totalSatisfaction = totalSatisfaction,
+        isChecked = isChecked,
+        amount = count
+    )
+
+    fun ChartEntity.toDataChart(): DataCart {
+        return DataCart(
+            productId = productId,
+            brand = brand,
+            description = description,
+            image = image,
+            productName = productName,
+            productPrice = productPrice,
+            productRating = productRating,
+            variantName = variantName,
+            variantPrice = variantPrice,
+            sale = sale,
+            stock = stock,
+            store = store,
+            totalRating = totalRating,
+            totalReview = totalReview,
+            totalSatisfaction = totalSatisfaction,
+            isChecked = isChecked,
+            amount = amount
+        )
+    }
+
+
 
 }
 

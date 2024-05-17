@@ -19,9 +19,9 @@ data class DataFavorite(
     var productRating: Double = 0.0,
     var variantName: String = "",
     var variantPrice: Int = 0,
-//    var productVariant: List<FavoriteVariant> = listOf(),
     var totalReview:  Int = 0,
-    var setChip:  Int = 0
+    var setChip:  Int = 0,
+    val wishlistId: Int = 0
 
 ): Parcelable
 
