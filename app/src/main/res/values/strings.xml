@@ -100,4 +100,9 @@
     <string name="out_of_stock">Out of stock</string>
     <string name="_5_left">%5% Left</string>
     <string name="stock">Stock %5%</string>
+    <string name="checkout">Checkout</string>
+    <string name="purchased_item_s">Purchased Item(s)</string>
+    <string name="payment">Payment</string>
+    <string name="choose_payment_method">Choose payment method</string>
+    <string name="_1x">%1%x</string>
 </resources>

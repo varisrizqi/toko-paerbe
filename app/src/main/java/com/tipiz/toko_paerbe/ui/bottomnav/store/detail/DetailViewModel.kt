@@ -37,16 +37,10 @@ class DetailViewModel(private val useCase: TokoUseCase) :
     // ========== FAV  ==========
 
     private var dataFavorite: DataFavorite? = null
-    var dataCart: DataCart? = null
 
     fun setDataFavorite(data: DataFavorite) {
         dataFavorite = data
     }
-    fun setChartData(data: DataCart) {
-        dataCart = data
-
-    }
-
 
     var isFav: Boolean = false
 
@@ -63,6 +57,15 @@ class DetailViewModel(private val useCase: TokoUseCase) :
             useCase.deleteWishlist(data)
         }
     }
+
+    // ===== Cart =====
+
+    var dataCart: DataCart? = null
+    fun setChartData(data: DataCart) {
+        dataCart = data
+
+    }
+
 
     suspend fun addChart(product: DataCart, action: Boolean): String {
         return useCase.addChart(product, action)

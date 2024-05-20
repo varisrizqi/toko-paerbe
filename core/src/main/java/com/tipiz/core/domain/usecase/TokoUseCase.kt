@@ -1,10 +1,12 @@
 package com.tipiz.core.domain.usecase
 
 import androidx.paging.PagingData
+import com.tipiz.core.data.network.data.fullfillmentbody.FulFillRequest
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
+import com.tipiz.core.domain.model.fillfullment.DataFulFillMent
 import com.tipiz.core.domain.model.login.DataLogin
 import com.tipiz.core.domain.model.login.DataProfile
 import com.tipiz.core.domain.model.login.DataToken
@@ -76,6 +78,10 @@ interface TokoUseCase {
     suspend fun fetchReviewProduct(
         id: String
     ): List<DataReview>
+
+    suspend fun fetchFulfillment(
+        fulfillmentBody: FulFillRequest
+    ) : DataFulFillMent
 
     // ROOM
 

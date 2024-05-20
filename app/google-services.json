@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "583238218044",
+    "project_id": "fir-tokopaerbe",
+    "storage_bucket": "fir-tokopaerbe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583238218044:android:7a8265d6fa41b4cc26ee39",
+        "android_client_info": {
+          "package_name": "com.tipiz.toko_paerbe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9G4eStjuyTPZn0Bg7rFcDgkoTDpGcjVM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

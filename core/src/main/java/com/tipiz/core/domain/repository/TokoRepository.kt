@@ -4,6 +4,8 @@ import androidx.paging.PagingData
 import com.tipiz.core.data.local.room.entity.ChartEntity
 import com.tipiz.core.data.local.room.entity.FavoriteEntity
 import com.tipiz.core.data.local.room.entity.ProductEntity
+import com.tipiz.core.data.network.data.fullfillmentbody.FulFillRequest
+import com.tipiz.core.data.network.data.fullfillmentbody.FulFillResponse
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
@@ -71,6 +73,10 @@ interface TokoRepository {
     suspend fun fetchReviewProduct(
         id: String
     ): ReviewResponse
+
+    suspend fun fetchFulfillment(
+        fulfillmentBody: FulFillRequest
+    ) : FulFillResponse
 
     // ROOM
 

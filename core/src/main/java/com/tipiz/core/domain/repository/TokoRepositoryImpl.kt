@@ -6,6 +6,8 @@ import com.tipiz.core.data.local.datasource.PagingDataSource
 import com.tipiz.core.data.local.room.entity.ChartEntity
 import com.tipiz.core.data.local.room.entity.FavoriteEntity
 import com.tipiz.core.data.local.room.entity.ProductEntity
+import com.tipiz.core.data.network.data.fullfillmentbody.FulFillRequest
+import com.tipiz.core.data.network.data.fullfillmentbody.FulFillResponse
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
@@ -135,6 +137,9 @@ class TokoRepositoryImpl(
         }
     }
 
+    override suspend fun fetchFulfillment(fulfillmentBody: FulFillRequest): FulFillResponse {
+        return safeDataCall { remote.fetchFulfillment(fulfillmentBody = fulfillmentBody) }
+    }
     // ===== ROOM =====
 
     // FAv

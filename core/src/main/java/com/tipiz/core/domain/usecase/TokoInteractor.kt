@@ -2,10 +2,12 @@ package com.tipiz.core.domain.usecase
 
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.tipiz.core.data.network.data.fullfillmentbody.FulFillRequest
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
+import com.tipiz.core.domain.model.fillfullment.DataFulFillMent
 import com.tipiz.core.domain.model.login.DataLogin
 import com.tipiz.core.domain.model.login.DataProfile
 import com.tipiz.core.domain.model.login.DataToken
@@ -20,6 +22,7 @@ import com.tipiz.core.utils.Constant.CART_FULL
 import com.tipiz.core.utils.Constant.CART_MINIMUM
 import com.tipiz.core.utils.DataMapper.toChartEntity
 import com.tipiz.core.utils.DataMapper.toDataChart
+import com.tipiz.core.utils.DataMapper.toDataFull
 import com.tipiz.core.utils.DataMapper.toEntity
 import com.tipiz.core.utils.DataMapper.toUIData
 import com.tipiz.core.utils.DataMapper.toUiChartData
@@ -151,6 +154,9 @@ class TokoInteractor(
         repo.fetchReviewProduct(id = id).toUiListData()
     }
 
+    override suspend fun fetchFulfillment(fulfillmentBody: FulFillRequest): DataFulFillMent = safeDataCall {
+        repo.fetchFulfillment(fulfillmentBody = fulfillmentBody ).toDataFull()
+    }
     // ROOM
 
     // ======= FAVORITE ======

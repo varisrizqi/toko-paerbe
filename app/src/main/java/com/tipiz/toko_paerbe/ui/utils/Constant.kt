@@ -38,6 +38,7 @@ object Constant {
     const val PAGING_PAGE = 1
     const val RAM_16_GB = "RAM 16GB"
     const val INDONESIA_CURRENCY = "IDR"
+    const val extra_checkout = "extra_checkout"
 
     //bottomSheet
     const val extra_btm_sheet = "extra_bottom_sheet"

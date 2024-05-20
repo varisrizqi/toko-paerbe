@@ -1,6 +1,5 @@
 package com.tipiz.toko_paerbe.ui.bottomnav.store.detail
 
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -48,10 +47,19 @@ class DetailFragment :
         }
 
         binding.btnDetailsReviewAll.setOnClickListener {
-            val mBundle = Bundle()
-            mBundle.putString(Constant.extra_detail, detail)
-            findNavController().navigate(R.id.action_detailFragment_to_reviewFragment, mBundle)
+            val navToDetail =
+                DetailFragmentDirections.actionDetailFragmentToReviewFragment(detail ?: "")
+            findNavController().navigate(navToDetail)
         }
+
+        binding.btnDirectBuy.setOnClickListener {
+            val cart =  viewModel.dataCart
+            cart?.amount = 1
+            val args =
+                DetailFragmentDirections.actionDetailFragmentToCheckoutFragment(arrayOf(cart))
+            findNavController().navigate(args)
+        }
+
 
     }
 
@@ -72,14 +80,11 @@ class DetailFragment :
                     binding.llBottomBar.visibility = View.VISIBLE
                     binding.scrollView.visibility = View.VISIBLE
 
+
+
                     binding.cgDetailsVariants.setOnCheckedStateChangeListener { _, _ ->
                         checkedChipId = binding.cgDetailsVariants.checkedChipId
                         data.setChip = binding.cgDetailsVariants.checkedChipId
-
-                        data.productVariant[checkedChipId].variantName =
-                            data.productVariant[checkedChipId].variantName
-                        data.productVariant[checkedChipId].variantPrice =
-                            data.productVariant[checkedChipId].variantPrice
 
                         val totalVariantPrice =
                             data.productPrice + data.productVariant[checkedChipId].variantPrice
@@ -162,11 +167,13 @@ class DetailFragment :
         }
     }
 
-    private fun fav(data: DataDetailProduct) {
+    private fun fav() {
         val detail = arguments?.getString(Constant.extra_detail)
+
 
         binding.ivDetailFav.setOnClickListener {
             viewModel.isFav = !viewModel.isFav
+
             if (viewModel.isFav) {
                 viewModel.insertFav()
                 Snackbar.make(
@@ -265,7 +272,7 @@ class DetailFragment :
                 imgStar.setImageResource(R.drawable.ic_star)
                 createVariant(data.productVariant)
                 firstChipGroup()
-                fav(data)
+                fav()
                 isCreated = true
             }
         }

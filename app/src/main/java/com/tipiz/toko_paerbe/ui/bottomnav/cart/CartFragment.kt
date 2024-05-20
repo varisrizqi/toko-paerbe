@@ -42,6 +42,13 @@ class CartFragment :
             toolbar.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
+
+            binding.btnChartBuy.setOnClickListener {
+                val dataCart = viewModel.checkoutItems.toTypedArray()
+                val args = CartFragmentDirections.actionChartFragmentToCheckoutFragment(dataCart)
+                findNavController().navigate(args)
+            }
+
         }
 
     }
@@ -49,6 +56,7 @@ class CartFragment :
     override fun initViewModel() {
         with(viewModel) {
             getAllChart.observe(viewLifecycleOwner) { data ->
+
                 showError(data.isEmpty())
                 showCart(data)
                 val isCheckTotal = data.filter { it.isChecked }.size
@@ -60,9 +68,10 @@ class CartFragment :
                     binding.btnChartBuy.isEnabled = false
                 }
                 binding.cbChartCheckAll.isChecked = isCheckTotal == data.size
-                data.forEach {
-                    Log.e("Database", "chart ${it.productId}")
-                    Log.e("Database", "chart $it")
+                data.forEach { dataCart ->
+
+                    Log.e("Database", "chart ${dataCart.productId}")
+                    Log.e("Database", "chart $dataCart")
 
                 }
             }
