@@ -2,9 +2,12 @@ package com.tipiz.core.utils
 
 import com.tipiz.core.data.local.room.entity.ChartEntity
 import com.tipiz.core.data.local.room.entity.FavoriteEntity
+import com.tipiz.core.data.local.room.entity.NotificationEntity
 import com.tipiz.core.data.local.room.entity.ProductEntity
 import com.tipiz.core.data.network.data.fullfillmentbody.FulFillResponse
 import com.tipiz.core.data.network.data.login.LoginResponse
+import com.tipiz.core.data.network.data.payment.DataItem
+import com.tipiz.core.data.network.data.payment.PaymentItemItem
 import com.tipiz.core.data.network.data.products.ItemsItem
 import com.tipiz.core.data.network.data.products.ProductsResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
@@ -14,9 +17,13 @@ import com.tipiz.core.data.network.data.register.RegisterResponse
 import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
 import com.tipiz.core.domain.model.fillfullment.DataFulFillMent
+import com.tipiz.core.domain.model.firebase.Notification
+import com.tipiz.core.domain.model.firebase.PromoFcm
 import com.tipiz.core.domain.model.login.DataLogin
 import com.tipiz.core.domain.model.login.DataProfile
 import com.tipiz.core.domain.model.login.DataToken
+import com.tipiz.core.domain.model.payment.DataPayment
+import com.tipiz.core.domain.model.payment.ItemPayment
 import com.tipiz.core.domain.model.products.DataDetailProduct
 import com.tipiz.core.domain.model.products.DataProduct
 import com.tipiz.core.domain.model.products.ProductVariant
@@ -268,6 +275,48 @@ object DataMapper {
         time = data.time,
         status = data.status
 
+    )
+
+
+    // ===== notification =====
+
+    fun PromoFcm.toEntityNotification() = NotificationEntity(
+        body = body,
+        date = date,
+        image = image,
+        time = time,
+        title = title,
+        type = type,
+        isChecked = false
+    )
+
+    fun List<NotificationEntity>.toUiDataNotify(): List<Notification> {
+        return this.map {
+            Notification(
+                id = it.id,
+                body = it.body,
+                date = it.date,
+                image = it.image,
+                time = it.time,
+                title = it.title,
+                type = it.type,
+                isChecked = it.isChecked
+            )
+        }
+    }
+
+    // ===== Payment =====
+//    fun PaymentResponse.toUiListData() = data.map { it.toUiDataPayemnt() }
+
+     fun DataItem.toUiDataPayment() = DataPayment(
+        item = item?.map { it?.toUIPaymentListItem() },
+        title = title
+    )
+
+    private fun PaymentItemItem.toUIPaymentListItem() = ItemPayment(
+        image = image,
+        label = label,
+        status = status
     )
 
 

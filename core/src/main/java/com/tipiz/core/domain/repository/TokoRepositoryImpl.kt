@@ -5,6 +5,7 @@ import com.tipiz.core.data.local.datasource.LocalDataStore
 import com.tipiz.core.data.local.datasource.PagingDataSource
 import com.tipiz.core.data.local.room.entity.ChartEntity
 import com.tipiz.core.data.local.room.entity.FavoriteEntity
+import com.tipiz.core.data.local.room.entity.NotificationEntity
 import com.tipiz.core.data.local.room.entity.ProductEntity
 import com.tipiz.core.data.network.data.fullfillmentbody.FulFillRequest
 import com.tipiz.core.data.network.data.fullfillmentbody.FulFillResponse
@@ -195,5 +196,17 @@ class TokoRepositoryImpl(
         local.deleteCheckedChart()
     }
 
+    // notify
+    override fun getAllNotification(): Flow<List<NotificationEntity>> {
+        return local.getAllNotification()
+    }
 
+    override suspend fun insertNotification(notification: NotificationEntity) = safeDataCall {
+        local.insertNotification(notification = notification)
+    }
+
+    override suspend fun updateIsCheckedNotification(id: Int, newIsChecked: Boolean) =
+        safeDataCall {
+            local.updateIsCheckedNotification(id = id, newIsChecked = newIsChecked)
+        }
 }

@@ -16,7 +16,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentDashBoardBinding
 import com.tipiz.toko_paerbe.ui.utils.BaseFragmentBottomNav
-import com.tipiz.toko_paerbe.ui.utils.Constant.FLAG_TRANSACTION
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -47,23 +46,23 @@ class DashBoardFragment :
         val args = DashBoardFragmentArgs.fromBundle(requireArguments()).flag
 
         Log.d("TAG", "onViewCreated: $args")
-        if (args == FLAG_TRANSACTION) {
+        /*if (args == FLAG_TRANSACTION) {
             binding.bottomNav?.selectedItemId = R.id.navigation_transaction
             binding.nrMain?.selectedItemId = R.id.navigation_transaction
             binding.lnMain?.selectedItemId = R.id.navigation_transaction
             binding.nvMain?.menu?.performIdentifierAction(R.id.navigation_transaction, 0)
-        }
+        }*/
 
         val container: ViewGroup = binding.containerMainFragment
 
         container.addView(object : View(requireContext()) {
             override fun onConfigurationChanged(newConfig: Configuration?) {
                 super.onConfigurationChanged(newConfig)
-                computeWindowSizeClasses()
+//                computeWindowSizeClasses()
             }
         })
 
-        computeWindowSizeClasses()
+//        computeWindowSizeClasses()
 
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -73,6 +72,7 @@ class DashBoardFragment :
                 }
 
                 R.id.action_notification -> {
+                    findNavController().navigate(R.id.action_dashBoardFragment_to_notificationFragment)
                     true
                 }
 

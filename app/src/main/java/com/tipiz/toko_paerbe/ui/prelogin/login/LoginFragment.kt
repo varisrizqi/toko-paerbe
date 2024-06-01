@@ -1,13 +1,18 @@
 package com.tipiz.toko_paerbe.ui.prelogin.login
 
 import android.os.Build
+import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.messaging.FirebaseMessaging
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.utils.state.UiState
 import com.tipiz.toko_paerbe.R
@@ -18,12 +23,15 @@ import com.tipiz.toko_paerbe.ui.utils.Spannable
 import com.tipiz.toko_paerbe.ui.utils.showToast
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class LoginFragment :
     BaseFragment<FragmentLoginBinding, LoginViewModel>(FragmentLoginBinding::inflate) {
     override val viewModel: LoginViewModel by viewModel()
+    private val analytics: FirebaseAnalytics by inject()
+    private val fcm: FirebaseMessaging by inject()
 
     override fun initView() {
         login()
@@ -75,31 +83,45 @@ class LoginFragment :
 
     private fun login() {
         with(binding) {
-            val emailInputLayout = inputEmail
-            val passwordInputLayout = inputPassword
-            edEmail.doAfterTextChanged { validateEmail() }
-            edPassword.doAfterTextChanged { validatePassword() }
-            btnLogin.setOnClickListener {
-                val email = edEmail.text.toString().trim()
-                val password = edPassword.text.toString().trim()
-                val request = LoginRequest(
-                    email = email,
-                    password = password,
-                    firebaseToken = ""
-                )
+            fcm.token.addOnCompleteListener(
+                OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        return@OnCompleteListener
+                    }
+                    val token = task.result
+                    val emailInputLayout = inputEmail
+                    val passwordInputLayout = inputPassword
+                    edEmail.doAfterTextChanged { validateEmail() }
+                    edPassword.doAfterTextChanged { validatePassword() }
+                    btnLogin.setOnClickListener {
+                        val email = edEmail.text.toString().trim()
+                        val password = edPassword.text.toString().trim()
+                        val request = LoginRequest(
+                            email = email,
+                            password = password,
+                            firebaseToken = token
+                        )
 
-                when {
-                    email.isEmpty() -> emailInputLayout.error =
-                        getString(R.string.email_cannot_be_empty)
+                        when {
+                            email.isEmpty() -> emailInputLayout.error =
+                                getString(R.string.email_cannot_be_empty)
 
-                    password.isEmpty() -> passwordInputLayout.error =
-                        getString(R.string.password_cannot_be_empty)
+                            password.isEmpty() -> passwordInputLayout.error =
+                                getString(R.string.password_cannot_be_empty)
 
-                    isValidEmail(email) && isValidPassword(password) -> {
-                        viewModel.fetchLogin(request)
+                            isValidEmail(email) && isValidPassword(password) -> {
+                                viewModel.fetchLogin(request)
+                            }
+                        }
+                        Log.d("firebaseToken", "notificationFCM $token")
+                        val bundle = Bundle()
+                        bundle.putString(FirebaseAnalytics.Param.METHOD, "email&password")
+                        analytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
+                        Log.d("Analytics", "Login event sent with method: email&password")
                     }
                 }
-            }
+            )
+
         }
     }
 

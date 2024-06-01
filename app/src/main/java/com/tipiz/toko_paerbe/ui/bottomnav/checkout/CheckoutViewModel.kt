@@ -29,6 +29,8 @@ class CheckoutViewModel(private val useCase: TokoUseCase) : ViewModel() {
         )
     )
 
+    val paymentMethod = MutableLiveData<HashMap<String, String?>>()
+
     fun fetchFulfillment() {
         viewModelScope.launch {
             _responseFullFillMent.asMutableStateFlow {
@@ -45,5 +47,11 @@ class CheckoutViewModel(private val useCase: TokoUseCase) : ViewModel() {
 
     fun addPaymentMethod(payment:String?){
         fBody.value?.payment = payment
+    }
+
+    fun deleteAll(){
+        viewModelScope.launch {
+            useCase.deleteCheckedChart()
+        }
     }
 }

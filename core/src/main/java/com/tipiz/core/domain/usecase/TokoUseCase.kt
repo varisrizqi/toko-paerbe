@@ -7,6 +7,8 @@ import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
 import com.tipiz.core.domain.model.fillfullment.DataFulFillMent
+import com.tipiz.core.domain.model.firebase.Notification
+import com.tipiz.core.domain.model.firebase.PromoFcm
 import com.tipiz.core.domain.model.login.DataLogin
 import com.tipiz.core.domain.model.login.DataProfile
 import com.tipiz.core.domain.model.login.DataToken
@@ -102,4 +104,10 @@ interface TokoUseCase {
     fun getStockChart(id: String): DataCart?
     suspend fun deleteCheckedChart()
     suspend fun addChart(dataChart: DataCart, action: Boolean): String
+
+    // notify
+
+    fun getAllNotification(): Flow<List<Notification>>
+    suspend fun insertNotification(notification: PromoFcm)
+    suspend fun updateIsCheckedNotification(id: Int, newIsChecked: Boolean)
 }

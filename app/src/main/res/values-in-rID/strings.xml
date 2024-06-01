@@ -90,4 +90,7 @@
     <string name="out_of_stock">Stok Habis</string>
     <string name="_5_left">%5% Tersisa</string>
     <string name="stock">Stok %5%</string>
+    <string name="purchased_item_s">Barang yang Dibeli</string>
+    <string name="payment">Pembayaran</string>
+    <string name="choose_payment_method">Pilih cara pembayaran</string>
 </resources>

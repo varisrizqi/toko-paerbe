@@ -3,6 +3,7 @@ package com.tipiz.core.domain.repository
 import androidx.paging.PagingData
 import com.tipiz.core.data.local.room.entity.ChartEntity
 import com.tipiz.core.data.local.room.entity.FavoriteEntity
+import com.tipiz.core.data.local.room.entity.NotificationEntity
 import com.tipiz.core.data.local.room.entity.ProductEntity
 import com.tipiz.core.data.network.data.fullfillmentbody.FulFillRequest
 import com.tipiz.core.data.network.data.fullfillmentbody.FulFillResponse
@@ -98,4 +99,9 @@ interface TokoRepository {
     suspend fun deleteItemChart(id: String)
     fun getStockChart(id: String): ChartEntity?
     suspend fun deleteCheckedChart()
+
+    // ====== Notify =====
+    fun getAllNotification(): Flow<List<NotificationEntity>>
+    suspend fun insertNotification(notification: NotificationEntity)
+    suspend fun updateIsCheckedNotification(id: Int, newIsChecked: Boolean)
 }

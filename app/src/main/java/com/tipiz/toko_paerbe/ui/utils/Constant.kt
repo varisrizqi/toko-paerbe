@@ -30,30 +30,31 @@ object Constant {
     //detail store
     const val extra_detail = "extra_detail"
     const val extra_variant = "extra_variant"
-    const val extra_base = "extra_base"
     const val extra_chip = "extra_chip"
     const val extra_setImage = "extra_setImage"
-    const val FLAG_TRANSACTION = "transaction"
     const val PAGING_PAGE_LIMIT = 10
     const val PAGING_PAGE = 1
-    const val RAM_16_GB = "RAM 16GB"
-    const val INDONESIA_CURRENCY = "IDR"
-    const val extra_checkout = "extra_checkout"
 
     //bottomSheet
     const val extra_btm_sheet = "extra_bottom_sheet"
-     const val BUNDLE_KEY_SORT = "sort"
-     const val BUNDLE_KEY_CATEGORY = "category"
-     const val BUNDLE_KEY_LOWEST = "lowest"
-     const val BUNDLE_KEY_HIGHEST = "highest"
-     const val BUNDLE_KEY_SEARCH = "search"
-     const val REQUEST_KEY_BOTTOM_SHEET = "filter_data_bs"
+    const val BUNDLE_KEY_SORT = "sort"
+    const val BUNDLE_KEY_CATEGORY = "category"
+    const val BUNDLE_KEY_LOWEST = "lowest"
+    const val BUNDLE_KEY_HIGHEST = "highest"
+    const val REQUEST_KEY_BOTTOM_SHEET = "filter_data_bs"
 
     //Chart
-    const val CART_FULL = "cartFull"
     const val CART_ADDED = "cartAdded"
-    const val CART_DECREASED = "cartDecreased"
-    const val CART_MINIMUM = "cartMinimum"
+
+    //notify
+    const val CHANNEL_ID = "ECOMMERCE"
+    const val CHANNEL_NAME = "NOTIFICATION"
+
+    //checkout
+     const val PAYMENT_METHOD = "payment_method"
+     const val SELECTED_PAYMENT = "selected_payment"
+     const val SELECTED_PAYMENT_LOGO = "selected_payment_logo"
+     const val FIREBASE_KEY = "payment"
 
 }
 

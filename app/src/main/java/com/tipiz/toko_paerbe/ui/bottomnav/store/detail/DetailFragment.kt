@@ -33,7 +33,6 @@ class DetailFragment :
     BaseFragmentBottomNav<FragmentDetailBinding, DetailViewModel>(FragmentDetailBinding::inflate) {
     override val viewModel: DetailViewModel by viewModel() //ktx
     private var isCreated: Boolean = false
-    private var checkedChipId: Int = 0
     override fun initView() {
 
 
@@ -53,7 +52,7 @@ class DetailFragment :
         }
 
         binding.btnDirectBuy.setOnClickListener {
-            val cart =  viewModel.dataCart
+            val cart = viewModel.dataCart
             cart?.amount = 1
             val args =
                 DetailFragmentDirections.actionDetailFragmentToCheckoutFragment(arrayOf(cart))
@@ -82,9 +81,12 @@ class DetailFragment :
 
 
 
+
                     binding.cgDetailsVariants.setOnCheckedStateChangeListener { _, _ ->
                         checkedChipId = binding.cgDetailsVariants.checkedChipId
                         data.setChip = binding.cgDetailsVariants.checkedChipId
+
+                        data.productVariant
 
                         val totalVariantPrice =
                             data.productPrice + data.productVariant[checkedChipId].variantPrice
@@ -136,7 +138,12 @@ class DetailFragment :
                             Log.e("varis", "detail chip ${data.setChip}")
                             lifecycleScope.launch(Dispatchers.IO) {
                                 val message =
-                                    viewModel.dataCart?.let { it1 -> viewModel.addChart(it1, true) }
+                                    viewModel.dataCart?.let { it1 ->
+                                        viewModel.addChart(
+                                            it1,
+                                            true
+                                        )
+                                    }
                                 if (message == CART_ADDED) {
                                     Snackbar.make(
                                         binding.root,
@@ -153,8 +160,9 @@ class DetailFragment :
                             }
                         }
 
-
                     }
+
+
 
                     setUp(data)
 
@@ -207,26 +215,6 @@ class DetailFragment :
 
     }
 
-
-    private fun firstChipGroup() {
-        val detailChip = arguments?.getInt(Constant.extra_chip)
-        val detailVariant = arguments?.getString(Constant.extra_variant)
-
-        if (detailVariant == null) {
-            binding.cgDetailsVariants.check(
-                binding.cgDetailsVariants.getChildAt(
-                    detailChip ?: 0
-                ).id
-            )
-        } else {
-            binding.cgDetailsVariants.check(
-                binding.cgDetailsVariants.getChildAt(
-                    detailChip ?: 0
-                ).id
-            )
-        }
-    }
-
     private fun setLoading() {
         with(binding) {
             pgBar.visibility = View.VISIBLE
@@ -247,7 +235,7 @@ class DetailFragment :
 
                 ibDetailsShare.setImageResource(R.drawable.ic_share)
                 binding.tvDetailsPrice.text =
-                    currency(data.productPrice + data.productVariant[checkedChipId].variantPrice)
+                    currency(data.productPrice + data.productVariant[viewModel.checkedChipId].variantPrice)
                 tvDetailsTitle.text = data.productName
                 tvSold.text = getString(R.string.sold_10)
                     .replace("%10%", data.sale.toString())
@@ -271,7 +259,6 @@ class DetailFragment :
                 btnAddToCart.text = getString(R.string.cart_plus)
                 imgStar.setImageResource(R.drawable.ic_star)
                 createVariant(data.productVariant)
-                firstChipGroup()
                 fav()
                 isCreated = true
             }
@@ -315,6 +302,25 @@ class DetailFragment :
             chip.isHorizontalFadingEdgeEnabled = false
             binding.cgDetailsVariants.addView(chip)
             i++
+        }
+
+        val detailChip = arguments?.getInt(Constant.extra_chip)
+        val detailVariant = arguments?.getString(Constant.extra_variant)
+
+        if (detailVariant == null) {
+            binding.cgDetailsVariants.check(
+                binding.cgDetailsVariants.getChildAt(
+                    viewModel.checkedChipId
+                ).id
+            )
+            println("#tipiz variant create chip else a ${viewModel.checkedChipId}")
+        } else {
+            binding.cgDetailsVariants.check(
+                binding.cgDetailsVariants.getChildAt(
+                    detailChip ?: viewModel.checkedChipId
+                ).id
+            )
+            println("#tipiz variant create chip else b ${viewModel.checkedChipId}")
         }
 
 

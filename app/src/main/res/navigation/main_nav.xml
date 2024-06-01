@@ -116,6 +116,9 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_chartFragment"
             app:destination="@id/chartFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -159,5 +162,18 @@
         <action
             android:id="@+id/action_checkoutFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.tipiz.toko_paerbe.ui.bottomnav.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.tipiz.toko_paerbe.ui.bottomnav.payment.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
 </navigation>

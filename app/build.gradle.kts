@@ -5,6 +5,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("androidx.navigation.safeargs")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -81,5 +82,10 @@ dependencies {
     //firebase
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-analytics-ktx") //analytics
+    implementation("com.google.firebase:firebase-crashlytics-ktx") //crashlytics
+    implementation("com.google.firebase:firebase-messaging-ktx:23.2.1") //FCM
+    implementation("com.google.firebase:firebase-config-ktx:22.0.0") //remoteconfig
+
 
 }
