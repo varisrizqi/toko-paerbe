@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_item_payment_detail_forward"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/iv_item_payment_detail_forward"
-        tools:src="@drawable/bca" />
+        tools:src="@drawable/bca"
+        android:importantForAccessibility="no" />
 
     <ImageView
         android:id="@+id/iv_item_payment_detail_forward"

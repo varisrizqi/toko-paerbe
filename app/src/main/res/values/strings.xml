@@ -107,6 +107,6 @@
     <string name="_1x" translatable="false">%1%x</string>
     <string name="info">Info</string>
     <string name="transaction_successful">Transaction successful</string>
-    <string name="date_time_notification">%1$s, %2$s</string>
+    <string name="date_time_notification" translatable="false">%1$s, %2$s</string>
     <string name="select_payment">select_payment</string>
 </resources>

@@ -132,6 +132,5 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val TOPIC_KEY_FIREBASE = "promo"
-        const val FLAG_TRANSACTION = "transaction"
     }
 }

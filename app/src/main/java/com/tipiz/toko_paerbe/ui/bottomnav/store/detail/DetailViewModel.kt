@@ -1,6 +1,5 @@
 package com.tipiz.toko_paerbe.ui.bottomnav.store.detail
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -15,7 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class DetailViewModel(private val useCase: TokoUseCase,private val savedStateHandle: SavedStateHandle) :
+class DetailViewModel(private val useCase: TokoUseCase) :
     ViewModel() {
 
     // ====== Detail product =====
