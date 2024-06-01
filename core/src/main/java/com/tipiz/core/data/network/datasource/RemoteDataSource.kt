@@ -1,5 +1,7 @@
 package com.tipiz.core.data.network.datasource
 
+import com.tipiz.core.data.network.data.fullfillmentbody.FulFillRequest
+import com.tipiz.core.data.network.data.fullfillmentbody.FulFillResponse
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
@@ -34,7 +36,7 @@ class RemoteDataSource(private val apiEndpoint: ApiService) {
     /**
      * ORI
      */
-     suspend fun fetchDetailProduct(
+    suspend fun fetchDetailProduct(
         id: String
     ): DetailResponse {
         return apiEndpoint.fetchDetailProduct(id = id)
@@ -48,6 +50,12 @@ class RemoteDataSource(private val apiEndpoint: ApiService) {
         id: String
     ): ReviewResponse {
         return apiEndpoint.fetchReviewProduct(id = id)
+    }
+
+    suspend fun fetchFulfillment(
+        fulfillmentBody: FulFillRequest
+    ): FulFillResponse {
+        return safeApiCall { apiEndpoint.fulfillment(fulfillmentBody) }
     }
 
 

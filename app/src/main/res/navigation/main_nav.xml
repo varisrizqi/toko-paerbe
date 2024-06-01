@@ -116,6 +116,9 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_chartFragment"
             app:destination="@id/chartFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -125,15 +128,52 @@
         <action
             android:id="@+id/action_detailFragment_to_reviewFragment"
             app:destination="@id/reviewFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/reviewFragment"
         android:name="com.tipiz.toko_paerbe.ui.bottomnav.store.review.ReviewFragment"
         android:label="fragment_review"
-        tools:layout="@layout/fragment_review" />
+        tools:layout="@layout/fragment_review" >
+        <argument
+            android:name="productId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/chartFragment"
         android:name="com.tipiz.toko_paerbe.ui.bottomnav.cart.CartFragment"
         android:label="fragment_chart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_chartFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.tipiz.toko_paerbe.ui.bottomnav.checkout.CheckoutFragment"
+        android:label="fragment_checkout"
+        tools:layout="@layout/fragment_checkout" >
+        <argument
+            android:name="checkoutItems"
+            app:argType="com.tipiz.core.domain.model.cart.DataCart[]"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.tipiz.toko_paerbe.ui.bottomnav.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.tipiz.toko_paerbe.ui.bottomnav.payment.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
 </navigation>

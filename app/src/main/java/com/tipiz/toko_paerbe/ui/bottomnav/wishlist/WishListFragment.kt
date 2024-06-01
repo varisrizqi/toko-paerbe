@@ -45,6 +45,7 @@ class WishListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         viewModel.getAllFav().observe(viewLifecycleOwner) { listFav ->
             showError(listFav.isEmpty())
             showFavorite(listFav)

@@ -20,6 +20,7 @@ class HomeFragment :
         getLocalize()
         binding.btnLogout.text = getString(R.string.logout)
         binding.btnLogout.setOnClickListener {
+
             activity?.supportFragmentManager?.findFragmentById(R.id.container_main_nav_host)
                 ?.findNavController()?.navigate(R.id.action_dashBoardFragment_to_loginFragment)
             viewModel.clearSession()

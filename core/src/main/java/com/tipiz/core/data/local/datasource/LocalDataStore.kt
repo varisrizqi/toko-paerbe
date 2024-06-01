@@ -3,14 +3,17 @@ package com.tipiz.core.data.local.datasource
 import com.tipiz.core.data.local.datastore.PrefDataStoreHelper
 import com.tipiz.core.data.local.room.database.ChartDao
 import com.tipiz.core.data.local.room.database.FavoriteDAO
+import com.tipiz.core.data.local.room.database.NotificationDao
 import com.tipiz.core.data.local.room.entity.ChartEntity
 import com.tipiz.core.data.local.room.entity.FavoriteEntity
+import com.tipiz.core.data.local.room.entity.NotificationEntity
 import kotlinx.coroutines.flow.Flow
 
 class LocalDataStore(
     private val dataSource: PrefDataStoreHelper,
     private val roomFav: FavoriteDAO,
-    private val roomChart: ChartDao
+    private val roomChart: ChartDao,
+    private val roomNotify: NotificationDao
 ) {
 
     suspend fun setOnBoarding(value: Boolean) = dataSource.setOnBoarding(value)
@@ -63,7 +66,7 @@ class LocalDataStore(
     suspend fun insertFav(fav: FavoriteEntity) = roomFav.insertFav(fav)
     suspend fun deleteItemFav(id: Int) = roomFav.deleteItemFav(id)
     suspend fun deleteWishlist(fav: String) = roomFav.deleteDetailFav(fav)
-    fun getIsFav(id: String) = roomFav.getIsFav(id )
+    fun getIsFav(id: String) = roomFav.getIsFav(id)
 
     // Chart
     fun getAllChart(): Flow<List<ChartEntity>> = roomChart.getAllChart()
@@ -81,5 +84,14 @@ class LocalDataStore(
     fun getStockChart(id: String): ChartEntity? = roomChart.getStockChart(id)
     suspend fun deleteCheckedChart() = roomChart.deleteCheckedChart()
 
+
+    //notification
+    fun getAllNotification(): Flow<List<NotificationEntity>> = roomNotify.getAllNotification()
+
+    suspend fun insertNotification(notification: NotificationEntity) =
+        roomNotify.insertNotification(notification = notification)
+
+    suspend fun updateIsCheckedNotification(id: Int, newIsChecked: Boolean) =
+        roomNotify.updateIsCheckedNotification(id = id, newIsChecked = newIsChecked)
 
 }

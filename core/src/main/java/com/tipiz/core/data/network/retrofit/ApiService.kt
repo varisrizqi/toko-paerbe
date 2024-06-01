@@ -1,5 +1,7 @@
 package com.tipiz.core.data.network.retrofit
 
+import com.tipiz.core.data.network.data.fullfillmentbody.FulFillRequest
+import com.tipiz.core.data.network.data.fullfillmentbody.FulFillResponse
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.products.ProductsResponse
@@ -70,6 +72,12 @@ interface ApiService {
     suspend fun fetchReviewProduct(
         @Path("id") id: String
     ): ReviewResponse
+
+    @POST("fulfillment")
+    suspend fun fulfillment(
+        @Body fulfillmentBody: FulFillRequest
+    ): FulFillResponse
+
 
 
 }

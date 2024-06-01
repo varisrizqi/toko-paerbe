@@ -1,5 +1,6 @@
 package com.tipiz.toko_paerbe.ui.prelogin.register
 
+import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.util.Patterns
 import android.view.View
@@ -7,6 +8,9 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.messaging.FirebaseMessaging
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.utils.state.onError
 import com.tipiz.core.utils.state.onLoading
@@ -17,6 +21,7 @@ import com.tipiz.toko_paerbe.ui.utils.BaseFragment
 import com.tipiz.toko_paerbe.ui.utils.Spannable
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.regex.Pattern
 
@@ -24,8 +29,12 @@ import java.util.regex.Pattern
 class RegisterFragment :
     BaseFragment<FragmentRegisterBinding, RegisterViewModel>(FragmentRegisterBinding::inflate) {
     override val viewModel: RegisterViewModel by viewModel() //ktx
-
+    private val analytics: FirebaseAnalytics by inject()
+    private val fcm: FirebaseMessaging by inject()
     override fun initView() {
+
+
+        analytics
         register()
         setText()
 
@@ -35,7 +44,7 @@ class RegisterFragment :
     }
 
     private fun setText() {
-        with(binding){
+        with(binding) {
             inputEmail.hint = getString(R.string.email)
             inputPassword.hint = getString(R.string.password)
             btnRegister.text = getString(R.string.register)
@@ -50,15 +59,23 @@ class RegisterFragment :
         with(viewModel) {
             lifecycleScope.launch {
                 responseRegister.collectLatest { state ->
-                    state.onLoading{
+                    state.onLoading {
                         binding.pbRegister.visibility = View.VISIBLE
                         binding.btnRegister.visibility = View.INVISIBLE
                     }.onSuccess { token ->
                         saveSession(token)
-                        Toast.makeText(context,getString(R.string.successful_registration), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            getString(R.string.successful_registration),
+                            Toast.LENGTH_SHORT
+                        ).show()
                         findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
                     }.onError {
-                        Toast.makeText(context, getString(R.string.failed_to_register), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            getString(R.string.failed_to_register),
+                            Toast.LENGTH_SHORT
+                        ).show()
                         binding.pbRegister.visibility = View.INVISIBLE
                         binding.btnRegister.visibility = View.VISIBLE
                     }
@@ -69,30 +86,45 @@ class RegisterFragment :
 
     private fun register() {
         with(binding) {
-            val emailInputLayout = inputEmail
-            val passwordInputLayout = inputPassword
-            edEmail.doAfterTextChanged { validateEmail(it.toString()) }
-            edPassword.doAfterTextChanged { validatePassword(it.toString()) }
-            btnRegister.setOnClickListener {
-                val email = edEmail.text.toString().trim()
-                val password = edPassword.text.toString().trim()
-                val request = RegisterRequest(
-                    email = email,
-                    password = password,
-                    firebaseToken = ""
-                )
-                when {
-                    email.isEmpty() -> emailInputLayout.error =
-                        getString(R.string.email_cannot_be_empty)
-
-                    password.isEmpty() -> passwordInputLayout.error =
-                        getString(R.string.password_cannot_be_empty)
-
-                    isValidEmail(email) && isValidPassword(password) -> {
-                        viewModel.fetchRegister(request)
+            fcm.token.addOnCompleteListener(
+                OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        return@OnCompleteListener
                     }
+                    val token = task.result
+                    val emailInputLayout = inputEmail
+                    val passwordInputLayout = inputPassword
+                    edEmail.doAfterTextChanged { validateEmail(it.toString()) }
+                    edPassword.doAfterTextChanged { validatePassword(it.toString()) }
+                    btnRegister.setOnClickListener {
+                        val email = edEmail.text.toString().trim()
+                        val password = edPassword.text.toString().trim()
+                        val request = RegisterRequest(
+                            email = email,
+                            password = password,
+                            firebaseToken = token
+                        )
+                        when {
+                            email.isEmpty() -> emailInputLayout.error =
+                                getString(R.string.email_cannot_be_empty)
+
+                            password.isEmpty() -> passwordInputLayout.error =
+                                getString(R.string.password_cannot_be_empty)
+
+                            isValidEmail(email) && isValidPassword(password) -> {
+                                viewModel.fetchRegister(request)
+                            }
+                        }
+
+                        val bundle = Bundle()
+                        bundle.putString(FirebaseAnalytics.Param.METHOD, "email/password")
+                        analytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle)
+                    }
+
                 }
-            }
+            )
+
+
         }
     }
 
