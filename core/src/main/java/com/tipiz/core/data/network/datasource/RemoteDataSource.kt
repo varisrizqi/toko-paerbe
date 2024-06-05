@@ -5,8 +5,11 @@ import com.tipiz.core.data.network.data.fullfillmentbody.FulFillResponse
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
+import com.tipiz.core.data.network.data.rating.RatingRequest
+import com.tipiz.core.data.network.data.rating.RatingResponse
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.data.network.data.register.RegisterResponse
+import com.tipiz.core.data.network.data.transaction.TransactionResponse
 import com.tipiz.core.data.network.retrofit.ApiService
 import com.tipiz.core.remote.data.detail.DetailResponse
 import com.tipiz.core.remote.data.review.ReviewResponse
@@ -55,8 +58,14 @@ class RemoteDataSource(private val apiEndpoint: ApiService) {
     suspend fun fetchFulfillment(
         fulfillmentBody: FulFillRequest
     ): FulFillResponse {
-        return safeApiCall { apiEndpoint.fulfillment(fulfillmentBody) }
+        return safeApiCall { apiEndpoint.fetchFulfillment(fulfillmentBody) }
     }
 
+    suspend fun fetchRating(
+        ratingBody: RatingRequest
+    ): RatingResponse = safeApiCall { apiEndpoint.fetchRating(ratingBody = ratingBody) }
+
+    suspend fun fetchTransaction(): TransactionResponse =
+        safeApiCall { apiEndpoint.fetchTransaction() }
 
 }

@@ -11,6 +11,7 @@ import com.tipiz.toko_paerbe.ui.bottomnav.dashboard.DashBoardViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.home.HomeViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.notification.NotificationViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.store.StoreViewModel
+import com.tipiz.toko_paerbe.ui.bottomnav.status.StatusViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.store.bottomsheet.BottomSheetViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.store.detail.DetailViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.wishlist.WishlistViewModel
@@ -39,6 +40,7 @@ object AppModules {
         viewModelOf(::CartViewModel)
         viewModelOf(::CheckoutViewModel)
         viewModelOf(::NotificationViewModel)
+        viewModelOf(::StatusViewModel)
     }
 
     private val firebaseModule = module {

@@ -11,9 +11,13 @@ import com.tipiz.core.data.network.data.payment.PaymentItemItem
 import com.tipiz.core.data.network.data.products.ItemsItem
 import com.tipiz.core.data.network.data.products.ProductsResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
+import com.tipiz.core.data.network.data.rating.RatingResponse
 import com.tipiz.core.data.network.data.refresh.RefreshRequest
 import com.tipiz.core.data.network.data.refresh.RefreshResponse
 import com.tipiz.core.data.network.data.register.RegisterResponse
+import com.tipiz.core.data.network.data.transaction.DataItemTransaction
+import com.tipiz.core.data.network.data.transaction.ItemsItemTransaction
+import com.tipiz.core.data.network.data.transaction.TransactionResponse
 import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
 import com.tipiz.core.domain.model.fillfullment.DataFulFillMent
@@ -27,8 +31,11 @@ import com.tipiz.core.domain.model.payment.ItemPayment
 import com.tipiz.core.domain.model.products.DataDetailProduct
 import com.tipiz.core.domain.model.products.DataProduct
 import com.tipiz.core.domain.model.products.ProductVariant
+import com.tipiz.core.domain.model.rating.DataRating
 import com.tipiz.core.domain.model.refresh.RefreshBody
 import com.tipiz.core.domain.model.review.DataReview
+import com.tipiz.core.domain.model.transaction.DataTransaction
+import com.tipiz.core.domain.model.transaction.ItemsItemDataTransaction
 import com.tipiz.core.remote.data.detail.DetailResponse
 import com.tipiz.core.remote.data.detail.ProductVariantItem
 import com.tipiz.core.remote.data.review.DataItemReview
@@ -308,7 +315,7 @@ object DataMapper {
     // ===== Payment =====
 //    fun PaymentResponse.toUiListData() = data.map { it.toUiDataPayemnt() }
 
-     fun DataItem.toUiDataPayment() = DataPayment(
+    fun DataItem.toUiDataPayment() = DataPayment(
         item = item?.map { it?.toUIPaymentListItem() },
         title = title
     )
@@ -317,6 +324,36 @@ object DataMapper {
         image = image,
         label = label,
         status = status
+    )
+
+    // ===== Status =====
+    fun RatingResponse.toUiDataRating() = DataRating(
+        code = code,
+        message = message
+    )
+
+    // ===== transaction =====
+
+    fun TransactionResponse.toUiData() = data.map { it.toUiDataTransaction() }
+
+    private fun DataItemTransaction.toUiDataTransaction() = DataTransaction(
+        date = date,
+        image = image,
+        total = total,
+        review = review,
+        rating = rating,
+        name = name,
+        invoiceId = invoiceId,
+        payment = payment,
+        time = time,
+        items = items.map { it.toUiList() },
+        status = status
+    )
+
+    private fun ItemsItemTransaction.toUiList() = ItemsItemDataTransaction(
+        quantity = quantity,
+        productId = productId,
+        variantName = variantName
     )
 
 

@@ -4,6 +4,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.tipiz.core.data.network.data.fullfillmentbody.FulFillRequest
 import com.tipiz.core.data.network.data.login.LoginRequest
+import com.tipiz.core.data.network.data.rating.RatingRequest
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
@@ -16,7 +17,9 @@ import com.tipiz.core.domain.model.login.DataToken
 import com.tipiz.core.domain.model.products.DataDetailProduct
 import com.tipiz.core.domain.model.products.DataProduct
 import com.tipiz.core.domain.model.products.ProductsBody
+import com.tipiz.core.domain.model.rating.DataRating
 import com.tipiz.core.domain.model.review.DataReview
+import com.tipiz.core.domain.model.transaction.DataTransaction
 import com.tipiz.core.domain.repository.TokoRepository
 import com.tipiz.core.utils.Constant.CART_ADDED
 import com.tipiz.core.utils.Constant.CART_DECREASED
@@ -31,6 +34,7 @@ import com.tipiz.core.utils.DataMapper.toUIData
 import com.tipiz.core.utils.DataMapper.toUiChartData
 import com.tipiz.core.utils.DataMapper.toUiData
 import com.tipiz.core.utils.DataMapper.toUiDataNotify
+import com.tipiz.core.utils.DataMapper.toUiDataRating
 import com.tipiz.core.utils.DataMapper.toUiListData
 import com.tipiz.core.utils.state.UiState
 import com.tipiz.core.utils.state.safeDataCall
@@ -162,6 +166,15 @@ class TokoInteractor(
         safeDataCall {
             repo.fetchFulfillment(fulfillmentBody = fulfillmentBody).toDataFull()
         }
+
+    override suspend fun fetchRating(ratingBody: RatingRequest): DataRating {
+        return safeDataCall { repo.fetchRating(ratingBody).toUiDataRating() }
+    }
+
+    override suspend fun fetchTransaction(): List<DataTransaction> {
+        return safeDataCall { repo.fetchTransaction().toUiData() }
+    }
+
     // ROOM
 
     // ======= FAVORITE ======

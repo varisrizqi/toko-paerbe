@@ -10,6 +10,7 @@
     <color name="transparent">#00000000</color>
     <color name="md_theme_light_outline">#79747E</color>
     <color name="gray">#a9a9a9</color>
+    <color name="bg_reviewy">#EADDFF</color>
 
     <color name="p_10">#21005D</color>
     <color name="p_20">#381E72</color>

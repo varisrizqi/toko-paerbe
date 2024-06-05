@@ -6,11 +6,14 @@ import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.products.ProductsResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
+import com.tipiz.core.data.network.data.rating.RatingRequest
+import com.tipiz.core.data.network.data.rating.RatingResponse
 import com.tipiz.core.data.network.data.refresh.RefreshRequest
 import com.tipiz.core.data.network.data.refresh.RefreshResponse
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.data.network.data.register.RegisterResponse
 import com.tipiz.core.data.network.data.search.SearchResponse
+import com.tipiz.core.data.network.data.transaction.TransactionResponse
 import com.tipiz.core.remote.data.detail.DetailResponse
 import com.tipiz.core.remote.data.review.ReviewResponse
 import okhttp3.MultipartBody
@@ -74,9 +77,17 @@ interface ApiService {
     ): ReviewResponse
 
     @POST("fulfillment")
-    suspend fun fulfillment(
+    suspend fun fetchFulfillment(
         @Body fulfillmentBody: FulFillRequest
     ): FulFillResponse
+
+    @POST("rating")
+    suspend fun fetchRating(
+        @Body ratingBody: RatingRequest
+    ): RatingResponse
+
+    @GET("transaction")
+    suspend fun fetchTransaction(): TransactionResponse
 
 
 

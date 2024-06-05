@@ -96,4 +96,13 @@
     <string name="info">Informasi</string>
     <string name="transaction_successful">Transaksi berhasil</string>
     <string name="select_payment">pilih pembayaran</string>
+    <string name="payment_success">Pembayaran berhasil</string>
+    <string name="leave_a_review">Berikan ulasan</string>
+    <string name="transaction_detail">Detil transaksi</string>
+    <string name="transaction_id">ID transaksi</string>
+    <string name="date">Tanggal</string>
+    <string name="payment_method">Cara pembayaran</string>
+    <string name="time">Waktu</string>
+    <string name="succeed">Berhasil</string>
+    <string name="failed">Gagal</string>
 </resources>
