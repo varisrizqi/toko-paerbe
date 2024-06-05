@@ -45,11 +45,8 @@ class PaymentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toolbar.setNavigationOnClickListener {
-//            findNavController().navigateUp()
             findNavController().popBackStack()
         }
-
-
 
         adapter = PaymentAdapter { data ->
             sendData(data)

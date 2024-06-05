@@ -109,4 +109,14 @@
     <string name="transaction_successful">Transaction successful</string>
     <string name="date_time_notification" translatable="false">%1$s, %2$s</string>
     <string name="select_payment">select_payment</string>
+    <string name="status" translatable="false">Status</string>
+    <string name="payment_success">Payment Success</string>
+    <string name="leave_a_review">Leave a review</string>
+    <string name="transaction_detail">Transaction detail</string>
+    <string name="transaction_id">Transaction ID</string>
+    <string name="date">Date</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="time">Time</string>
+    <string name="succeed">Succeed</string>
+    <string name="failed">Failed</string>
 </resources>

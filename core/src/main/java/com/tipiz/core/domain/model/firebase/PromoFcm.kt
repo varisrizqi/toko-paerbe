@@ -1,11 +1,11 @@
 package com.tipiz.core.domain.model.firebase
 
 data class PromoFcm(
-    val body: String,
-    val date: String,
-    val image: String,
-    val time: String,
-    val title: String,
-    val type: String
+    var body: String,
+    var date: String,
+    var image: String,
+    var time: String,
+    var title: String,
+    var type: String,
 
-)
+    )

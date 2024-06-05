@@ -3,6 +3,7 @@ package com.tipiz.core.domain.usecase
 import androidx.paging.PagingData
 import com.tipiz.core.data.network.data.fullfillmentbody.FulFillRequest
 import com.tipiz.core.data.network.data.login.LoginRequest
+import com.tipiz.core.data.network.data.rating.RatingRequest
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.favorite.DataFavorite
@@ -15,7 +16,9 @@ import com.tipiz.core.domain.model.login.DataToken
 import com.tipiz.core.domain.model.products.DataDetailProduct
 import com.tipiz.core.domain.model.products.DataProduct
 import com.tipiz.core.domain.model.products.ProductsBody
+import com.tipiz.core.domain.model.rating.DataRating
 import com.tipiz.core.domain.model.review.DataReview
+import com.tipiz.core.domain.model.transaction.DataTransaction
 import com.tipiz.core.utils.state.UiState
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -84,6 +87,12 @@ interface TokoUseCase {
     suspend fun fetchFulfillment(
         fulfillmentBody: FulFillRequest
     ) : DataFulFillMent
+
+    suspend fun fetchRating(
+        ratingBody: RatingRequest
+    ): DataRating
+
+    suspend fun fetchTransaction(): List<DataTransaction>
 
     // ROOM
 

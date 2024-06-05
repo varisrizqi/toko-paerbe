@@ -12,8 +12,11 @@ import com.tipiz.core.data.network.data.fullfillmentbody.FulFillResponse
 import com.tipiz.core.data.network.data.login.LoginRequest
 import com.tipiz.core.data.network.data.login.LoginResponse
 import com.tipiz.core.data.network.data.profile.ProfileResponse
+import com.tipiz.core.data.network.data.rating.RatingRequest
+import com.tipiz.core.data.network.data.rating.RatingResponse
 import com.tipiz.core.data.network.data.register.RegisterRequest
 import com.tipiz.core.data.network.data.register.RegisterResponse
+import com.tipiz.core.data.network.data.transaction.TransactionResponse
 import com.tipiz.core.data.network.datasource.RemoteDataSource
 import com.tipiz.core.domain.model.products.DataProduct
 import com.tipiz.core.domain.model.products.ProductsBody
@@ -140,6 +143,14 @@ class TokoRepositoryImpl(
 
     override suspend fun fetchFulfillment(fulfillmentBody: FulFillRequest): FulFillResponse {
         return safeDataCall { remote.fetchFulfillment(fulfillmentBody = fulfillmentBody) }
+    }
+
+    override suspend fun fetchRating(ratingBody: RatingRequest): RatingResponse {
+        return safeDataCall { remote.fetchRating(ratingBody = ratingBody) }
+    }
+
+    override suspend fun fetchTransaction(): TransactionResponse {
+        return safeDataCall { remote.fetchTransaction() }
     }
     // ===== ROOM =====
 

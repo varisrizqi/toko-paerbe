@@ -7,9 +7,12 @@ import com.tipiz.core.data.network.data.fullfillmentbody.FulFillRequest
 import com.tipiz.core.data.network.data.fullfillmentbody.ItemsItemFillFull
 import com.tipiz.core.domain.model.cart.DataCart
 import com.tipiz.core.domain.model.fillfullment.DataFulFillMent
+import com.tipiz.core.domain.model.firebase.Notification
+import com.tipiz.core.domain.model.firebase.PromoFcm
 import com.tipiz.core.domain.usecase.TokoUseCase
 import com.tipiz.core.utils.state.UiState
 import com.tipiz.core.utils.state.asMutableStateFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -22,7 +25,7 @@ class CheckoutViewModel(private val useCase: TokoUseCase) : ViewModel() {
 
     var checkoutProduct = MutableLiveData<List<DataCart>>()
 
-     var fBody = MutableLiveData(
+    var fBody = MutableLiveData(
         FulFillRequest(
             payment = null,
             items = listOf(null, null, null)
@@ -39,19 +42,41 @@ class CheckoutViewModel(private val useCase: TokoUseCase) : ViewModel() {
         }
     }
 
-    fun addItemToBuy(items: List<ItemsItemFillFull?>){
+    fun addItemToBuy(items: List<ItemsItemFillFull?>) {
         fBody.postValue(
             fBody.value?.copy(items = items)
         )
     }
 
-    fun addPaymentMethod(payment:String?){
+    fun addPaymentMethod(payment: String?) {
         fBody.value?.payment = payment
     }
 
-    fun deleteAll(){
+    fun deleteAll() {
         viewModelScope.launch {
             useCase.deleteCheckedChart()
         }
     }
+
+    // notify
+    var notif = PromoFcm(
+        body = "null",
+        date = "null",
+        image = "null",
+        time = "null",
+        title = "null",
+        type = "null"
+    )
+
+    fun insertNotify() {
+        viewModelScope.launch {
+            useCase.insertNotification(notif)
+        }
+    }
+
+    fun getAllNotification() : Flow<List<Notification>>{
+        return useCase.getAllNotification()
+    }
+
+
 }
