@@ -1,8 +1,12 @@
 package com.tipiz.toko_paerbe.ui.utils
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 fun currency(number: Int): String {
@@ -25,4 +29,11 @@ fun formatBottomSheet(original: String): String {
     val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
     formatter.applyPattern("#,###,###,###")
     return formatter.format(longval)
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+    fun dateModified(){
+    val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    val dateModified = LocalDateTime.now().format(dateTimeFormatter)
+
 }

@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.text.method.LinkMovementMethod
@@ -31,7 +32,6 @@ import com.tipiz.toko_paerbe.R
 import com.tipiz.toko_paerbe.databinding.FragmentProfileBinding
 import com.tipiz.toko_paerbe.ui.utils.BaseFragment
 import com.tipiz.toko_paerbe.ui.utils.Constant.CAMERA_PERMISSION_CODE
-import com.tipiz.toko_paerbe.ui.utils.Constant.GALLERY_PERMISSION_CODE
 import com.tipiz.toko_paerbe.ui.utils.Spannable
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
@@ -150,12 +150,6 @@ class ProfileFragment :
                     camera()
                 }
             }
-
-            GALLERY_PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    gallery()
-                }
-            }
         }
     }
 
@@ -175,7 +169,26 @@ class ProfileFragment :
         }
     }
 
+    private val requestGalleryPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            val intent = Intent(Intent.ACTION_PICK).apply {
+                type = "image/*"
+            }
+            galleryLauncher.launch(intent)
+        } else {
+            Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun gallery() {
+        val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Manifest.permission.READ_MEDIA_IMAGES
+        } else {
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        }
+
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE
@@ -185,9 +198,7 @@ class ProfileFragment :
             intent.type = "image/*"
             galleryLauncher.launch(intent)
         } else {
-            requestPermissions(
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), GALLERY_PERMISSION_CODE
-            )
+            requestGalleryPermissionLauncher.launch(permission)
         }
 
     }

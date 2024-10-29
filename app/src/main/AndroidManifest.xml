@@ -2,23 +2,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-feature android:name="android.hardware.camera" />
+    <!-- Fitur kamera (tambahkan android:required="true" jika kamera wajib) -->
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
 
+    <!-- Izin untuk akses kamera -->
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Izin untuk akses internet dan status jaringan -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Izin untuk notifikasi (Android 13 ke atas) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+
+    <!-- Izin untuk menyimpan dan membaca file media di Android 12 dan ke bawah -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+
+    <!-- Izin untuk membaca gambar di Android 13 dan ke atas -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
     <!--        set Up FCM-->
-    <uses-permission
+    <!--<uses-permission
         android:name="android.permission.POST_NOTIFICATIONS"
-        tools:node="remove" />
+        tools:node="remove" />-->
 
 
     <application
