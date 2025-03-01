@@ -19,10 +19,6 @@ import kotlinx.coroutines.launch
 
 class CheckoutViewModel(private val useCase: TokoUseCase) : ViewModel() {
 
-    private val _responseFullFillMent: MutableStateFlow<UiState<DataFulFillMent>> =
-        MutableStateFlow(UiState.Empty)
-    val responseFullFillMent = _responseFullFillMent.asStateFlow()
-
     var checkoutProduct = MutableLiveData<List<DataCart>>()
 
     var fBody = MutableLiveData(
@@ -34,6 +30,9 @@ class CheckoutViewModel(private val useCase: TokoUseCase) : ViewModel() {
 
     val paymentMethod = MutableLiveData<HashMap<String, String?>>()
 
+    private val _responseFullFillMent: MutableStateFlow<UiState<DataFulFillMent>> =
+        MutableStateFlow(UiState.Empty)
+    val responseFullFillMent = _responseFullFillMent.asStateFlow()
     fun fetchFulfillment() {
         viewModelScope.launch {
             _responseFullFillMent.asMutableStateFlow {

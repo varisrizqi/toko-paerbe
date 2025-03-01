@@ -44,7 +44,6 @@ class DashBoardFragment :
         binding.nvMain?.setupWithNavController(navController)
 
         val args = DashBoardFragmentArgs.fromBundle(requireArguments()).flag
-
         Log.d("TAG", "onViewCreated: $args")
         /*if (args == FLAG_TRANSACTION) {
             binding.bottomNav?.selectedItemId = R.id.navigation_transaction

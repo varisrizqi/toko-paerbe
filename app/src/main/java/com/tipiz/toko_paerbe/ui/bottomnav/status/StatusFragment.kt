@@ -21,6 +21,8 @@ class StatusFragment :
 
     override fun initView() {
         val resultData = StatusFragmentArgs.fromBundle(arguments as Bundle).data
+        val review = StatusFragmentArgs.fromBundle(arguments as Bundle).review
+        val rating = StatusFragmentArgs.fromBundle(arguments as Bundle).rating
 
         binding.tvTransactionIdValue.text = resultData.invoiceId
         binding.tvStatusIdValue.text = if (resultData.status) {
@@ -32,7 +34,8 @@ class StatusFragment :
         binding.tvTimeIdValue.text = resultData.time
         binding.tvTotalPaymentIdValue.text = currency(resultData.total)
         binding.tvPaymentMethodIdValue.text = resultData.payment
-
+        binding.edText.setText(review)
+        binding.rtbStatus.rating = rating.toFloat()
 
 
         //handle back button
@@ -40,8 +43,9 @@ class StatusFragment :
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                        val nav = StatusFragmentDirections.actionStatusFragmentToDashBoardFragment()
-                        findNavController().navigate(nav)
+                    val nav =
+                        StatusFragmentDirections.actionStatusFragmentToDashBoardFragment()
+                    findNavController().navigate(nav)
                 }
             })
     }
@@ -50,11 +54,11 @@ class StatusFragment :
         val resultData = StatusFragmentArgs.fromBundle(arguments as Bundle).data
 
         with(viewModel) {
-
             binding.btnDone.setOnClickListener {
-
+                // Handle done button click
+                handleDoneButtonClick(resultData)
                 responseRating.launchAndCollectIn(viewLifecycleOwner) { state ->
-                    state.onSuccess { data ->
+                    state.onSuccess {
                         Log.d("StatusFragment", "-> $ratingBody")
                         val nav = StatusFragmentDirections.actionStatusFragmentToDashBoardFragment()
                         findNavController().navigate(nav)
@@ -63,21 +67,21 @@ class StatusFragment :
                         binding.btnDone.visibility = View.INVISIBLE
                     }
                 }
-
-                // Handle done button click
-                handleDoneButtonClick(resultData)
-
             }
-
         }
     }
 
     private fun handleDoneButtonClick(resultData: DataFulFillMent) {
 
         with(viewModel) {
+            val review =  binding.edText.text.toString().takeIf { it.isNotEmpty() }
+            val rating = binding.rtbStatus.rating.toInt().takeIf { it != 0 }
             ratingBody.invoiceId = resultData.invoiceId
-            ratingBody.review = binding.edText.text.toString()
-            ratingBody.rating = binding.rtbStatus.rating.toInt()
+            ratingBody.review = review
+            ratingBody.rating = rating
+            resultData.review = review
+            resultData.rating = rating
+
             fetchStatus()
         }
     }

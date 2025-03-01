@@ -48,7 +48,7 @@ class SplashScreenFragment :
             val destination = when {
                 getToken.isNotEmpty() && getProfile.isEmpty() -> R.id.action_splashScreenFragment_to_profileFragment
                 getToken.isNotEmpty() -> R.id.action_splashScreenFragment_to_dashBoardFragment
-                getSplashScreen -> R.id.action_splashScreenFragment_to_loginFragment
+                getSplashScreen && getToken.isEmpty() -> R.id.action_splashScreenFragment_to_loginFragment
                 else -> R.id.action_splashScreenFragment_to_onBoardingFragment
             }
 

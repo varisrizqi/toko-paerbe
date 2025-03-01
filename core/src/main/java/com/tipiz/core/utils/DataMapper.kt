@@ -280,7 +280,9 @@ object DataMapper {
         invoiceId = data.invoiceId,
         payment = data.payment,
         time = data.time,
-        status = data.status
+        status = data.status,
+        review = null,
+        rating = null
 
     )
 
@@ -355,6 +357,20 @@ object DataMapper {
         productId = productId,
         variantName = variantName
     )
+
+    fun DataTransaction.toDataFulFillMent(): DataFulFillMent {
+        return DataFulFillMent(
+            date = this.date,
+            total = this.total,
+            invoiceId = this.invoiceId,
+            payment = this.payment,
+            time = this.time,
+            status = this.status,
+            review = this.review,
+            rating = this.rating
+        )
+    }
+
 
 
 }

@@ -77,7 +77,7 @@ class CheckoutFragment :
 
                     }.onSuccess { data ->
                         binding.pbBar.visibility = View.INVISIBLE
-                        moveToStatus(data)
+                        moveToStatus(fulfillment = data)
                         viewModel.deleteAll()
 
                         val total = currency(data.total)
@@ -174,7 +174,8 @@ class CheckoutFragment :
             fulfillment.payment,
             fulfillment.time,
             fulfillment,
-            ""
+            fulfillment.review ?: "",
+            fulfillment.rating ?: 0
         )
         findNavController().navigate(args)
     }
