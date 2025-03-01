@@ -12,7 +12,9 @@ data class DataFulFillMent(
     val invoiceId: String = "",
     val payment: String = "",
     val time: String = "",
-    val status: Boolean = false
+    val status: Boolean = false,
+    var review: String? = null,
+    var rating: Int? = null
 
 
 ): Parcelable

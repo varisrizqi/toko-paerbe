@@ -101,7 +101,7 @@ class StoreFragment :
 
         // ===== bottom sheet =====
         binding.chipFilter.setOnClickListener {
-            val btmSheet = BottomSheetFragment()
+            val btmSheet = BottomSheetFragment() //menentukanFragmentBottomSheet
             //send data
             val bsBundle = bundleOf(
                 BUNDLE_KEY_SORT to viewModel.productsBody.value?.sort,

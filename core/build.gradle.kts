@@ -14,7 +14,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        buildConfigField("String", "BASE_URL", "\"http://192.168.209.173:5000\"")
+        buildConfigField("String", "BASE_URL", "\"http://192.168.1.174:5000\"")
         buildConfigField("String", "API_KEY", "\"6f8856ed-9189-488f-9011-0ff4b6c08edc\"")
     }
 

@@ -30,10 +30,10 @@ data class DataItemTransaction(
 	val total: Int = 0,
 
 	@field:SerializedName("review")
-	val review: String = "",
+	val review: String? = null,
 
 	@field:SerializedName("rating")
-	val rating: Int = 0,
+	val rating: Int? = null,
 
 	@field:SerializedName("name")
 	val name: String = "",

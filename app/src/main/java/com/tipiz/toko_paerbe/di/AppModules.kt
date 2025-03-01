@@ -6,6 +6,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.tipiz.toko_paerbe.firebase.SetupFirebaseMessaging
 import com.tipiz.toko_paerbe.ui.bottomnav.cart.CartViewModel
+import com.tipiz.toko_paerbe.ui.bottomnav.transaction.TransactionViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.checkout.CheckoutViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.dashboard.DashBoardViewModel
 import com.tipiz.toko_paerbe.ui.bottomnav.home.HomeViewModel
@@ -41,6 +42,7 @@ object AppModules {
         viewModelOf(::CheckoutViewModel)
         viewModelOf(::NotificationViewModel)
         viewModelOf(::StatusViewModel)
+        viewModelOf(::TransactionViewModel)
     }
 
     private val firebaseModule = module {

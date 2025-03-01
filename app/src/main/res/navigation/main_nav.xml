@@ -119,6 +119,9 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_notificationFragment"
             app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_statusFragment"
+            app:destination="@id/statusFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -204,12 +207,14 @@
             app:argType="com.tipiz.core.domain.model.fillfullment.DataFulFillMent" />
         <argument
             android:name="review"
-            app:argType="string"
-            app:nullable="true" />
+            app:argType="string" />
         <action
             android:id="@+id/action_statusFragment_to_dashBoardFragment"
             app:destination="@id/dashBoardFragment"
             app:popUpTo="@id/main_nav"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="rating"
+            app:argType="integer" />
     </fragment>
 </navigation>

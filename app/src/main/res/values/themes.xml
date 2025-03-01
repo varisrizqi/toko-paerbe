@@ -68,4 +68,17 @@
         <item name="android:minHeight">0dp</item>
     </style>
 
+    <!-- button review di transaction. -->
+    <style name="Widget.App.Button" parent="Widget.Material3.Button">
+        <item name="android:fontFamily">@font/poppins_600</item>
+        <item name="android:textSize">12sp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+
 </resources>

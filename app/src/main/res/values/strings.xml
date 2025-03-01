@@ -119,4 +119,7 @@
     <string name="time">Time</string>
     <string name="succeed">Succeed</string>
     <string name="failed">Failed</string>
+    <string name="error_500">500</string>
+    <string name="shop">Shop</string>
+    <string name="_22_june_2023">22 June 2023</string>
 </resources>
